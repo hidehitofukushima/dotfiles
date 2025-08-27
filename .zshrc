@@ -22,10 +22,10 @@ eval "$(rbenv init - zsh)"
 # # >>> conda initialize >>>
 # # ... (condaのブロック) ...
 # # <<< conda initialize <<<
-alias s1='ssh sutil_ny1fh'
-alias s2='ssh slogin_ny1fh'
-alias s3='ssh sutil_hfukushi'
-alias s4='ssh sutil_mt1ny'
+alias s1='ssh s1'
+alias s2='ssh s2'
+alias s3='ssh s3'
+alias s4='ssh s4'
 eval "$(rbenv init -)"
 export PATH=$(go env GOPATH)/bin:$PATH
 

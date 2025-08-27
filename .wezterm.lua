@@ -21,48 +21,49 @@ config.colors = {
 
   -- Overrides the cell background color when the current cell is occupied by the
   -- cursor and the cursor style is set to Block
-  cursor_bg = '#C9D0D9',
+  cursor_bg = '#705697',
   -- Overrides the text color when the current cell is occupied by the cursor
-  cursor_fg = '#C9D0D9',
+  cursor_fg = '#FFFFFF',
   -- Specifies the border color of the cursor when the cursor style is set to Block,
   -- or the color of the vertical or horizontal bar when the cursor style is set to
   -- Bar or Underline.
-  cursor_border = '#C9D0D9',
+  cursor_border = '#705697',
 
   -- the foreground color of selected text
-  selection_fg = 'black',
+  selection_fg = '#705697',
   -- the background color of selected text
-  selection_bg = 'black',
+  selection_bg = '#705697',
+
 
   -- The color of the scrollbar "thumb"; the portion that represents the current viewport
-  scrollbar_thumb = '#C9D0D9',
+  scrollbar_thumb = '#705697',
 
   -- The color of the split lines between panes
-  split = '#C9D0D9',
+  split = '#705697',
 
   ansi = {
-    '#C9D0D9',
+    '#705697',
     'maroon',
-    'green',
+    '#705697',
     'olive',
     'black',
     'purple',
     '#AA3731',
-    '#C9D0D9',
+    '#705697',
   },
   brights = {
-    '#C9D0D9',
+    '#705697',
     'red',
     'lime',
     'yellow',
-    'blue',
-    'fuchsia',
-    'aqua',
+    '#705697',
+    'red',
+    '#705697',
     'white',
   },
 
   -- Arbitrary colors of the palette in the range from 16 to 255
-  indexed = { [136] = '#af8700' },
+  indexed = { [136] = 'red' },
 
   -- Since: 20220319-142410-0fcdea07
   -- When the IME, a dead key or a leader key are being processed and are effectively
@@ -75,21 +76,21 @@ config.colors = {
   -- In copy_mode, the color of the active text is:
   -- 1. copy_mode_active_highlight_* if additional text was selected using the mouse
   -- 2. selection_* otherwise
-  copy_mode_active_highlight_bg = { Color = '#000000' },
+  copy_mode_active_highlight_bg = { Color = 'Red' },
   -- use `AnsiColor` to specify one of the ansi color palette values
   -- (index 0-15) using one of the names "Black", "Maroon", "Green",
   --  "Olive", "Navy", "Purple", "Teal", "Silver", "Grey", "Red", "Lime",
   -- "Yellow", "Blue", "Fuchsia", "Aqua" or "White".
   copy_mode_active_highlight_fg = { AnsiColor = 'Black' },
-  copy_mode_inactive_highlight_bg = { Color = '#52ad70' },
+  copy_mode_inactive_highlight_bg = { Color = 'red' },
   copy_mode_inactive_highlight_fg = { AnsiColor = 'White' },
 
-  quick_select_label_bg = { Color = 'peru' },
+  quick_select_label_bg = { Color = 'red' },
   quick_select_label_fg = { Color = '#ffffff' },
-  quick_select_match_bg = { AnsiColor = 'Navy' },
+  quick_select_match_bg = { AnsiColor = 'red' },
   quick_select_match_fg = { Color = '#ffffff' },
 
-  input_selector_label_bg = { AnsiColor = 'Black' }, -- (*Since: Nightly Builds Only*)
+  input_selector_label_bg = { AnsiColor = 'red' }, -- (*Since: Nightly Builds Only*)
   input_selector_label_fg = { Color = '#ffffff' }, -- (*Since: Nightly Builds Only*)
 
   launcher_label_bg = { AnsiColor = 'Black' }, -- (*Since: Nightly Builds Only*)

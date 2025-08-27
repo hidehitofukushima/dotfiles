@@ -88,15 +88,15 @@ require('neoscroll').setup({
 		'WinScrolled', 'CursorMoved'
 	},
 })
-require "nvim-treesitter.configs".setup({
-	ensure_installed = { "lua", "bash", "markdown", "markdown_inline", "r" }, -- 必要な言語を指定
-	highlight = {
-		enable = true,                                                         -- シンタックスハイライトを有効化
-	},
-	indent = {
-		enable = true, -- インデントを有効化
-	},
-})
+-- require "nvim-treesitter.configs".setup({
+-- 	ensure_installed = { "lua", "bash", "markdown", "markdown_inline", "r" }, -- 必要な言語を指定
+-- 	highlight = {
+-- 		enable = true,                                                         -- シンタックスハイライトを有効化
+-- 	},
+-- 	indent = {
+-- 		enable = true, -- インデントを有効化
+-- 	},
+-- })
 require("bufferline").setup()
 require("mini.pick").setup()
 require("mini.sessions").setup()
@@ -200,8 +200,9 @@ keymap("n", "<leader>m", ":e /Users/fukushimahideto/dotfiles/.memo<CR>", opts)
 -- --------------------/<---------------------------------------------------------
 -- カラースキーム (Colorscheme)
 -- -- -----------------------------------------------------------------------------
--- vim.cmd("colorscheme minischeme")
 vim.cmd("hi StatusLine guibg=NONE")
+-- 'Normal'ハイライトグループの「文字色」と「背景色」の両方を無効にする
+vim.cmd('highlight Normal ctermfg=NONE guifg=NONE guibg=NONE ctermbg=NONE ctermfg=NONE guibg=NONE')
 local function is_blank(arg)
 	return arg == nil or arg == ''
 end
@@ -262,3 +263,16 @@ vim.api.nvim_create_user_command('SessionReveal', function()
 	vim.print(vim.fn.fnamemodify(vim.v.this_session, ':t:r'))
 end, { desc = 'Reveal session' })
 
+-- init.luaに記述する最終的なコード
+
+-- 1. ベースの文字色と背景色をターミナルに合わせる
+-- これでNeovimの「地」の色がWeztermと完全に一致します。
+vim.cmd('highlight Normal ctermfg=NONE guifg=NONE ctermbg=NONE guibg=NONE')
+
+-- 2. 構文ハイライトを無効化する（確実な方法）
+-- ファイルを開いて構文ルールが適用された瞬間に、すべての色付けルールを消去します。
+-- これにより、後からハイライトを有効にするプラグインがあっても、最終的に無色になります。
+vim.api.nvim_create_autocmd("Syntax", {
+  pattern = "*", -- すべてのファイルタイプが対象
+  command = "syntax clear",
+})
