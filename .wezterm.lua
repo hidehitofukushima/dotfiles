@@ -8,7 +8,6 @@ config.initial_cols = 120
 config.initial_rows = 28
 config.font_size = 12
 config.font = wezterm.font 'Monaco'
-config.bold_brightens_ansi_colors = true
 config.line_height = 1.2
 
 --------------------------------------------------------------------------------
@@ -18,7 +17,7 @@ config.colors = {
   -- The default text color
   foreground = '#705697',
   -- The default background color
-  background = 'white',
+  background = '#FFFFFF',
 
   -- Overrides the cell background color when the current cell is occupied by the
   -- cursor and the cursor style is set to Block
