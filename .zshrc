@@ -26,6 +26,7 @@ alias s1='ssh s1'
 alias s2='ssh s2'
 alias s3='ssh s3'
 alias s4='ssh s4'
+alias lg='lazygit'
 eval "$(rbenv init -)"
 export PATH=$(go env GOPATH)/bin:$PATH
 
