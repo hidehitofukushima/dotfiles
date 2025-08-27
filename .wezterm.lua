@@ -43,27 +43,34 @@ config.colors = {
 
   ansi = {
     '#705697',
-    'maroon',
     '#705697',
-    'olive',
-    'black',
-    'purple',
-    '#AA3731',
     '#705697',
+    '#705697',
+    '#705697',
+    '#705697',
+    '#705697',
+    '#705697',
+    -- 'maroon',
+    -- '#705697',
+    -- 'olive',
+    -- 'black',
+    -- 'purple',
+    -- '#AA3731',
+    -- '#705697',
   },
   brights = {
     '#705697',
-    'red',
-    'lime',
-    'yellow',
     '#705697',
-    'red',
     '#705697',
-    'white',
+    '#705697',
+    '#705697',
+    '#705697',
+    '#705697',
+    '#705697',
   },
 
   -- Arbitrary colors of the palette in the range from 16 to 255
-  indexed = { [136] = 'red' },
+  indexed = { [136] = '#705697' },
 
   -- Since: 20220319-142410-0fcdea07
   -- When the IME, a dead key or a leader key are being processed and are effectively

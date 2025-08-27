@@ -46,6 +46,12 @@ vim.pack.add({
 })
 
 vim.cmd("set completeopt+=noselect")
+-- F10キーを押すと、カーソル下のハイライトグループ名を表示する
+vim.keymap.set('n', '<F10>', function()
+  local group = vim.fn.synIDattr(vim.fn.synID(vim.fn.line('.'), vim.fn.col('.'), 1), 'name')
+	vim.notify("group=" .. group)
+  -- vim.notify("ハイライトグループ: " .. group)
+end, { noremap = true, silent = true, desc = "ハイライトグループを調査" })
 -- -----------------------------------------------------------------------------
 -- 各機能の設定とキーマップ (configurations & keymaps)
 -- -----------------------------------------------------------------------------
@@ -202,7 +208,16 @@ keymap("n", "<leader>m", ":e /Users/fukushimahideto/dotfiles/.memo<CR>", opts)
 -- -- -----------------------------------------------------------------------------
 vim.cmd("hi StatusLine guibg=NONE")
 -- 'Normal'ハイライトグループの「文字色」と「背景色」の両方を無効にする
-vim.cmd('highlight Normal ctermfg=NONE guifg=NONE guibg=NONE ctermbg=NONE ctermfg=NONE guibg=NONE')
+vim.cmd('highlight Constant guifg=NONE')
+vim.cmd('highlight Comment guifg=NONE')
+vim.cmd('highlight String guifg=NONE')
+--vim.cmd('highlight Type guifg=NONE')
+vim.cmd('highlight Number guifg=NONE')
+vim.cmd('highlight Identifier guifg=NONE')
+-- vim.cmd('highlight Normal guifg=NONE')
+-- vim.cmd('highlight Global guifg=NONE')
+vim.cmd('highlight Statement guifg=NONE')
+
 local function is_blank(arg)
 	return arg == nil or arg == ''
 end
