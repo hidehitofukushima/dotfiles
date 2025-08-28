@@ -42,7 +42,6 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 	{ src = "https://github.com/karb94/neoscroll.nvim" },
 	{ src = "https://github.com/supermaven-inc/supermaven-nvim" },
-	{ src = "https://github.com/mpas/marp-nvim" },
 })
 
 vim.cmd("set completeopt+=noselect")
@@ -55,13 +54,6 @@ end, { noremap = true, silent = true, desc = "ハイライトグループを調�
 -- -----------------------------------------------------------------------------
 -- 各機能の設定とキーマップ (configurations & keymaps)
 -- -----------------------------------------------------------------------------
-require("marp").setup({
-        port = 8080,
-        wait_for_response_timeout = 30,
-        wait_for_response_delay = 1,
-      })
-vim.keymap.set("n", "<leader>/", "<cmd>MarpToggle<cr>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>_", "<cmd>MarpStatus<cr>", { noremap = true, silent = true })
 require("supermaven-nvim").setup({
   keymaps = {
     accept_suggestion = "<C-k>",
