@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # 前提：git cloneで~/.dotfilesが作成済みであること
 # git clone https://github.com/fukushimahideto/dotfiles.git ~/dotfiles
 # cd dotfiles
