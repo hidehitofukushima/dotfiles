@@ -60,6 +60,8 @@ require("marp").setup({
         wait_for_response_timeout = 30,
         wait_for_response_delay = 1,
       })
+vim.keymap.set("n", "<leader>/", "<cmd>MarpToggle<cr>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>_", "<cmd>MarpStatus<cr>", { noremap = true, silent = true })
 require("supermaven-nvim").setup({
   keymaps = {
     accept_suggestion = "<C-k>",
