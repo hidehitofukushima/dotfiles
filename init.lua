@@ -41,7 +41,6 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-tree/nvim-web-devicons" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 	{ src = "https://github.com/karb94/neoscroll.nvim" },
-	{ src = "https://github.com/folke/tokyonight.nvim" },
 	{ src = "https://github.com/supermaven-inc/supermaven-nvim" },
 })
 
@@ -55,7 +54,6 @@ end, { noremap = true, silent = true, desc = "ハイライトグループを調�
 -- -----------------------------------------------------------------------------
 -- 各機能の設定とキーマップ (configurations & keymaps)
 -- -----------------------------------------------------------------------------
--- require "mason".setup()                                                    -- Masonのセットアップ
 require("supermaven-nvim").setup({
   keymaps = {
     accept_suggestion = "<C-k>",
@@ -203,7 +201,14 @@ keymap("n", "<leader>e", ":Oil<CR>", opts)
 keymap("i", "jk", "<Esc>", opts)
 keymap("n", "<leader>lf", vim.lsp.buf.format, opts)
 keymap("n", "<leader>m", ":e /Users/fukushimahideto/dotfiles/.memo<CR>", opts)
+-- インサートモードで <C-d> を押すと 'YYYY-MM-DD' 形式の日付を挿入する
+vim.keymap.set('i', '<C-d>', function()
+  return os.date('%Y-%m-%d')
+end, { expr = true, noremap = true, desc = '今日の日付を挿入' })
+
+
 -- --------------------/<---------------------------------------------------------
+--
 -- カラースキーム (Colorscheme)
 -- -- -----------------------------------------------------------------------------
 vim.cmd("hi StatusLine guibg=NONE")
