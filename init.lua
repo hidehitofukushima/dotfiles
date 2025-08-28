@@ -19,7 +19,7 @@ vim.g.slime_cell_delimiter = "##"
 vim.g.slime_target = "tmux"                     -- slimeのターゲットをtmuxに設定
 vim.g.slime_default_config = {
 	socket_name = "default", -- tmuxのソケット名をフルパスで指定
-	target_pane = ":1",                          -- ターゲットペインを指定 
+	target_pane = ":.1",                          -- ターゲットペインを指定 
 	-- (ターゲットペインは、ファイル名のみでなく、ファイル名とパスも含めることができます)
 	send_timeout = 0,                             -- 送信タイムアウトを無効化
 }
@@ -64,7 +64,7 @@ require("supermaven-nvim").setup({
   },
   ignore_filetypes = { cpp = true }, -- or { "cpp", }
   color = {
-    suggestion_color = "#FFFFFF",
+    suggestion_color = "#3C7F8E",
     cterm = 244,
   },
   log_level = "info", -- set to "off" to disable logging completely

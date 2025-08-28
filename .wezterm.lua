@@ -6,8 +6,11 @@ local config = {}
 
 config.initial_cols = 120
 config.initial_rows = 28
+config.scrollback_lines = 2500
+config.enable_scroll_bar = true
 config.font_size = 14
-config.font = wezterm.font 'Monaco'
+config.font = wezterm.font 'Menlo'
+-- config.font = wezterm.font('Mono', {weight = 'Bold', italic = true})
 config.line_height = 1.2
 
 --------------------------------------------------------------------------------

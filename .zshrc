@@ -1,37 +1,46 @@
+#!/bin/bash
 # =========================================================================
-# NVM (Node.js) の設定 - Web開発などで使うなら残す
+# PATH 環境変数の設定
+# -------------------------------------------------------------------------
+# 各種コマンドの検索パスを管理します。
+# ユーザー固有のパスがシステムのパスより優先されるように、先頭に追加します。
 # =========================================================================
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+export PATH="$HOME/.local/bin:$PATH"  # pipx でインストールしたコマンド用
+export PATH="$(go env GOPATH)/bin:$PATH" # Go言語のバイナリパス
+export PATH="$PATH:/Applications/WezTerm.app/Contents/MacOS" # WezTerm
 
 # =========================================================================
-# ghcup (Haskell) の設定 - Haskell言語を使うなら残す
+# エイリアス (alias) の設定
+# -------------------------------------------------------------------------
+# よく使うコマンドを短い名前で実行できるようにします。
 # =========================================================================
-[ -f "/Users/fukushimahideto/.ghcup/env" ] && . "/Users/fukushimahideto/.ghcup/env"
-
-# =========================================================================
-# rbenv の設定 - Rubyのバージョン管理に必須
-# =========================================================================
-eval "$(rbenv init - zsh)"
-
-# =========================================================================
-# Condaの設定 - 必要時に手動で 'conda activate' を実行するため、
-# ここには何も書かないか、コメントアウトしておく
-# =========================================================================
-# # >>> conda initialize >>>
-# # ... (condaのブロック) ...
-# # <<< conda initialize <<<
 alias s1='ssh s1'
 alias s2='ssh s2'
 alias s3='ssh s3'
 alias s4='ssh s4'
 alias lg='lazygit'
-eval "$(rbenv init -)"
-export PATH=$(go env GOPATH)/bin:$PATH
 
-# Created by `pipx` on 2025-08-18 13:53:28
-export PATH="~/.local/bin:$PATH"
-PATH="$PATH:/Applications/WezTerm.app/Contents/MacOS"
-export PATH
+# =========================================================================
+# 各種言語のバージョンマネージャ設定
+# -------------------------------------------------------------------------
+# rbenv, nvm, ghcup などの初期化処理をまとめます。
+# =========================================================================
 
+# rbenv (Ruby) - Rubyのバージョン管理に必須
+# zsh用の初期化。重複していたため一本化しました。
+eval "$(rbenv init - zsh)"
+
+# NVM (Node.js) - Web開発などで利用
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # nvmのロード
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # nvmのbash補完
+
+# ghcup (Haskell) - Haskell言語で利用
+# ハードコードされていたパスを $HOME に変更し、汎用性を高めました。
+[ -f "$HOME/.ghcup/env" ] && . "$HOME/.ghcup/env"
+
+# Conda - Python等の環境管理
+# 必要時に手動で 'conda activate' を実行する方針のため、自動初期化は無効化
+# # >>> conda initialize >>>
+# # ... (condaのブロック) ...
+# # <<< conda initialize <<<
