@@ -19,6 +19,10 @@ alias s2='ssh s2'
 alias s3='ssh s3'
 alias s4='ssh s4'
 alias lg='lazygit'
+alias typ='typst compile --root /'
+alias im='nvim'
+alias ta='tmux a'
+alias tk='tmux kill-server'
 
 # =========================================================================
 # 各種言語のバージョンマネージャ設定

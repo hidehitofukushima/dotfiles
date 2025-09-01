@@ -1,6 +1,7 @@
 -- -----------------------------------------------------------------------------
 -- 基本設定
 -- -----------------------------------------------------------------------------
+vim.opt.wrap = true 
 vim.opt.ignorecase = true                       -- 大文字と小文字を区別しない
 vim.opt.smartcase = true                        -- ただし、検索文字に大文字が含まれている場合は区別する (スマートケース)
 vim.o.number = true                             -- 行番 を表示
@@ -12,6 +13,7 @@ vim.o.tabstop = 2                               -- タブの幅をスペース4�
 vim.o.swapfile = false                          -- スワップファイルを作成しない
 vim.o.winborder = "rounded"                     -- ウィンドウの境界線を角丸にする
 vim.g.mapleader = " "                           -- リーダーキーをスペースキーに設定
+
 vim.o.clipboard = "unnamedplus"                 -- システムクリップボードを使用
 vim.g.slime_no_mappings = 1                      -- デフォルトのキーマップを無効化
 vim.g.slime_dont_ask_default = 1                 -- デフォルトのターゲットを尋ねない
@@ -54,6 +56,56 @@ end, { noremap = true, silent = true, desc = "ハイライトグループを調�
 -- -----------------------------------------------------------------------------
 -- 各機能の設定とキーマップ (configurations & keymaps)
 -- -----------------------------------------------------------------------------
+-- require("typst-preview").setup()
+require 'typst-preview'.setup {
+  -- Setting this true will enable logging debug information to
+  -- `vim.fn.stdpath 'data' .. '/typst-preview/log.txt'`
+  debug = false,
+
+  -- Custom format string to open the output link provided with %s
+  -- Example: open_cmd = 'firefox %s -P typst-preview --class typst-preview'
+  open_cmd = nil,
+
+  -- Custom port to open the preview server. Default is random.
+  -- Example: port = 8000
+  port = 0,
+
+  -- Setting this to 'always' will invert black and white in the preview
+  -- Setting this to 'auto' will invert depending if the browser has enable
+  -- dark mode
+  -- Setting this to '{"rest": "<option>","image": "<option>"}' will apply
+  -- your choice of color inversion to images and everything else
+  -- separately.
+  invert_colors = 'never',
+
+  -- Whether the preview will follow the cursor in the source file
+  follow_cursor = true,
+
+  -- Provide the path to binaries for dependencies.
+  -- Setting this will skip the download of the binary by the plugin.
+  -- Warning: Be aware that your version might be older than the one
+  -- required.
+  dependencies_bin = {
+    ['tinymist'] = nil,
+    ['websocat'] = nil
+  },
+
+  -- A list of extra arguments (or nil) to be passed to previewer.
+  -- For example, extra_args = { "--input=ver=draft", "--ignore-system-fonts" }
+  extra_args = nil,
+
+  -- This function will be called to determine the root of the typst project
+  get_root = function(path_of_main_file)
+		return '/'
+  end,
+
+  -- This function will be called to determine the main file of the typst
+  -- project.
+  get_main_file = function(path_of_buffer)
+    return path_of_buffer
+  end,
+}
+vim.keymap.set('n', '<leader>/', ":TypstPreviewToggle<CR>", { noremap = true, silent = true, desc = "TypstPreviewToggle" })
 require("supermaven-nvim").setup({
   keymaps = {
     accept_suggestion = "<C-k>",
@@ -189,7 +241,7 @@ keymap("n", "<leader>w", ":bd<CR>", opts)
 keymap("n", "<leader>ww", ":bd!<CR>", opts)
 keymap("n", "<leader>s", ":write<CR>", opts)
 keymap("n", "<leader>ss", ":update<CR> :source %<CR>", opts)
-keymap("n", "<leader>q", ":q!<CR>", opts)
+keymap("n", "zz", ":q!<CR>", opts)
 keymap("n", "<C-l>", ":bnext<CR>", opts)          -- Normalモード: 次のバッファへ
 keymap("i", "<C-l>", "<C-o>:bnext<CR>", opts)     -- Insertモード: 次のバッファへ
 keymap("n", "<C-h>", ":bprevious<CR>", opts)      -- Normalモード: 前のバッファへ
@@ -201,6 +253,7 @@ keymap("n", "<leader>e", ":Oil<CR>", opts)
 keymap("i", "jk", "<Esc>", opts)
 keymap("n", "<leader>lf", vim.lsp.buf.format, opts)
 keymap("n", "<leader>m", ":e /Users/fukushimahideto/dotfiles/.memo<CR>", opts)
+keymap("n", "<leader>_", ":make<CR>",opts)
 -- インサートモードで <C-d> を押すと 'YYYY-MM-DD' 形式の日付を挿入する
 vim.keymap.set('i', '<C-d>', function()
   return os.date('%Y-%m-%d')
@@ -222,7 +275,9 @@ vim.cmd('highlight Identifier guifg=NONE')
 vim.cmd('highlight Normal guifg=NONE')
 vim.cmd('highlight Global guifg=NONE')
 vim.cmd('highlight Statement guifg=NONE')
-
+-- vim.cmd('autocmd FileType python setlocal makeprg=python3\ %')
+vim.cmd([[autocmd FileType python setlocal makeprg=python3\ %]])
+vim.cmd([[autocmd FileType R setlocal makeprg=Rscript\ %]])
 local function is_blank(arg)
 	return arg == nil or arg == ''
 end
