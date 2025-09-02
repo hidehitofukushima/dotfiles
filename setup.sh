@@ -27,5 +27,5 @@ ln -sf ~/DOTFILES/.wezterm.lua ~/.wezterm.lua
 ln -sf ~/DOTFILES/.zshrc ~/.zshrc
 # bashrc
 # supercomputer only
-cat ~/DOTFILES/.bashrc >> ~/.bashrc.intr
+cat ~/DOTFILES/.zshrc >> ~/.bashrc.intr
 
