@@ -47,7 +47,7 @@ vim.pack.add({
 	{ src = "https://github.com/folke/tokyonight.nvim" },
 })
 
-vim.cmd[[colorscheme tokyonight]]
+vim.cmd[[colorscheme tokyonight-night]]
 vim.cmd("set completeopt+=noselect")
 -- F10キーを押すと、カーソル下のハイライトグループ名を表示する
 vim.keymap.set('n', '<F10>', function()

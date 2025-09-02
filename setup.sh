@@ -23,10 +23,9 @@ echo "tmuxの設定をリンクしました。"
 #
 #/Users/fukushimahideto/DOTFILES/.wezterm.lua
 ln -sf ~/DOTFILES/.wezterm.lua ~/.wezterm.lua
-
-
+# zshrc
+ln -sf ~/DOTFILES/.zshrc ~/.zshrc
 # bashrc
 ln -sf ~/DOTFILES/.bashrc ~/.bashrc
 ln -sf ~/DOTFILES/.bashrc ~/.bashrc.intr
-ln -sf ~/DOTFILES/.bashrc ~/.bash_profile
 
