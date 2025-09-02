@@ -28,4 +28,5 @@ ln -sf ~/DOTFILES/.zshrc ~/.zshrc
 # bashrc
 # supercomputer only
 cat ~/DOTFILES/.zshrc >> ~/.bashrc.intr
+cat ~/DOTFILES/.zshrc >> ~/.bashrc
 
