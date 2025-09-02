@@ -44,8 +44,10 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 	{ src = "https://github.com/karb94/neoscroll.nvim" },
 	{ src = "https://github.com/supermaven-inc/supermaven-nvim" },
+	{ src = "https://github.com/folke/tokyonight.nvim" },
 })
 
+vim.cmd[[colorscheme tokyonight]]
 vim.cmd("set completeopt+=noselect")
 -- F10キーを押すと、カーソル下のハイライトグループ名を表示する
 vim.keymap.set('n', '<F10>', function()
@@ -264,17 +266,6 @@ end, { expr = true, noremap = true, desc = '今日の日付を挿入' })
 --
 -- カラースキーム (Colorscheme)
 -- -- -----------------------------------------------------------------------------
-vim.cmd("hi StatusLine guibg=NONE")
--- 'Normal'ハイライトグループの「文字色」と「背景色」の両方を無効にする
-vim.cmd('highlight Constant guifg=NONE')
-vim.cmd('highlight Comment guifg=NONE')
-vim.cmd('highlight String guifg=NONE')
-vim.cmd('highlight Type guifg=NONE')
-vim.cmd('highlight Number guifg=NONE')
-vim.cmd('highlight Identifier guifg=NONE')
-vim.cmd('highlight Normal guifg=NONE')
-vim.cmd('highlight Global guifg=NONE')
-vim.cmd('highlight Statement guifg=NONE')
 -- vim.cmd('autocmd FileType python setlocal makeprg=python3\ %')
 vim.cmd([[autocmd FileType python setlocal makeprg=python3\ %]])
 vim.cmd([[autocmd FileType R setlocal makeprg=Rscript\ %]])
@@ -339,15 +330,3 @@ vim.api.nvim_create_user_command('SessionReveal', function()
 end, { desc = 'Reveal session' })
 
 -- init.luaに記述する最終的なコード
-
--- 1. ベースの文字色と背景色をターミナルに合わせる
--- これでNeovimの「地」の色がWeztermと完全に一致します。
-vim.cmd('highlight Normal ctermfg=NONE guifg=NONE ctermbg=NONE guibg=NONE')
-
--- 2. 構文ハイライトを無効化する（確実な方法）
--- ファイルを開いて構文ルールが適用された瞬間に、すべての色付けルールを消去します。
--- これにより、後からハイライトを有効にするプラグインがあっても、最終的に無色になります。
-vim.api.nvim_create_autocmd("Syntax", {
-  pattern = "*", -- すべてのファイルタイプが対象
-  command = "syntax clear",
-})
