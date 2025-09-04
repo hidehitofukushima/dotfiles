@@ -8,7 +8,7 @@ config.initial_cols = 200
 config.initial_rows = 40
 config.scrollback_lines = 2500
 config.enable_scroll_bar = true
-config.font_size = 14
+config.font_size = 12
 config.font = wezterm.font 'Menlo'
 -- config.font = wezterm.font('Mono', {weight = 'Bold', italic = true})
 config.line_height = 1.2
@@ -42,5 +42,16 @@ table.insert(config.keys, {
 --------------------------------------------------------------------------------
 -- my custom color scheme
 --------------------------------------------------------------------------------
-config.color_scheme = 'tokyonight_night'
+config.color_scheme = 'Dracula+'
+config.color_scheme = 'purplepeter'
+config.colors = {
+  -- the first number is the hue measured in degrees with a range
+  -- of 0-360.
+  -- The second number is the saturation measured in percentage with
+  -- a range of 0-100.
+  -- The third number is the lightness measured in percentage with
+  -- a range of 0-100.
+  foreground = '#4B3D66',
+	background = '#FFFFFF',
+}
 return config
