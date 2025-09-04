@@ -1,13 +1,51 @@
--------------------------------------------------------------------------------------
+kkkk-------------------------------------------------------------------------------------
 -- メモ------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------
-- ESC のコードリーディングそする
-		urlをとくてい
+/Users/fukushimahideto/Desktop/PROJECTS/WGP/MASTERFILE/result/ML-01/n1.xlsx
 
-- esc論文読んでみる
-- ESCのコードを実際に移植してみる
-- RNA の件、資料をもう一度まとめて南谷先生に報告する
- dotfiles管理の仕方
+
+
+todo
+
+RNA-seqに提出する検体のlsit をまとめ<-　まずは南谷先生におくったメールを確認 <- 次に、それと、下のリストを照合してみる<-　さらに、本のリストと、今回のリストのパスを特定するこ<-　 
+
+neovimからvimへの移行と、init.luaからvimrcへの移行を行うプラン<- init.luaのコードの中から、必要な機能をリストアップし以下にまとめる、　
+vimscriptの勉強をすること
+プロジェクト管理の整理、パスの整理についてアイデアを考えてみる
+小児アカウントの設定
+template をより洗練されたものに編集し直す高尾
+
+
+- initlua の中で実際に使用している機能　
+package manager <- これは vim-plugに変更することにするｊっっっｋkkk
+ vim.slime
+ oil-nvim <- これは vinegar.vimに変更する
+ mini.starter
+ mini.sessions
+ mini.pick
+ bufferline
+ nvim-tree<- これは NERDTreeに変更する
+ typst-preview
+ neoscroll
+ supermaven-nvim
+ plenary <- いらない　ｊっっっっっっっっっっっっっｋ
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
  hidehitofukushima@g.ecc.u-tokyo.ac.jp
  dotfilesをgithubにあげること。これでgithubにも精通すること

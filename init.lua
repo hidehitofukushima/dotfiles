@@ -1,6 +1,7 @@
 -- -----------------------------------------------------------------------------
 -- 基本設定
 -- -----------------------------------------------------------------------------
+vim.opt.tgc = false
 vim.opt.wrap = true 
 vim.opt.ignorecase = true                       -- 大文字と小文字を区別しない
 vim.opt.smartcase = true                        -- ただし、検索文字に大文字が含まれている場合は区別する (スマートケース)
@@ -47,7 +48,7 @@ vim.pack.add({
 	{ src = "https://github.com/folke/tokyonight.nvim" },
 })
 
-vim.cmd[[colorscheme shine]]
+-- vim.cmd[[colorscheme shine]]
 vim.cmd("set completeopt+=noselect")
 -- F10キーを押すと、カーソル下のハイライトグループ名を表示する
 vim.keymap.set('n', '<F10>', function()

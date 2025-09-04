@@ -51,7 +51,7 @@ config.colors = {
   -- a range of 0-100.
   -- The third number is the lightness measured in percentage with
   -- a range of 0-100.
-  foreground = '#4B3D66',
+  foreground = '#6C5793',
 	background = '#FFFFFF',
 }
 return config
