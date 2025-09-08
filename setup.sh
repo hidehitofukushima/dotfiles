@@ -29,4 +29,3 @@ ln -sf ~/dotfiles/bashrc ~/.bashrc
 
 
 
-source ~/.bashrc
