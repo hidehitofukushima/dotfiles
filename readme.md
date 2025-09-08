@@ -38,3 +38,15 @@ mkdir -p ~/.local/bin && ln -sf ~/tmux.appimage ~/.local/bin/tmux
 lazygit のインストール
 
 go install github.com/jesseduffield/lazygit@latest
+
+
+---------------------------------------------------------------------
+-- fonts
+---------------------------------------------------------------------
+
+mkdir -p ~/.local/share/fonts
+# 例: FiraCode Nerd Fontをダウンロード
+# 最新版のURLはGitHubで確認してください
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.zip
+unzip FiraCode.zip -d ~/.local/share/fonts/
+fc-cache -fv
