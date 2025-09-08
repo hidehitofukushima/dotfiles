@@ -19,9 +19,6 @@ export PATH="$(go env GOPATH)/bin:$PATH" # Go言語のバイナリパス
 
 export PATH="$PATH:/Applications/WezTerm.app/Contents/MacOS" # WezTerm
 
-export PATH="$HOME/nvim-install/bin:$PATH"
-
-
 export LC_ALL=C
 # =========================================================================
 
