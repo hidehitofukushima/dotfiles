@@ -1,6 +1,0 @@
-# 前提：git cloneで~/.dotfilesが作成済みであること
-git clone https://github.com/hidehitofukushima/dotfiles.git ~/DOTFILES
-cd DOTFILES
-./setup.sh
-
-# lazygitは導入すること

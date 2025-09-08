@@ -16,17 +16,17 @@ ln -sf ~/DOTFILES/init.lua ~/.config/nvim/init.lua
 echo "nvimの設定をリンクしました。"
 
 # tmuxの設定ファイルへのシンボリックリンクを作成（または上書き）
-ln -sf ~/DOTFILES/.tmux.conf ~/.config/tmux/tmux.conf
+ln -sf ~/DOTFILES/tmux.conf ~/.config/tmux/tmux.conf
 echo "tmuxの設定をリンクしました。"
 
 # weztermの設定ファイル
 #
 #/Users/fukushimahideto/DOTFILES/.wezterm.lua
-ln -sf ~/DOTFILES/.wezterm.lua ~/.wezterm.lua
+ln -sf ~/DOTFILES/wezterm.lua ~/.wezterm.lua
 # zshrc
-ln -sf ~/DOTFILES/.zshrc ~/.zshrc
+ln -sf ~/DOTFILES/zshrc ~/.zshrc
 # bashrc
 # supercomputer only
-cat ~/DOTFILES/.zshrc >> ~/.bashrc.intr
-cat ~/DOTFILES/.zshrc >> ~/.bashrc
+cat ~/DOTFILES/zshrc >> ~/.bashrc.intr
+cat ~/DOTFILES/zshrc >> ~/.bashrc
 

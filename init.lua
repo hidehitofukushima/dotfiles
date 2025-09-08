@@ -173,7 +173,7 @@ require('oil').setup({
 	delete_to_trash = true,              -- ファイルを削除する際にゴミ箱に移動
 	skip_confirm_for_simple_edits = true, -- 簡単な編集では確認をスキップ
 	view_options = {
-		show_hidden = true,                -- 隠しファイルを表示
+		show_hidden = false,                -- 隠しファイルを表示
 		show_parent_dir = true,            -- 親ディレクトリを表示
 		natural_order = true,              -- 自然順序でソート
 	},
@@ -255,7 +255,7 @@ keymap("n", "<leader>h", ":Pick help<CR>", opts)
 keymap("n", "<leader>e", ":Oil<CR>", opts)
 keymap("i", "jk", "<Esc>", opts)
 keymap("n", "<leader>lf", vim.lsp.buf.format, opts)
-keymap("n", "<leader>m", ":e /Users/fukushimahideto/dotfiles/.memo<CR>", opts)
+keymap("n", "<leader>m", ":e /Users/fukushimahideto/dotfiles/memo.md<CR>", opts)
 keymap("n", "<leader>_", ":make<CR>",opts)
 -- インサートモードで <C-d> を押すと 'YYYY-MM-DD' 形式の日付を挿入する
 vim.keymap.set('i', '<C-d>', function()

@@ -38,6 +38,8 @@ alias s3='ssh s3'
 
 alias s4='ssh s4'
 
+alias s5='ssh s5'
+
 alias lg='lazygit'
 
 alias typ='typst compile --root /'
