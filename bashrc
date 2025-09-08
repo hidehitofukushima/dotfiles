@@ -48,5 +48,6 @@ alias ta='tmux a'
 
 alias tk='tmux kill-server'
 
+alias tx='tmux'
 
 
