@@ -5,3 +5,4 @@ conda activate hoge
 export R_LIBS_USER=/home/ny1fh/R/hoge
 
 
+:!qsub % でジョブが投げられる
