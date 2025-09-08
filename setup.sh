@@ -23,6 +23,6 @@ ln -sf ~/dotfiles/wezterm.lua ~/.wezterm.lua
 ln -sf ~/dotfiles/zshrc ~/.zshrc
 # bashrc
 # supercomputer only
-cat ~/dotfiles/zshrc >> ~/.bashrc.intr
-cat ~/dotfiles/zshrc >> ~/.bashrc
+ln -sf ~/dotfiles/bash_profile ~/.bash_profile
+ln -sf ~/dotfiles/bashrc ~/.bashrc
 
