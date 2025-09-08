@@ -34,7 +34,7 @@ set -euxo pipefail
 PROJECT_NAME=$1
 VERSION_NAME=$2
 JOB_NAME=$3
-PATIENT_LIST="/home/ny1fh/database/links/corrected/${PROJECT_NAME}.txt"
+PATIENT_LIST="${HOME}/database/links/corrected/${PROJECT_NAME}.txt"
 TUMOR_ID=$(cat $PATIENT_LIST | awk -v line=${SGE_TASK_ID} -F '\t' 'NR==line {print $1}')
 TUMOR_HASH=$(cat $PATIENT_LIST | awk -v line=${SGE_TASK_ID} -F '\t' 'NR==line {print $2}')
 NORMAL_ID=$(cat $PATIENT_LIST | awk -v line=${SGE_TASK_ID} -F '\t' 'NR==line {print $3}')
