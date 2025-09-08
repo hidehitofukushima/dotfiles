@@ -270,7 +270,7 @@ end, { expr = true, noremap = true, desc = '今日の日付を挿入' })
 -- vim.cmd('autocmd FileType python setlocal makeprg=python3\ %')
 vim.cmd([[autocmd FileType python setlocal makeprg=python3\ %]])
 vim.cmd([[autocmd FileType R setlocal makeprg=Rscript\ %]])
-vim.cmd([[autocmd FileType sh setlocal makeprg=qsub\ %]])
+vim.cmd([[autocmd FileType sh setlocal makeprg=cd\ $(dirname\ %)\ &&\ qsub\ %]])
 local function is_blank(arg)
 	return arg == nil or arg == ''
 end
