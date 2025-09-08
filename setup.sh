@@ -28,4 +28,9 @@ ln -sf ~/dotfiles/bashrc ~/.bashrc
 
 
 
-
+if [ -f ~/makefile ]; then
+	echo "makefileが既に存在します。"
+	rm ~/makefile
+	rm ~/Makefile
+fi
+ln -sf ~/dotfiles/makefile ~/makefile
