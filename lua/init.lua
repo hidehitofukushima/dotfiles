@@ -157,7 +157,7 @@ keymap("n", "<leader>h", ":Pick help<CR>", opts)
 keymap("n", "<leader>e", ":Oil<CR>", opts)
 keymap("i", "jk", "<Esc>", opts)
 keymap("n", "<leader>lf", vim.lsp.buf.format, opts)
-keymap("n", "<leader>m", ":e ~/dotfiles/memo.md<CR>", opts)
+keymap("n", "<leader>m", ":e ~/memo.md<CR>", opts)
 keymap("n", "<leader>_", ":make<CR>",opts)
 -- インサートモードで <C-d> を押すと 'YYYY-MM-DD' 形式の日付を挿入する
 vim.keymap.set('i', '<C-d>', function()

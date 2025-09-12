@@ -44,7 +44,7 @@ alias lg='lazygit'
 
 alias typ='typst compile --root /'
 
-alias i='nvim'
+alias j='nvim'
 
 alias ta='tmux a'
 
@@ -57,7 +57,7 @@ export PATH="$HOME/.local/scripts:$PATH"
 export PATH="$HOME/dotfiles/tmux-sessionizer:$PATH"
 
 bindkey -s ^f "tmux-sessionizer\n"
-bindkey -s ^g "nvim\n"
+bindkey -s ^k "nvim\n"
 bindkey -s '\eh' "tmux-sessionizer -s 0\n"
 bindkey -s '\et' "tmux-sessionizer -s 1\n"
 bindkey -s '\en' "tmux-sessionizer -s 2\n"
