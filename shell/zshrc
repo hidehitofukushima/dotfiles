@@ -44,12 +44,22 @@ alias lg='lazygit'
 
 alias typ='typst compile --root /'
 
-alias im='nvim'
+alias i='nvim'
 
 alias ta='tmux a'
 
 alias tk='tmux kill-server'
 
+alias tx='tmux'
 
+export PATH="$HOME/.local/scripts:$PATH"
+# /Users/fukushimahideto/dotfiles/tmux-sessionizer/tmux-sessionizer
+export PATH="$HOME/dotfiles/tmux-sessionizer:$PATH"
 
+bindkey -s ^f "tmux-sessionizer\n"
+bindkey -s ^g "nvim\n"
+bindkey -s '\eh' "tmux-sessionizer -s 0\n"
+bindkey -s '\et' "tmux-sessionizer -s 1\n"
+bindkey -s '\en' "tmux-sessionizer -s 2\n"
+bindkey -s '\es' "tmux-sessionizer -s 3\n"
 

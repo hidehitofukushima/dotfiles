@@ -10,18 +10,8 @@ config.scrollback_lines = 2500
 config.enable_scroll_bar = true
 config.font_size = 14
 config.font = wezterm.font 'Menlo'
--- config.font = wezterm.font('Mono', {weight = 'Bold', italic = true})
--- Nerd Fontをプライマリフォントとして設定
--- config.font = wezterm.font_with_fallback({
---   -- ここにダウンロードしたNerd Fontの名前を指定
---   'FiraCode Nerd Font Mono',
---   -- fallback フォント（日本語用など）
---   'Noto Sans Mono CJK JP',
--- })
 config.line_height = 1.2
--- default cwd
 config.default_cwd = "~/Desktop"
--- prefixキーの設定（Ctrl + Space）
 config.leader = {
     key = "q",
     mods = "CTRL",
@@ -49,20 +39,7 @@ table.insert(config.keys, {
 --------------------------------------------------------------------------------
 -- my custom color scheme
 --------------------------------------------------------------------------------
--- config.background = {
--- 	{
--- 		source = { File = '/Users/fukushimahideto/DOTFILES/snoopy.jpeg' },
--- 		opacity = 0,
--- 		width = "10%",
--- 		height = "10%",
--- 		repeat_x = 'NoRepeat',
--- 		repeat_y = 'NoRepeat',
--- 	},
--- }
--- config.window_background_opacity = 0.93
--- config.text_background_opacity = 0.9
 
-config.color_scheme = 'Vs Code Light+ (Gogh)'
 config.color_scheme = 'AtomOneLight'
 config.colors = {
   -- the first number is the hue measured in degrees with a range
@@ -71,7 +48,9 @@ config.colors = {
   -- a range of 0-100.
   -- The third number is the lightness measured in percentage with
   -- a range of 0-100.
-  foreground = '#6C5793',
+  foreground = '#6C5793', -- purple
+	foreground = '#450259', -- thick purple
+	-- foreground = '#335229', -- green
 	background = '#FFFFFF',
 }
 config.window_frame = {
@@ -89,7 +68,8 @@ config.window_frame = {
 
   -- The overall background color of the tab bar when
   -- the window is focused
-  active_titlebar_bg = '#6C5793',
+  active_titlebar_bg = '#6C5793', -- purple
+  active_titlebar_bg = '#450259', -- thick purple
   -- The overall background color of the tab bar when
   -- the window is not focused
   inactive_titlebar_bg = '#ffffff',
