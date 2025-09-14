@@ -69,7 +69,7 @@ config.window_frame = {
   -- The overall background color of the tab bar when
   -- the window is focused
   active_titlebar_bg = '#6C5793', -- purple
-  active_titlebar_bg = '#450259', -- thick purple
+  -- active_titlebar_bg = '#450259', -- thick purple
   -- The overall background color of the tab bar when
   -- the window is not focused
   inactive_titlebar_bg = '#ffffff',

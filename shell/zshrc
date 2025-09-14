@@ -54,7 +54,7 @@ alias tx='tmux'
 
 export PATH="$HOME/.local/scripts:$PATH"
 # /Users/fukushimahideto/dotfiles/tmux-sessionizer/tmux-sessionizer
-export PATH="$HOME/dotfiles/tmux-sessionizer:$PATH"
+export PATH="$HOME/.config/tmux-sessionizer:$PATH"
 
 bindkey -s ^f "tmux-sessionizer\n"
 bindkey -s ^k "nvim\n"
