@@ -39,6 +39,7 @@ lazygit のインストール
 
 go install github.com/jesseduffield/lazygit@latest
 
+# ahihihihih
 
 ---------------------------------------------------------------------
 -- fonts
