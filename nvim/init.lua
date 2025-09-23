@@ -42,9 +42,9 @@ vim.pack.add({
 -- -----------------------------------------------------------------------------
 require("supermaven-nvim").setup({
   keymaps = {
-    accept_suggestion = "<C-k>",
+    accept_suggestion = "<C-;>",
     clear_suggestion = "<C-]>",
-    accept_word = "<C-j>",
+    accept_word = "<C-:>",
   },
   ignore_filetypes = { cpp = true }, -- or { "cpp", }
   color = {
@@ -83,7 +83,7 @@ keymap("n", "<leader>e", ":Oil --preview<CR>", opts)
 keymap("i", "jk", "<Esc>", opts)
 keymap("n", "<leader>lf", vim.lsp.buf.format, opts)
 keymap("n", "<leader>m", ":e ~/memo.md<CR>", opts)
-keymap("n", "<leader>_", ":make<CR>",opts)
+keymap("n", "<leader>k", ":make<CR>",opts)
 -- インサートモードで <C-d> を押すと 'YYYY-MM-DD' 形式の日付を挿入する
 vim.keymap.set('i', '<C-d>', function()
   return os.date('%Y-%m-%d')
