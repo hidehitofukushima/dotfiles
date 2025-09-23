@@ -84,6 +84,7 @@ keymap("i", "jk", "<Esc>", opts)
 keymap("n", "<leader>lf", vim.lsp.buf.format, opts)
 keymap("n", "<leader>m", ":e ~/memo.md<CR>", opts)
 keymap("n", "<leader>k", ":make<CR>",opts)
+keymap("n", "<leader>q", "!qstat<CR>", opts)
 -- インサートモードで <C-d> を押すと 'YYYY-MM-DD' 形式の日付を挿入する
 vim.keymap.set('i', '<C-d>', function()
   return os.date('%Y-%m-%d')
