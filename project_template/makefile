@@ -1,4 +1,3 @@
 all:
-	cp -r ~/dotfiles/template/ ./project
-	ln -sf ~/database/ ./project/
+	cp -r ~/dotfiles/project_template/ ./project
 	chmod +x ./project/*.sh
