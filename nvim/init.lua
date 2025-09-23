@@ -78,7 +78,7 @@ keymap("n", "<C-l>", ":bnext<CR>", opts)          -- Normalモード: 次のバ�
 keymap("i", "<C-l>", "<C-o>:bnext<CR>", opts)     -- Insertモード: 次のバッファへ
 keymap("n", "<C-h>", ":bprevious<CR>", opts)      -- Normalモード: 前のバッファへ
 keymap("i", "<C-h>", "<C-o>:bprevious<CR>", opts) -- Insertモード: 前のバッファへ
-keymap("n", "<leader>t", ":enew<CR>", opts)
+keymap("n", "<leader>n", ":enew<CR>", opts)
 keymap("n", "<leader>e", ":Oil<CR>", opts)
 keymap("i", "jk", "<Esc>", opts)
 keymap("n", "<leader>lf", vim.lsp.buf.format, opts)
@@ -244,14 +244,13 @@ require("oil").setup({
 })
 
 -- telescope
+require("telescope").load_extension('harpoon')
+local harpoon = require('harpoon.mark')
 local builtin = require('telescope.builtin')
+local harpoon_ui = require('harpoon.ui')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
--- :lua require("harpoon.mark").add_file()
-local harpoon = require('harpoon.mark')
 vim.keymap.set('n', '<leader>hh', harpoon.add_file, { desc = 'Harpoon add file' })
--- :lua require("harpoon.ui").toggle_quick_menu()
-local harpoon_ui = require('harpoon.ui')
-vim.keymap.set('n', '<leader>hg', harpoon_ui.toggle_quick_menu, { desc = 'Harpoon toggle quick menu' })
+vim.keymap.set('n', '<leader>hu', harpoon_ui.toggle_quick_menu, { desc = 'Harpoon toggle quick menu' })
