@@ -12,7 +12,7 @@ alias tk='tmux kill-server'
 export PATH="$HOME/.local/bin:$PATH"  # pipx でインストールしたコマンド用
 export PATH="$HOME/.local/scripts:$PATH"
 export PATH="$HOME/.config/tmux-sessionizer:$PATH"
-
+export PATH="$HOME/.fzf/bin:$PATH"
 bindkey -s ^f "tmux-sessionizer\n"
 bindkey -s ^s "source ~/.zshrc\n"
 export ZSH="$HOME/.oh-my-zsh"
@@ -21,6 +21,6 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-if [ -f ~/.fzf.zsh]; then
+if [ -f ~/.fzf.zsh ]; then
   source ~/.fzf.zsh
-fi
+fii
