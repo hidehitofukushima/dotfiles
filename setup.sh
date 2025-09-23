@@ -30,4 +30,4 @@ if [ -f ~/Makefile ]; then
 	echo "Makefileが既に存在します。"
 	rm ~/Makefile
 fi
-ln -sf ~/dotfiles/makefile ~/makefile
+ln -sf ~/dotfiles/project_template/makefile ~/makefile
