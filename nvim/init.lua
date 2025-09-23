@@ -42,9 +42,9 @@ vim.pack.add({
 -- -----------------------------------------------------------------------------
 require("supermaven-nvim").setup({
   keymaps = {
-    accept_suggestion = "<C-;>",
+    accept_suggestion = "<C-k>",
     clear_suggestion = "<C-]>",
-    accept_word = "<C-:>",
+    accept_word = "<C-l>",
   },
   ignore_filetypes = { cpp = true }, -- or { "cpp", }
   color = {
@@ -74,11 +74,11 @@ keymap("n", "<leader>ww", ":bd!<CR>", opts)
 keymap("n", "<leader>s", ":write<CR>", opts)
 keymap("n", "<leader>ss", ":update<CR> :source %<CR>", opts)
 keymap("n", "zz", ":q!<CR>", opts)
-keymap("n", "<C-l>", ":bnext<CR>", opts)          -- Normalモード: 次のバッファへ
-keymap("i", "<C-l>", "<C-o>:bnext<CR>", opts)     -- Insertモード: 次のバッファへ
-keymap("n", "<C-h>", ":bprevious<CR>", opts)      -- Normalモード: 前のバッファへ
-keymap("i", "<C-h>", "<C-o>:bprevious<CR>", opts) -- Insertモード: 前のバッファへ
-keymap("n", "<leader>n", ":enew<CR>", opts)
+keymap("n", "<C-n>", ":bnext<CR>", opts)          -- Normalモード: 次のバッファへ
+keymap("i", "<C-n>", "<C-o>:bnext<CR>", opts)     -- Insertモード: 次のバッファへ
+keymap("n", "<C-p>", ":bprevious<CR>", opts)      -- Normalモード: 前のバッファへ
+keymap("i", "<C-p>", "<C-o>:bprevious<CR>", opts) -- Insertモード: 前のバッファへ
+keymap("n", "<leader>v", ":enew<CR>", opts)
 keymap("n", "<leader>e", ":Oil --preview<CR>", opts)
 keymap("i", "jk", "<Esc>", opts)
 keymap("n", "<leader>lf", vim.lsp.buf.format, opts)
