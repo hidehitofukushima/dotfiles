@@ -1,53 +1,17 @@
-
-#!/bin/bash
-
-# =========================================================================
-
-# PATH 環境変数の設定
-
-# -------------------------------------------------------------------------
-
-# 各種コマンドの検索パスを管理します。
-
-# ユーザー固有のパスがシステムのパスより優先されるように、先頭に追加します。
-
-# =========================================================================
-
-export PATH="$HOME/.local/bin:$PATH"  # pipx でインストールしたコマンド用
-
-export PATH="$(go env GOPATH)/bin:$PATH" # Go言語のバイナリパス
-
-export PATH="$PATH:/Applications/WezTerm.app/Contents/MacOS" # WezTerm
-
-export LC_ALL=C
-# =========================================================================
-
-# エイリアス (alias) の設定
-
-# -------------------------------------------------------------------------
-
-# よく使うコマンドを短い名前で実行できるようにします。
-
-# =========================================================================
-
-alias s1='ssh s1'
-
-alias s2='ssh s2'
-
-alias s3='ssh s3'
-
-alias s4='ssh s4'
-
 alias lg='lazygit'
-
-alias typ='typst compile --root /'
-
-alias im='nvim'
-
-alias ta='tmux a'
-
+alias j='nvim'
+alias t='tmux'
 alias tk='tmux kill-server'
 
-alias tx='tmux'
+export PATH="$HOME/.local/bin:$PATH"  # pipx でインストールしたコマンド用
+export PATH="$HOME/.local/scripts:$PATH"
+export PATH="$HOME/.config/tmux-sessionizer:$PATH"
 
+bindkey -s ^f "tmux-sessionizer\n"
+bindkey -s ^s "source ~/.zshrc\n"
+
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="robbyrussell"
+plugins=(git)
+source $ZSH/oh-my-zsh.sh
 
