@@ -18,14 +18,8 @@ echo "tmuxの設定をリンクしました。"
 # tmux-sessionizerの設定ファイルへのシンボリックリンクを作成する
 ln -sf ~/dotfiles/tmux/tmux-sessionizer ~/.config/tmux-sessionizer/tmux-sessionizer
 
-# weztermの設定ファイル
-ln -sf ~/dotfiles/wezterm/wezterm.lua ~/.wezterm.lua
 # zshrc
 ln -sf ~/dotfiles/shell/zshrc ~/.zshrc
-# bashrc
-ln -sf ~/dotfiles/shell/bash_profile ~/.bash_profile
-
-ln -sf ~/dotfiles/shell/bashrc ~/.bashrc
 
 if [ -f ~/makefile ]; then
 	echo "makefileが既に存在します。"
