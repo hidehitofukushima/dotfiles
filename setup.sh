@@ -4,6 +4,7 @@
 # `-p`オプションにより、ディレクトリが既に存在していてもエラーにならない
 mkdir -p ~/.config/nvim
 mkdir -p ~/.config/tmux
+mkdir -p ~/.config/tmux-sessionizer
 
 # nvimの設定ファイルへのシンボリックリンクを作成（または上書き）
 # `-s`: シンボリックリンクを作成
