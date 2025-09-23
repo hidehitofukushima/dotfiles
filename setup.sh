@@ -20,7 +20,7 @@ echo "tmuxの設定をリンクしました。"
 ln -sf ~/dotfiles/tmux/tmux-sessionizer ~/.config/tmux-sessionizer/tmux-sessionizer
 
 # zshrc
-ln -sf ~/dotfiles/shell/zshrc ~/.zshrc
+ln -sf ~/dotfiles/zsh/zshrc ~/.zshrc
 
 if [ -f ~/makefile ]; then
 	echo "makefileが既に存在します。"
