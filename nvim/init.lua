@@ -79,7 +79,7 @@ keymap("i", "<C-l>", "<C-o>:bnext<CR>", opts)     -- Insertモード: 次のバ�
 keymap("n", "<C-h>", ":bprevious<CR>", opts)      -- Normalモード: 前のバッファへ
 keymap("i", "<C-h>", "<C-o>:bprevious<CR>", opts) -- Insertモード: 前のバッファへ
 keymap("n", "<leader>n", ":enew<CR>", opts)
-keymap("n", "<leader>e", ":Oil<CR>", opts)
+keymap("n", "<leader>e", ":Oil --preview<CR>", opts)
 keymap("i", "jk", "<Esc>", opts)
 keymap("n", "<leader>lf", vim.lsp.buf.format, opts)
 keymap("n", "<leader>m", ":e ~/memo.md<CR>", opts)
