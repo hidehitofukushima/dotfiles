@@ -34,7 +34,6 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 	{ src = "https://github.com/supermaven-inc/supermaven-nvim" },
 	{ src = "https://github.com/nvim-telescope/telescope.nvim" },
-	{ src = "https://github.com/ThePrimeagen/harpoon" },
 })
 
 -- -----------------------------------------------------------------------------
