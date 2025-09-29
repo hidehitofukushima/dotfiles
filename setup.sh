@@ -9,7 +9,10 @@ mkdir -p ~/.config/tmux-sessionizer
 # nvimの設定ファイルへのシンボリックリンクを作成（または上書き）
 # `-s`: シンボリックリンクを作成
 # `-f`: リンク先が既に存在する場合、強制的に上書き
-ln -sf ~/dotfiles/nvim/init.lua ~/.config/nvim/init.lua
+if [ -d ~/.config/nvim ]; then
+	rm -rf ~/.config/nvim
+fi
+ln -sf ~/dotfiles/nvim ~/.config/nvim
 echo "nvimの設定をリンクしました。"
 
 # tmuxの設定ファイルへのシンボリックリンクを作成（または上書き）
