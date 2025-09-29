@@ -1,13 +1,8 @@
-plot(1:10)
-file = "~/filepath
 library(tidyverse)
-library(tidyverse)
-df =  pfini
+library(packages)
+library(air)
 
-library(tidyverse)
-library(tidyverse)
-hor
-read_tsv(file, col_names = T, col_types = T, comment = )k
-plot(1:10)
-plot(1:10)
+file <- "nvim/init.lua"
+df <-  read_tsv(df, col_names = TRUE, col_types = FALSE, id = FALSE)
+df <- read_tsv(file, col_names = TRUE, col_types = FALSE)
 

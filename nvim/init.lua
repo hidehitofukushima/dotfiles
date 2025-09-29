@@ -89,10 +89,10 @@ vim.cmd [[set completeopt+=menuone,noselect,popup]]
 require("luasnip").setup({ enable_autosnippets = true })
 require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets/" })
 local ls = require("luasnip")
--- map('n', '<leader>lf', vim.lsp.buf.format)
--- map('i', '<C-e>', function() ls.expand_or_jump(1) end, { silent = true })
--- map({ 'i', 's' }, '<C-J>', function() ls.jump(1) end, { silent = true })
--- map({ 'i', 's' }, '<C-K>', function() ls.jump(-1) end, { silent = true })
+map('n', '<leader>lf', vim.lsp.buf.format)
+map('i', '<C-e>', function() ls.expand_or_jump(1) end, { silent = true })
+map({ 'i', 's' }, '<C-h>', function() ls.jump(1) end, { silent = true })
+map({ 'i', 's' }, '<C-g>', function() ls.jump(-1) end, { silent = true })
 
 
 
