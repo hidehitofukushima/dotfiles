@@ -1,4 +1,14 @@
+infocmp -x xterm-ghostty | ssh YOUR-SERVER -- tic -x - (ローカルマシンでやること）
+zshへ変更。
+chsh.ldap -s /bin/zsh
+oh-my-zshをインストール
+	sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+zshrcのoverrideはしない。
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+あとは、tmux, tmux-sesionizerのインストールくらいか。
 ---------------------------------------------------------------------
+
 -- clone
 ---------------------------------------------------------------------
 git clone https://github.com/hidehitofukushima/dotfiles.git

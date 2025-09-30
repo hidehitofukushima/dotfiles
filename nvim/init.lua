@@ -168,9 +168,9 @@ require("oil").setup({
 	default_file_explorer = true,
 	columns = {
 		"icon",
-		"permissions",
-		"size",
-		"mtime",
+		-- "permissions",
+		-- "size",
+		-- "mtime",
 	},
 	keymaps = {
 		["g?"] = { "actions.show_help", mode = "n" },
