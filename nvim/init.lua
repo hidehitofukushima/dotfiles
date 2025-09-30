@@ -189,6 +189,43 @@ require("oil").setup({
 		["gh"] = "actions.open_external",
 		["g."] = { "actions.toggle_hidden", mode = "n" },
 		["g\\"] = { "actions.toggle_trash", mode = "n" },
+		['yf'] = {
+			desc = 'Copy file to system clipboard',
+			callback = function()
+				require("oil.actions").copy_to_system_clipboard.callback()
+			end,
+		},
+		['yp'] = {
+			desc = 'Copy filepath to system clipboard',
+			callback = function()
+				-- require('oil.actions').copy_entry_path.callback()
+				require('oil.actions').yank_entry.callback()
+			end,
+		},
+		['yo'] = {
+			desc = 'Copy dirpath to system clipboard',
+			callback = function()
+				-- require('oil.actions').copy_entry_path.callback()
+				require('oil.actions').yank_entry.callback()
+				local a = vim.fn.getreg(vim.v.register)
+				print("a" .. a)
+				-- dirpath a
+				b = vim.fn.fnamemodify(a, ":h")
+				-- set b to clipboard
+				vim.fn.setreg("+", b)
+				vim.notify("dirpath copied to clipboard")
+			end,
+		},
+		-- ▼▼▼ 以下をkeymapsテーブル内に追加 ▼▼▼
+		['gj'] = {
+			desc = "Open finder",
+			callback = function()
+				-- カーソル下のファイル情報を取得
+				require('oil.actions').yank_entry.callback()
+				local a = vim.fn.getreg(vim.v.register)
+				vim.cmd("silent !open -R " .. vim.fn.fnameescape(a))
+			end,
+		},
 	},
 	skip_confirm_for_simple_edits = false,
 	prompt_save_on_select_new_entry = true,
