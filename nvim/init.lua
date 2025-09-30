@@ -166,6 +166,36 @@ vim.cmd([[autocmd FileType sh setlocal makeprg=cd\ $(dirname\ %)\ &&\ qsub\ %]])
 -- Oil
 require("oil").setup({
 	default_file_explorer = true,
+	columns = {
+		"icon",
+		"permissions",
+		"size",
+		"mtime",
+	},
+	keymaps = {
+		["g?"] = { "actions.show_help", mode = "n" },
+		["<CR>"] = "actions.select",
+		["<C-s>"] = { "actions.select", opts = { vertical = true } },
+		["<C-h>"] = { "actions.select", opts = { horizontal = true } },
+		["<C-t>"] = { "actions.select", opts = { tab = true } },
+		["<C-p>"] = "actions.preview",
+		["<C-c>"] = { "actions.close", mode = "n" },
+		["<C-l>"] = "actions.refresh",
+		["-"] = { "actions.parent", mode = "n" },
+		["_"] = { "actions.open_cwd", mode = "n" },
+		["`"] = { "actions.cd", mode = "n" },
+		["~"] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },
+		["gs"] = { "actions.change_sort", mode = "n" },
+		["gh"] = "actions.open_external",
+		["g."] = { "actions.toggle_hidden", mode = "n" },
+		["g\\"] = { "actions.toggle_trash", mode = "n" },
+	},
+	skip_confirm_for_simple_edits = false,
+	prompt_save_on_select_new_entry = true,
+	buf_options = {
+		buflisted = false,
+		bufhidden = "hide",
+	},
 	lsp_file_methods = {
 		enabled = true,
 		timeout_ms = 1000,
@@ -191,7 +221,5 @@ vim.keymap.set('n', '<leader>pg', "<cmd>lua require('fzf-lua').grep()<CR>")
 vim.keymap.set('n', '<leader>ph', "<cmd>lua require('fzf-lua').helptags()<CR>")
 vim.keymap.set('n', '<leader>/', "<cmd>lua require('fzf-lua').blines()<CR>")
 vim.keymap.set('i', '<C-f>', function()
-  require('fzf-lua').complete_path()
+	require('fzf-lua').complete_path()
 end)
-
-
