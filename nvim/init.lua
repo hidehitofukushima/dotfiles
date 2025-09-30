@@ -126,8 +126,6 @@ require "nvim-treesitter.configs".setup({
 map('i', 'jk', '<Esc>', opts)
 map('n', '<C-d>', '<C-d>zz', opts)
 map('n', '<C-u>', '<C-u>zz', opts)
-map('n', '<C-n>', ':bnext<CR>', opts)     -- Normalモード: 次のバッファへ
-map('n', '<C-p>', ':bprevious<CR>', opts) -- Normalモード: 前のバッファへ
 
 -- system clipboard
 map({ 'n', 'v' }, '<leader>y', '"+y')
