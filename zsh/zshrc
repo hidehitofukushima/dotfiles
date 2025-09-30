@@ -14,8 +14,6 @@ alias j='nvim'
 alias t='tmux'
 alias tk='tmux kill-server'
 
-# /usr/local/package/nodejs/20.10.0/bin/npm
-export PATH="/usr/local/package/nodejs/20.10.0/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"  # pipx でインストールしたコマンド用
 export PATH="$HOME/.local/scripts:$PATH"
 export PATH="$HOME/.config/tmux-sessionizer:$PATH"
@@ -33,6 +31,8 @@ if [ -f ~/.fzf.zsh ]; then
 fi
 
 
+# /usr/local/package/nodejs/20.10.0/bin/npm
+# export PATH="/usr/local/package/nodejs/20.10.0/bin:$PATH"
 # export NVM_DIR="$HOME/.nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
