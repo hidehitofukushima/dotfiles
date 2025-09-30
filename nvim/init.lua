@@ -2,6 +2,7 @@
 -- 基本設定
 -- -----------------------------------------------------------------------------
 
+
 -- keymap
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
@@ -35,15 +36,16 @@ vim.g.slime_default_config = {
 vim.pack.add({
 	{ src = "https://github.com/vague2k/vague.nvim" },
 	{ src = "https://github.com/stevearc/oil.nvim" },
-	{ src = "https://github.com/nvim-lua/plenary.nvim" },
 	{ src = "https://github.com/jpalardy/vim-slime" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
-	{ src = "https://github.com/nvim-telescope/telescope.nvim" },
 	{ src = "https://github.com/L3MON4D3/LuaSnip" },
 	{ src = "https://github.com/mason-org/mason.nvim" },
+	{ src = 'https://github.com/ibhagwan/fzf-lua' },
 })
 
 
+map({ 'n', 'v' }, '<leader>y', '"+y')
+map({ 'n', 'v' }, '<leader>y', '"+y')
 
 require "mason".setup()
 
@@ -84,6 +86,7 @@ vim.lsp.enable(
 )
 
 vim.cmd [[set completeopt+=menuone,noselect,popup]]
+
 -- lsp
 -- snippets
 require("luasnip").setup({ enable_autosnippets = true })
@@ -144,12 +147,13 @@ map('n', 'lkj', '<Plug>SlimeLineSend', opts)
 map('x', 'lkj', '<Plug>SlimeRegionSend', opts)     -- 選択範囲の送信
 map('n', ';lkj', 'vip<Plug>SlimeRegionSend', opts) -- 段落の送信
 map('n', ';lkj', '<Plug>SlimeSendCell', opts)      -- セルの送信
--- telescope
-local builtin = require('telescope.builtin')
-map('n', '<leader>pf', builtin.find_files, { desc = 'Telescope find files' })
-map('n', '<leader>pg', builtin.live_grep, { desc = 'Telescope live grep' })
-map('n', '<leader>pb', builtin.buffers, { desc = 'Telescope buffers' })
-map('n', '<leader>ph', builtin.help_tags, { desc = 'Telescope help tags' })
+
+-- -- telescope
+-- local builtin = require('telescope.builtin')
+-- map('n', '<leader>pf', builtin.find_files, { desc = 'Telescope find files' })
+-- map('n', '<leader>pg', builtin.live_grep, { desc = 'Telescope live grep' })
+-- map('n', '<leader>pb', builtin.buffers, { desc = 'Telescope buffers' })
+-- map('n', '<leader>ph', builtin.help_tags, { desc = 'Telescope help tags' })
 
 -- makeprg and make command
 map('n', '<leader>mk', ':make<CR>', opts)
@@ -175,18 +179,18 @@ require("oil").setup({
 })
 map('n', '<leader>e', ':Oil --preview<CR>', opts)
 
-
-
-
 -- other
 map('n', '<leader>lf', vim.lsp.buf.format, opts)
 map('n', '<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>')
 map('n', '<C-c>', '<Cmd>Open .<CR>')
-map('i', '<C-d>', function()
-	return os.date('%Y-%m-%d')
-end, { expr = true, noremap = true, desc = 'enter date' })
 
-
-
+-- fzflua
+-- require'fzf-lua'.setup({})
+vim.keymap.set('n', '<leader>pf', "<cmd>lua require('fzf-lua').files()<CR>")
+vim.keymap.set('n', '<leader>pg', "<cmd>lua require('fzf-lua').grep()<CR>")
+vim.keymap.set('n', '<leader>/', "<cmd>lua require('fzf-lua').blines()<CR>")
+vim.keymap.set('i', '<C-f>', function()
+  require('fzf-lua').complete_path()
+end)
 
 

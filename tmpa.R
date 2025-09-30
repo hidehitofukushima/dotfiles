@@ -1,8 +1,4 @@
 library(tidyverse)
-library(packages)
-library(air)
-
-file <- "nvim/init.lua"
-df <-  read_tsv(df, col_names = TRUE, col_types = FALSE, id = FALSE)
-df <- read_tsv(file, col_names = TRUE, col_types = FALSE)
-
+file <- "nvim/lsp/arduino_language_server.lua"
+file2 <- "nvim/"
+df <- read_tsv(file2, col_names = TRUE, col_types = TRUE)

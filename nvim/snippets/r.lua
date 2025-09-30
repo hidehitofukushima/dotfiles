@@ -2,7 +2,7 @@
 
 return {
 	s({ trig = "zzp", snippetType = "autosnippet" },
-	fmt("%>% {}", i(1))
+	fmt("%>%{}", i(1))
 	),
 	s({ trig = "zzt", snippetType = "autosnippet" },
 	fmt("TRUE{}", i(1))
@@ -10,10 +10,14 @@ return {
 	s({ trig = "zzf", snippetType = "autosnippet" },
 	fmt("FALSE{}", i(1))
 	),
-	s({ trig = "zzo", snippetType = "autosnippet" },
-	fmt("<- {}", i(1))
+	s({ trig = "zzl", snippetType = "autosnippet" },
+	fmt("<-{}", i(1))
 	),
-	s({ trig = "zzi", snippetType = "autosnippet" },
+
+	s({ trig = "zzr", snippetType = "autosnippet" },
+	fmt("->{}", i(1))
+	),
+	s({ trig = "zzh", snippetType = "autosnippet" },
 		fmta([[
 
 ######################################################################################################################################################
