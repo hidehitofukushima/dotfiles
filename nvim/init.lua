@@ -163,7 +163,7 @@ map('n', ';lkj', '<Plug>SlimeSendCell', opts)      -- セルの送信
 -- map('n', '<leader>ph', builtin.help_tags, { desc = 'Telescope help tags' })
 
 -- makeprg and make command
-map('n', '<leader>mk', ':make<CR>', opts)
+map('n', '<leader>mk', ':update<CR> :make<CR>', opts)
 map('n', '<leader>qt', ':!qstat<CR>', opts)
 vim.cmd([[autocmd FileType python setlocal makeprg=python3\ %]])
 vim.cmd([[autocmd FileType r setlocal makeprg=Rscript\ %]])
