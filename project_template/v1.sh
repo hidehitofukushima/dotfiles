@@ -94,6 +94,16 @@ fi
 echo -e "id\n${TUMOR_ID}" > $OUTPUTDIR/${TUMOR_ID}.txt
 
 ###############################################################################
+# idの変換(ny1fhのみ)
+###############################################################################
+
+# convertfile=/home/ny1fh/database/convert/convert.tsv
+# TUMOR_ID_CONVERTED=$(grep -w $TUMOR_ID $convertfile | cut -f1)
+# NORMAL_ID_CONVERTED=$(grep -w $NORMAL_ID $convertfile | cut -f3)
+# echo $TUMOR_ID_CONVERTED $NORMAL_ID_CONVERTED	
+
+
+###############################################################################
 # move log if success
 ###############################################################################
 #
