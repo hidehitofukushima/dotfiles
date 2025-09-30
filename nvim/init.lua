@@ -87,19 +87,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 vim.lsp.enable(
 	{
 		"lua_ls",
-		"air",
 		"r_language_server",
-		"python",
-		"svelte",
-		"tinymist",
-		"emmetls",
-		"rust_analyzer",
-		"clangd",
-		"ruff",
-		"glsl_analyzer",
-		"haskell-language-server",
-		"hlint",
-		"intelephense"
 
 	}
 )
