@@ -41,17 +41,36 @@ vim.pack.add({
 	{ src = "https://github.com/L3MON4D3/LuaSnip" },
 	{ src = "https://github.com/mason-org/mason.nvim" },
 	{ src = 'https://github.com/ibhagwan/fzf-lua' },
+	{ src = "https://github.com/supermaven-inc/supermaven-nvim" },
 })
 
 
 map({ 'n', 'v' }, '<leader>y', '"+y')
 map({ 'n', 'v' }, '<leader>y', '"+y')
 
-require "mason".setup()
-
+-- supermaven
+require("supermaven-nvim").setup({
+  keymaps = {
+    accept_suggestion = "<C-k>",
+    clear_suggestion = "<C-]>",
+    accept_word = "<Tab>",
+  },
+  ignore_filetypes = { cpp = true }, -- or { "cpp", }
+  color = {
+    suggestion_color = "#3C7F8E",
+    cterm = 244,
+  },
+  log_level = "info", -- set to "off" to disable logging completely
+  disable_inline_completion = false, -- disables inline completion for use with cmp
+  disable_keymaps = false, -- disables built in keymaps for more manual control
+  condition = function()
+    return false
+  end -- condition to check for stopping supermaven, `true` means to stop supermaven when the condition is true.
+})
 
 
 -- LSP
+require "mason".setup()
 vim.api.nvim_create_autocmd('LspAttach', {
 	group = vim.api.nvim_create_augroup('my.lsp', {}),
 	callback = function(args)
