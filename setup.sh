@@ -34,3 +34,4 @@ if [ -f ~/Makefile ]; then
 	rm ~/Makefile
 fi
 ln -sf ~/dotfiles/project_template/makefile ~/makefile
+
