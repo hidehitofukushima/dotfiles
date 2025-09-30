@@ -133,6 +133,7 @@ map('n', '<C-u>', '<C-u>zz', opts)
 map({ 'n', 'v' }, '<leader>y', '"+y')
 map({ 'n', 'v' }, '<leader>d', '"+d')
 map({ 'n', 'v' }, '<leader>c', ':')
+map('n', '<leader>x', ':!')
 
 -- file and buffers
 map('n', '<leader>w', '<Cmd>write<CR>')
@@ -154,6 +155,8 @@ map('n', 'lkj', '<Plug>SlimeLineSend', opts)
 map('x', 'lkj', '<Plug>SlimeRegionSend', opts)     -- 選択範囲の送信
 map('n', ';lkj', 'vip<Plug>SlimeRegionSend', opts) -- 段落の送信
 map('n', ';lkj', '<Plug>SlimeSendCell', opts)      -- セルの送信
+
+-- external command
 
 -- -- telescope
 -- local builtin = require('telescope.builtin')
