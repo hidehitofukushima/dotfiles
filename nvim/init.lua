@@ -18,7 +18,7 @@ vim.opt.smartindent = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.termguicolors = true
-vim.opt.undofile = true
+-- vim.opt.undofile = true
 vim.opt.signcolumn = "yes"
 vim.g.mapleader = " "            -- リーダーキーをスペースキーに設定
 vim.g.slime_no_mappings = 1      -- デフォルトのキーマップを無効化
@@ -42,6 +42,7 @@ vim.pack.add({
 	{ src = "https://github.com/mason-org/mason.nvim" },
 	{ src = 'https://github.com/ibhagwan/fzf-lua' },
 	{ src = "https://github.com/supermaven-inc/supermaven-nvim" },
+	{ src = "https://github.com/Saghen/blink.cmp" },
 })
 
 
@@ -50,39 +51,41 @@ map({ 'n', 'v' }, '<leader>y', '"+y')
 
 -- supermaven
 require("supermaven-nvim").setup({
-  keymaps = {
-    accept_suggestion = "<C-k>",
-    clear_suggestion = "<C-]>",
-    accept_word = "<Tab>",
-  },
-  ignore_filetypes = { cpp = true }, -- or { "cpp", }
-  color = {
-    suggestion_color = "#3C7F8E",
-    cterm = 244,
-  },
-  log_level = "info", -- set to "off" to disable logging completely
-  disable_inline_completion = false, -- disables inline completion for use with cmp
-  disable_keymaps = false, -- disables built in keymaps for more manual control
-  condition = function()
-    return false
-  end -- condition to check for stopping supermaven, `true` means to stop supermaven when the condition is true.
+	keymaps = {
+		accept_suggestion = "<C-k>",
+		clear_suggestion = "<C-]>",
+		accept_word = "<Tab>",
+	},
+	ignore_filetypes = { cpp = true }, -- or { "cpp", }
+	color = {
+		suggestion_color = "#3C7F8E",
+		cterm = 244,
+	},
+	log_level = "info",                -- set to "off" to disable logging completely
+	disable_inline_completion = false, -- disables inline completion for use with cmp
+	disable_keymaps = false,           -- disables built in keymaps for more manual control
+	condition = function()
+		return false
+	end -- condition to check for stopping supermaven, `true` means to stop supermaven when the condition is true.
 })
 
 
 -- LSP
+require("blink.cmp").setup({})
 require "mason".setup()
-vim.api.nvim_create_autocmd('LspAttach', {
-	group = vim.api.nvim_create_augroup('my.lsp', {}),
-	callback = function(args)
-		local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-		if client:supports_method('textDocument/completion') then
-			-- Optional: trigger autocompletion on EVERY keypress. May be slow!
-			local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
-			client.server_capabilities.completionProvider.triggerCharacters = chars
-			vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
-		end
-	end,
-})
+-- vim.api.nvim_create_autocmd('LspAttach', {
+-- 	group = vim.api.nvim_create_augroup('my.lsp', {}),
+-- 	callback = function(args)
+-- 		local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+-- 		if client:supports_method('textDocument/completion') then
+-- 			-- Optional: trigger autocompletion on EVERY keypress. May be slow!
+-- 			local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
+-- 			client.server_capabilities.completionProvider.triggerCharacters = chars
+-- 			vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
+-- 		end
+-- 	end,
+-- })
+
 
 vim.lsp.enable(
 	{
@@ -94,7 +97,7 @@ vim.lsp.enable(
 	}
 )
 
-vim.cmd [[set completeopt+=menuone,noselect,popup]]
+-- vim.cmd [[set completeopt+=menuone,noselect,popup]]
 
 -- lsp
 -- snippets
@@ -137,7 +140,8 @@ map('n', '<leader>x', ':!')
 
 -- file and buffers
 map('n', '<leader>w', '<Cmd>write<CR>')
-map('n', '<leader>bd', '<Cmd>:%bdelete!<CR>')
+map('n', '<leader>bda', '<Cmd>:%bdelete!<CR>')
+map('n', '<leader>bdd', '<Cmd>:%bdelete<CR>')
 map('n', '<leader>q', '<Cmd>:quit<CR>')
 map('n', '<leader>Q', '<Cmd>:wqa<CR>')
 map('n', '<leader>o', ':update<CR> :source %<CR>', opts)
