@@ -34,20 +34,77 @@ vim.g.slime_default_config = {
 -- プラグイン管理 (built-in package manager)
 -- -----------------------------------------------------------------------------
 vim.pack.add({
-	{ src = "https://github.com/vague2k/vague.nvim" },
-	{ src = "https://github.com/stevearc/oil.nvim" },
-	{ src = "https://github.com/jpalardy/vim-slime" },
-	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
-	{ src = "https://github.com/L3MON4D3/LuaSnip" },
+	{ src = "https://github.com/Saghen/blink.cmp" },
+	{ src = 'https://github.com/neovim/nvim-lspconfig' },
 	{ src = "https://github.com/mason-org/mason.nvim" },
+	{ src = "https://github.com/mason-org/mason-lspconfig.nvim" },
+	{ src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
+	{ src = "https://github.com/neovim/nvim-lspconfig" },
+	{ src = "https://github.com/stevearc/oil.nvim" },
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter",          version = "main" },
+	{ src = "https://github.com/L3MON4D3/LuaSnip" },
+	{ src = "https://github.com/rafamadriz/friendly-snippets" },
 	{ src = 'https://github.com/ibhagwan/fzf-lua' },
 	{ src = "https://github.com/supermaven-inc/supermaven-nvim" },
-	{ src = "https://github.com/Saghen/blink.cmp" },
+	{ src = "https://github.com/jpalardy/vim-slime" },
+	{ src = "https://github.com/vague2k/vague.nvim" },
 })
 
 
 map({ 'n', 'v' }, '<leader>y', '"+y')
 map({ 'n', 'v' }, '<leader>y', '"+y')
+
+
+
+
+
+-- LSP
+require("blink.cmp").setup({
+	signature = {
+		enabled = true,
+	},
+})
+require "mason".setup()
+require "mason-lspconfig".setup()
+require("mason-tool-installer").setup({
+	ensure_installed = {
+		"bash-language-server",
+		"lua_ls",
+		"basedpyright",
+		"r_language_server",
+		"r-languageserver",
+	},
+})
+-- require("luasnip.loaders.from_vscode").lazy_load()
+
+vim.lsp.config('lua_ls', {
+	settings = {
+		Lua = {
+			runtime = {
+				version = 'LuaJIT',
+			},
+			diagnostics = {
+				globals = {
+					'vim',
+					'require',
+				},
+			},
+			workspace = {
+				-- Make the server aware of Neovim runtime files
+				library = vim.api.nvim_get_runtime_file("", true),
+			},
+			-- Do not send telemetry data containing a randomized but unique identifier
+			telemetry = {
+				enable = false,
+			},
+		},
+	}
+})
+
+
+
+
+
 
 -- supermaven
 require("supermaven-nvim").setup({
@@ -61,55 +118,13 @@ require("supermaven-nvim").setup({
 		suggestion_color = "#3C7F8E",
 		cterm = 244,
 	},
-	log_level = "info",                -- set to "off" to disable logging completely
+	log_level = "info",               -- set to "off" to disable logging completely
 	disable_inline_completion = false, -- disables inline completion for use with cmp
-	disable_keymaps = false,           -- disables built in keymaps for more manual control
+	disable_keymaps = false,          -- disables built in keymaps for more manual control
 	condition = function()
 		return false
 	end -- condition to check for stopping supermaven, `true` means to stop supermaven when the condition is true.
 })
-
-
--- LSP
-require("blink.cmp").setup({})
-require "mason".setup()
--- vim.api.nvim_create_autocmd('LspAttach', {
--- 	group = vim.api.nvim_create_augroup('my.lsp', {}),
--- 	callback = function(args)
--- 		local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
--- 		if client:supports_method('textDocument/completion') then
--- 			-- Optional: trigger autocompletion on EVERY keypress. May be slow!
--- 			local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
--- 			client.server_capabilities.completionProvider.triggerCharacters = chars
--- 			vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
--- 		end
--- 	end,
--- })
-
-
-vim.lsp.enable(
-	{
-		"lua_ls",
-		"r_language_server",
-		-- "bashls",
-
-
-	}
-)
-
--- vim.cmd [[set completeopt+=menuone,noselect,popup]]
-
--- lsp
--- snippets
-require("luasnip").setup({ enable_autosnippets = true })
-require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets/" })
-local ls = require("luasnip")
-map('n', '<leader>lf', vim.lsp.buf.format)
-map('i', '<C-e>', function() ls.expand_or_jump(1) end, { silent = true })
-map({ 'i', 's' }, '<C-h>', function() ls.jump(1) end, { silent = true })
-map({ 'i', 's' }, '<C-g>', function() ls.jump(-1) end, { silent = true })
-
-
 
 -- color
 require "vague".setup({ transparent = true })
@@ -127,6 +142,8 @@ require "nvim-treesitter.configs".setup({
 
 
 
+-- restart nvim
+map('n', '<leader>re', ':restart<CR>')
 -- basics
 map('i', 'jk', '<Esc>', opts)
 map('n', '<C-d>', '<C-d>zz', opts)
