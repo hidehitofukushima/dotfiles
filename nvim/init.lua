@@ -1,6 +1,6 @@
 -- -----------------------------------------------------------------------------
 -- 基本設定
--- -----------------------------------------------------------------------------
+-- ----------------------------------------------------------------------------
 
 
 -- keymap
@@ -16,7 +16,7 @@ vim.opt.ignorecase = true
 vim.opt.shiftwidth = 2
 vim.opt.smartindent = true
 vim.opt.number = true
-vim.opt.relativenumber = true
+-- vim.opt.relativenumber = true
 vim.opt.termguicolors = true
 -- vim.opt.undofile = true
 vim.opt.signcolumn = "yes"
@@ -30,10 +30,31 @@ vim.g.slime_default_config = {
 	target_pane = ":.1",           -- ターゲットペインを指定
 	send_timeout = 0,              -- 送信タイムアウトを無効化
 }
+
+
+
+vim.schedule(function()
+	vim.opt.clipboard:append('unnamedplus')
+
+	vim.g.clipboard = {
+		name = 'OSC 52',
+		copy = {
+			['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+			['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+		},
+		paste = {
+			['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+			['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+		},
+	}
+end)
+
 -- -----------------------------------------------------------------------------
+
 -- プラグイン管理 (built-in package manager)
 -- -----------------------------------------------------------------------------
 vim.pack.add({
+	{ src = "https://github.com/nvim-lua/plenary.nvim" },
 	{ src = "https://github.com/Saghen/blink.cmp" },
 	{ src = 'https://github.com/neovim/nvim-lspconfig' },
 	{ src = "https://github.com/mason-org/mason.nvim" },
@@ -48,11 +69,10 @@ vim.pack.add({
 	{ src = "https://github.com/supermaven-inc/supermaven-nvim" },
 	{ src = "https://github.com/jpalardy/vim-slime" },
 	{ src = "https://github.com/vague2k/vague.nvim" },
+	{ src = "https://github.com/nvim-mini/mini.snippets" },
+	{ src = "https://github.com/Kaiser-Yang/blink-cmp-dictionary" },
 })
 
-
-map({ 'n', 'v' }, '<leader>y', '"+y')
-map({ 'n', 'v' }, '<leader>y', '"+y')
 
 
 
@@ -60,9 +80,40 @@ map({ 'n', 'v' }, '<leader>y', '"+y')
 
 -- LSP
 require("blink.cmp").setup({
+	completion = {
+		documentation = { auto_show = true, auto_show_delay_ms = 500 },
+	},
+	sources = {
+		default = { "snippets", "lsp", "path", "buffer", "dictionary" },
+		providers = {
+			dictionary = {
+				module = "blink-cmp-dictionary", -- 必須
+				name = "Dict",               -- 必須
+				min_keyword_length = 3,
+				async = true,
+				score_offset = -1000,
+				max_items = 5,
+				opts = {
+					dictionary_files = { "/usr/share/dict/words" },
+				},
+			},
+		}
+	},
+	-- snippets = { preset = "luasnip" },
+	snippets = { preset = "default" },
+	-- snippets = { preset = "mini_snippets" },
+	keymap = {
+		preset = "super-tab",
+		["<C-q>"] = { 'show', 'show_documentation', 'hide_documentation' },
+	},
 	signature = {
 		enabled = true,
 	},
+	cmdline = {
+		keymap = {
+			preset = "super-tab",
+		},
+	}
 })
 require "mason".setup()
 require "mason-lspconfig".setup()
@@ -149,11 +200,11 @@ map('i', 'jk', '<Esc>', opts)
 map('n', '<C-d>', '<C-d>zz', opts)
 map('n', '<C-u>', '<C-u>zz', opts)
 
--- system clipboard
-map({ 'n', 'v' }, '<leader>y', '"+y')
-map({ 'n', 'v' }, '<leader>d', '"+d')
-map({ 'n', 'v' }, '<leader>c', ':')
-map('n', '<leader>x', ':!')
+-- -- system clipboard
+-- map({ 'n', 'v' }, '<leader>y', '"+y')
+-- map({ 'n', 'v' }, '<leader>d', '"+d')
+-- map({ 'n', 'v' }, '<leader>c', ':')
+-- map('n', '<leader>x', ':!')
 
 -- file and buffers
 map('n', '<leader>w', '<Cmd>write<CR>')
@@ -284,6 +335,7 @@ map('n', '<C-c>', '<Cmd>Open .<CR>')
 
 -- fzflua
 -- require'fzf-lua'.setup({})
+
 vim.keymap.set('n', '<leader>pf', "<cmd>lua require('fzf-lua').files()<CR>")
 vim.keymap.set('n', '<leader>pg', "<cmd>lua require('fzf-lua').grep()<CR>")
 vim.keymap.set('n', '<leader>ph', "<cmd>lua require('fzf-lua').helptags()<CR>")
