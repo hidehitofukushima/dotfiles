@@ -250,9 +250,9 @@ require("oil").setup({
 	default_file_explorer = true,
 	columns = {
 		"icon",
-		-- "permissions",
-		-- "size",
-		-- "mtime",
+		"permissions",
+		"size",
+		"mtime",
 	},
 	keymaps = {
 		["g?"] = { "actions.show_help", mode = "n" },
@@ -315,16 +315,6 @@ require("oil").setup({
 		buflisted = false,
 		bufhidden = "hide",
 	},
-	lsp_file_methods = {
-		enabled = true,
-		timeout_ms = 1000,
-		autosave_changes = true,
-	},
-	float = {
-		max_width = 0.7,
-		max_height = 0.6,
-		border = "rounded",
-	},
 })
 map('n', '<leader>e', ':Oil --preview<CR>', opts)
 
@@ -334,12 +324,8 @@ map('n', '<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>')
 map('n', '<C-c>', '<Cmd>Open .<CR>')
 
 -- fzflua
--- require'fzf-lua'.setup({})
-
-vim.keymap.set('n', '<leader>pf', "<cmd>lua require('fzf-lua').files()<CR>")
-vim.keymap.set('n', '<leader>pg', "<cmd>lua require('fzf-lua').grep()<CR>")
-vim.keymap.set('n', '<leader>ph', "<cmd>lua require('fzf-lua').helptags()<CR>")
+vim.keymap.set('n', '<leader>ff', "<cmd>lua require('fzf-lua').files()<CR>")
+vim.keymap.set('n', '<leader>fg', "<cmd>lua require('fzf-lua').grep()<CR>")
+vim.keymap.set('n', '<leader>fh', "<cmd>lua require('fzf-lua').helptags()<CR>")
 vim.keymap.set('n', '<leader>/', "<cmd>lua require('fzf-lua').blines()<CR>")
-vim.keymap.set('i', '<C-f>', function()
-	require('fzf-lua').complete_path()
-end)
+
