@@ -1,6 +1,10 @@
-library(tidyverse, help)
-library(tidyverse, quietly = TRUE)
-
-
 plot(1:10, 2:11)
-
+plot(1:10, 2:11, type = "l")
+plot(1:10, 2:11)
+plot(1:10, 2:11)
+plot(1:10, 2:11)
+plot(1:10, 2:11)
+plot(1:10, 2:11)
+plot(1:10, 2:11)
+plot(1:10, 2:11)
+plot(1:10, 2:11)
