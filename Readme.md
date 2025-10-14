@@ -9,6 +9,7 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 あとは、tmux, tmux-sesionizerのインストールくらいか。
 lsp系は、masonでのサーバーのインストールと、R言語に対してのlanguageserverパッケージのインストールが必要。
+
 ---------------------------------------------------------------------
 
 -- clone
