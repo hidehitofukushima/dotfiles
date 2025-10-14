@@ -1,3 +1,4 @@
+-- backspaceが
 infocmp -x xterm-ghostty | ssh YOUR-SERVER -- tic -x - (ローカルマシンでやること）
 zshへ変更。
 chsh.ldap -s /bin/zsh
