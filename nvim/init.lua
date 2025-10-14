@@ -3,6 +3,7 @@
 -- ----------------------------------------------------------------------------
 
 
+
 -- keymap
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
@@ -32,6 +33,14 @@ vim.g.slime_default_config = {
 }
 
 
+-- 行折り返し
+vim.opt.wrap = true
+vim.opt.breakindent = true
+vim.opt.showbreak = string.rep(" ", 3) -- 長い行がスマートに折り返されるようにする
+vim.opt.linebreak = true
+-- 単語の折り返しを扱うためのリマップ
+vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 vim.schedule(function()
 	vim.opt.clipboard:append('unnamedplus')
@@ -153,10 +162,6 @@ vim.lsp.config('lua_ls', {
 })
 
 
-
-
-
-
 -- supermaven
 require("supermaven-nvim").setup({
 	keymaps = {
@@ -200,12 +205,6 @@ map('i', 'jk', '<Esc>', opts)
 map('n', '<C-d>', '<C-d>zz', opts)
 map('n', '<C-u>', '<C-u>zz', opts)
 
--- -- system clipboard
--- map({ 'n', 'v' }, '<leader>y', '"+y')
--- map({ 'n', 'v' }, '<leader>d', '"+d')
--- map({ 'n', 'v' }, '<leader>c', ':')
--- map('n', '<leader>x', ':!')
-
 -- file and buffers
 map('n', '<leader>w', '<Cmd>write<CR>')
 map('n', '<leader>bda', '<Cmd>:%bdelete!<CR>')
@@ -228,17 +227,8 @@ map('x', 'lkj', '<Plug>SlimeRegionSend', opts)     -- 選択範囲の送信
 map('n', ';lkj', 'vip<Plug>SlimeRegionSend', opts) -- 段落の送信
 map('n', ';lkj', '<Plug>SlimeSendCell', opts)      -- セルの送信
 
--- external command
-
--- -- telescope
--- local builtin = require('telescope.builtin')
--- map('n', '<leader>pf', builtin.find_files, { desc = 'Telescope find files' })
--- map('n', '<leader>pg', builtin.live_grep, { desc = 'Telescope live grep' })
--- map('n', '<leader>pb', builtin.buffers, { desc = 'Telescope buffers' })
--- map('n', '<leader>ph', builtin.help_tags, { desc = 'Telescope help tags' })
-
 -- makeprg and make command
-map('n', '<leader>mk', ':update<CR> :make<CR>', opts)
+map('n', '<leader>kk', ':update<CR> :make<CR>', opts)
 map('n', '<leader>qt', ':!qstat<CR>', opts)
 vim.cmd([[autocmd FileType python setlocal makeprg=python3\ %]])
 vim.cmd([[autocmd FileType r setlocal makeprg=Rscript\ %]])
@@ -247,81 +237,35 @@ vim.cmd([[autocmd FileType sh setlocal makeprg=cd\ $(dirname\ %)\ &&\ qsub\ %]])
 
 -- Oil
 require("oil").setup({
-	default_file_explorer = true,
-	columns = {
-		"icon",
-		"permissions",
-		"size",
-		"mtime",
-	},
-	keymaps = {
-		["g?"] = { "actions.show_help", mode = "n" },
-		["<CR>"] = "actions.select",
-		["<C-s>"] = { "actions.select", opts = { vertical = true } },
-		["<C-h>"] = { "actions.select", opts = { horizontal = true } },
-		["<C-t>"] = { "actions.select", opts = { tab = true } },
-		["<C-p>"] = "actions.preview",
-		["<C-c>"] = { "actions.close", mode = "n" },
-		["<C-l>"] = "actions.refresh",
-		["-"] = { "actions.parent", mode = "n" },
-		["_"] = { "actions.open_cwd", mode = "n" },
-		["`"] = { "actions.cd", mode = "n" },
-		["~"] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },
-		["gs"] = { "actions.change_sort", mode = "n" },
-		["gh"] = "actions.open_external",
-		["g."] = { "actions.toggle_hidden", mode = "n" },
-		["g\\"] = { "actions.toggle_trash", mode = "n" },
-		['yf'] = {
-			desc = 'Copy file to system clipboard',
-			callback = function()
-				require("oil.actions").copy_to_system_clipboard.callback()
-			end,
-		},
-		['yp'] = {
-			desc = 'Copy filepath to system clipboard',
-			callback = function()
-				-- require('oil.actions').copy_entry_path.callback()
-				require('oil.actions').yank_entry.callback()
-			end,
-		},
-		['yo'] = {
-			desc = 'Copy dirpath to system clipboard',
-			callback = function()
-				-- require('oil.actions').copy_entry_path.callback()
-				require('oil.actions').yank_entry.callback()
-				local a = vim.fn.getreg(vim.v.register)
-				print("a" .. a)
-				-- dirpath a
-				b = vim.fn.fnamemodify(a, ":h")
-				-- set b to clipboard
-				vim.fn.setreg("+", b)
-				vim.notify("dirpath copied to clipboard")
-			end,
-		},
-		-- ▼▼▼ 以下をkeymapsテーブル内に追加 ▼▼▼
-		['gj'] = {
-			desc = "Open finder",
-			callback = function()
-				-- カーソル下のファイル情報を取得
-				require('oil.actions').yank_entry.callback()
-				local a = vim.fn.getreg(vim.v.register)
-				vim.cmd("silent !open -R " .. vim.fn.fnameescape(a))
-			end,
-		},
-	},
-	skip_confirm_for_simple_edits = false,
-	prompt_save_on_select_new_entry = true,
-	buf_options = {
-		buflisted = false,
-		bufhidden = "hide",
-	},
+  default_file_explorer = true,  -- Neovim の標準ファイラを置き換える
+  columns = { "icon", "permissions", "size", "mtime" },
+
+  keymaps = {
+    ["zz"] = {
+      "actions.open_external",    -- 外部アプリで開く（mac: open, Linux: xdg-open）
+      mode = "n",
+      desc = "Open in external app",
+    },
+    ["zx"] = {
+      "actions.yank_entry",       -- ファイルパスをクリップボードへ
+      mode = "n",
+      desc = "Copy file path",
+    },
+  },
 })
-map('n', '<leader>e', ':Oil --preview<CR>', opts)
+
+-- === キーマッピング ===
+-- <leader>e で Oil をプレビュー付きで開く
+vim.keymap.set(
+  "n",
+  "<leader>e",
+  ":Oil --preview<CR>",
+  { noremap = true, silent = true, desc = "Open Oil file browser with preview" }
+)
 
 -- other
 map('n', '<leader>lf', vim.lsp.buf.format, opts)
 map('n', '<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>')
-map('n', '<C-c>', '<Cmd>Open .<CR>')
 
 -- fzflua
 vim.keymap.set('n', '<leader>ff', "<cmd>lua require('fzf-lua').files()<CR>")

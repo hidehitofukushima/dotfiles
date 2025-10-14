@@ -1,7 +1,6 @@
+library(tidyverse, help)
+library(tidyverse, quietly = TRUE)
 
-for (case in case_list) {
-    print(case)
- w
-}
 
-library(tidyverse))
+plot(1:10, 2:11)
+
