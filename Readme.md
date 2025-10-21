@@ -1,3 +1,5 @@
+deno no install
+curl -fsSL https://deno.land/x/install/install.sh | sh
 -- backspaceが
 infocmp -x xterm-ghostty | ssh YOUR-SERVER -- tic -x - (ローカルマシンでやること）
 zshへ変更。
