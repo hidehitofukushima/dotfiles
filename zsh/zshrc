@@ -17,19 +17,7 @@ alias cl='clear'
 export PATH="$HOME/.local/scripts:$PATH"
 export PATH="$HOME/.config/tmux-sessionizer:$PATH"
 export PATH="$HOME/.fzf/bin:$PATH"
+
 bindkey -s ^f "tmux-sessionizer\n"
 bindkey -s ^s "source ~/.zshrc\n"
-bindkey -s ^t "~/dotfiles/newproj_local\n"
-bindkey -s ^g "~/dotfiles/newproj_shirokane\n"
-
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# if [ -f ~/.fzf.zsh ]; then
-#   source ~/.fzf.zsh
-# fi
-
-# /usr/local/package/nodejs/20.10.0/bin/npm
-# export PATH="/usr/local/package/nodejs/20.10.0/bin:$PATH"
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
+bindkey -s ^t "~/dotfiles/newproj\n"

@@ -1,0 +1,57 @@
+#!/usr/bin/env zsh
+# Usage: newproj [project_name]
+# 統合版。local / shirokane を番号選択で切り替え。
+
+set -e
+
+# --- プロジェクト名を取得 ---
+if [[ -z "$1" ]]; then
+  vared -p "新しいプロジェクト名を入力してください: " -c PROJECT_NAME
+else
+  PROJECT_NAME="$1"
+fi
+
+# 空入力チェック
+if [[ -z "$PROJECT_NAME" ]]; then
+  echo "Error: プロジェクト名が空です。"
+  exit 1
+fi
+
+# --- モード選択（番号入力で切り替え） ---
+echo "作成モードを選択してください:"
+echo "  [1] local     -> ~/Desktop/Projects/"
+echo "  [2] shirokane -> ~/Projects/"
+vared -p "番号を入力 (1 または 2): " -c MODE_NUM
+
+case "$MODE_NUM" in
+  1)
+    MODE="local"
+    TEMPLATE="$HOME/dotfiles/template/local/"
+    DEST_BASE="$HOME/Desktop/Projects"
+    ;;
+  2)
+    MODE="shirokane"
+    TEMPLATE="$HOME/dotfiles/template/shirokane/"
+    DEST_BASE="$HOME/Projects"
+    ;;
+  *)
+    echo "Error: 不正な入力です。1 または 2 を入力してください。"
+    exit 1
+    ;;
+esac
+
+# --- 宛先を設定 ---
+DEST="$DEST_BASE/$PROJECT_NAME"
+PARENT_DIR="$(dirname "$DEST")"
+
+if [[ -d "$DEST" ]]; then
+  echo "Warning: 既に存在します: $DEST"
+  exit 1
+fi
+
+# --- コピー ---
+mkdir -p "$PARENT_DIR"
+cp -r "$TEMPLATE" "$DEST"
+
+echo "[${MODE}] プロジェクトを作成しました: $DEST"
+

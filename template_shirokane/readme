@@ -1,8 +1,0 @@
-module use /usr/local/package/modulefiles
-module load hoge
-eval "$(~/tools/miniconda3/bin/conda shell.bash hook)"
-conda activate hoge
-export R_LIBS_USER=/home/ny1fh/R/hoge
-
-
-:!qsub % でジョブが投げられる

@@ -30,7 +30,6 @@ vim.opt.wrap = true
 vim.opt.breakindent = true
 vim.opt.showbreak = string.rep(" ", 3)
 vim.opt.linebreak = true
-
 map('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 map('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
@@ -86,8 +85,13 @@ vim.pack.add({
 	{ src = "https://github.com/vague2k/vague.nvim" },
 	{ src = "https://github.com/Kaiser-Yang/blink-cmp-dictionary" },
 	{ src = "https://github.com/folke/which-key.nvim" }, -- which-key
+	{ src = "https://github.com/echasnovski/mini.surround" },
 })
 
+-- =============================================================================
+-- mini.surround
+-- =============================================================================
+require("mini.surround").setup()
 -- =============================================================================
 -- which-key
 -- =============================================================================
@@ -159,9 +163,9 @@ ls.add_snippets("all", {
 	s({ trig = "hdr", dscr = "header", wordTrig = true },
 		{
 			t({
-				"##################################################################",
+				"###########################################",
 				"# ",
-				"##################################################################",
+				"###########################################",
 			}),
 			i(0),
 		}
@@ -207,8 +211,8 @@ require("oil").setup({
 	default_file_explorer = true,
 	columns = { "icon", "permissions", "size", "mtime" },
 	keymaps = {
-		["gh"] = { "actions.open_external", mode = "n", desc = "Open in external app" },
-		["gj"] = function()
+		["go"] = { "actions.open_external", mode = "n", desc = "Open in external app" },
+		["gr"] = function()
 			local dir = require("oil").get_current_dir()
 			if dir then
 				vim.fn.jobstart({ "open", dir }, { detach = true })
@@ -216,13 +220,13 @@ require("oil").setup({
 				vim.notify("No directory found", vim.log.levels.WARN)
 			end
 		end,
-		["yp"] = { "actions.yank_entry", mode = "n", desc = "Copy file path" },
+		["gy"] = { "actions.yank_entry", mode = "n", desc = "Copy file path" },
 	},
 })
 
 map('n', '<leader>e', function()
 	local cwd = vim.fn.fnameescape(vim.fn.getcwd())
-	vim.cmd("Oil " .. cwd .. " --preview")
+	vim.cmd("Oil " .. cwd)
 end, { noremap = true, silent = true, desc = "Open Oil in current working directory with preview" })
 
 -- =============================================================================
@@ -237,51 +241,26 @@ map('n', '<leader>bda', '<Cmd>:%bdelete!<CR>')
 map('n', '<leader>bdd', '<Cmd>:%bdelete<CR>')
 map('n', '<leader>q', '<Cmd>:quit<CR>')
 map('n', '<leader>Q', '<Cmd>:wqa<CR>')
-map('n', '<leader>oo', ':!open ')
-map('n', '<leader>or', ':!open -R ')
--- map('n', '<leader>x', ':!')
-map('n', '<leader>x', function()
+
+map('n', '<leader>xx', function()
 	local line = vim.fn.getreg('"')
 	vim.cmd('!' .. line)
 end)
+map('n', '<leader>xo', ':!open ')
+map('n', '<leader>xr', ':!open -R ')
+
 map({ 'n', 'v' }, '<leader>n', ':norm ')
 map('n', '<leader>s', '<Cmd>e #<CR>')
 map('n', '<leader>S', '<Cmd>bot sf #<CR>')
 map('n', '<leader>lf', vim.lsp.buf.format, opts)
 map('n', '<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>')
 
--- =============================================================================
--- makeprg / 外部コマンド（autocmd をグループ化し重複防止）
--- =============================================================================
-map('n', '<leader>kk', ':update<CR> :make<CR>', { noremap = true, silent = true })
-
-map('n', '<leader>qt', ':!qstat<CR>', opts)
-
-local aug = vim.api.nvim_create_augroup("user_makeprg", { clear = true })
-vim.api.nvim_create_autocmd("FileType",
-	{ group = aug, pattern = "python", command = "setlocal makeprg=python3\\ \\%\\ \\>\\ out" })
-vim.api.nvim_create_autocmd("FileType",
-	{ group = aug, pattern = "r", command = "setlocal makeprg=Rscript\\ \\%\\ \\>\\ out" })
--- vim.api.nvim_create_autocmd("FileType",	{ group = aug, pattern = "sh", command = "setlocal makeprg=cd\\ $(dirname\\ \\%)\\ \\&\\&\\ qsub\\ \\%" })
-vim.api.nvim_create_autocmd("FileType",
-	{ group = aug, pattern = "sh", command = "setlocal makeprg=bash\\ \\%\\ \\>\\ out" })
 
 -- =============================================================================
 -- fzf-lua（重複 require の整理 + ランチャー群）
 -- =============================================================================
 local fzf = require('fzf-lua')
-
--- map('n', '<leader>ff', function() fzf.files() end)
--- map('n', '<leader>ff', function()
--- 	fzf.files({
--- 		actions = {
--- 			["ctrl-o"] = function(selected)
--- 				if not selected or #selected == 0 then return end
--- 				local full = to_fullpath(selected[1])
--- 				vim.cmd("!open " .. full)
--- 			end
--- 		}
--- 	}) end)
+map('n', '<leader>ff', function() fzf.files() end)
 map('n', '<leader>fb', function() fzf.buffers() end)
 map('n', '<leader>fg', function() fzf.grep() end)
 map('n', '<leader>fh', function() fzf.helptags() end)
@@ -293,218 +272,19 @@ map('n', '<leader>fm', function() fzf.marks() end, { desc = 'fzf: marks' })
 map('n', 'gr', function() fzf.lsp_references({ jump_to_single_result = true }) end, { desc = 'LSP references' })
 map('n', 'gd', function() fzf.lsp_definitions({ jump_to_single_result = true }) end, { desc = 'LSP definitions' })
 map('n', 'gi', function() fzf.lsp_implementations({ jump_to_single_result = true }) end, { desc = 'LSP implementations' })
-map('n', '<leader>fq', function()
-	require('fzf-lua').quickfix()
-end, { desc = 'FZF: Quickfix list' })
 
--- ---- コマンド履歴ランチャー ----
-map('n', '<leader>fc', function()
-	local history = vim.fn.execute('history cmd')
-	local lines = {}
-	for line in history:gmatch("[^\r\n]+") do
-		local cmd = line:match("%d+%s+(.*)")
-		if cmd then table.insert(lines, cmd) end
-	end
-	fzf.fzf_exec(lines, {
-		prompt = 'Cmd> ',
-		previewer = false,
-		actions = {
-			['default'] = function(selected)
-				local cmd = selected and selected[1]
-				if not cmd then return end
-				vim.cmd(cmd)
-				vim.notify('Executed: ' .. cmd, vim.log.levels.INFO)
-			end,
-		},
-	})
-end, { desc = 'fzf: command history launcher' })
+vim.keymap.set("i", "<C-f>",
+	function() FzfLua.complete_path() end,
+	{ silent = true, desc = "Fuzzy complete path" })
 
--- ---- 検索履歴ランチャー ----
-map('n', '<leader>fs', function()
-	local hist = vim.fn.execute('history search')
-	local lines = {}
-	for l in hist:gmatch("[^\r\n]+") do
-		local s = l:match("%d+%s+(.*)")
-		if s then table.insert(lines, s) end
-	end
-	fzf.fzf_exec(lines, {
-		prompt = '/search> ',
-		actions = {
-			['default'] = function(selected)
-				local word = selected and selected[1]
-				if not word then return end
-				vim.cmd('/' .. word)
-			end,
-		},
-	})
-end, { desc = 'fzf: search history' })
+vim.keymap.set("n", "<leader>fp", function()
+  require("my.project_picker").project_files()
+end, { desc = "Search in Projects" })
 
--- =============================================================================
--- fzf-lua: 絶対パスピッカー（任意ディレクトリから探して挿入/ヤンク）
--- =============================================================================
-local actions = require('fzf-lua.actions') -- 今後の拡張用に保持
+vim.keymap.set("n", "<leader>fc", function()
+  require("my.command_picker").run_command()
+end, { desc = "Run favorite command (fzf)" })
 
--- 設定（tmux-sessionizerライク）
-local TS_SEARCH_PATHS = {
-	"/Volumes:2",
-	"~/",
-	"~/Desktop:2",
-	"~/Desktop/Projects_wgs",
-	"~/Desktop/Projects_wgs_v2",
-	"~/Desktop/Projects_wgs_deprecated",
-	"~/Desktop/Projects_Other",
-}
-local TS_EXTRA_SEARCH_PATHS = {
-	-- "~/.config:2",
-	-- "~/Git:3",
-}
-local TS_MAX_DEPTH = 1
-local INCLUDE_CUSTOM_INPUT = true
-local DEBUG = true
-local function dump(label, v) if not DEBUG then return end end
-
-local function expanduser(p) return vim.fn.expand(p) end
-
-local function parse_entry(entry)
-	local path, depth = entry:match("^(.*):(%d+)$")
-	if path and depth then
-		return expanduser(path), tonumber(depth)
-	else
-		return expanduser(entry), nil
-	end
-end
-
-local function find_dirs_under(path, depth)
-	local d = depth or TS_MAX_DEPTH
-	if vim.fn.isdirectory(path) ~= 1 then return {} end
-	local cmd = { "find", path, "-mindepth", "1", "-maxdepth", tostring(d), "-path", "*/.git", "-prune", "-o", "-type", "d",
-		"-print" }
-	local list = vim.fn.systemlist(cmd)
-	if vim.v.shell_error ~= 0 then return {} end
-	return list
-end
-
-local function build_dir_candidates()
-	local merged = {}
-	for _, v in ipairs(TS_SEARCH_PATHS) do table.insert(merged, v) end
-	for _, v in ipairs(TS_EXTRA_SEARCH_PATHS) do table.insert(merged, v) end
-	local set, out = {}, {}
-	for _, entry in ipairs(merged) do
-		local base, depth = parse_entry(entry)
-		dump("parse_entry", { entry = entry, base = base, depth = depth or TS_MAX_DEPTH })
-		for _, d in ipairs(find_dirs_under(base, depth)) do
-			if vim.fn.isdirectory(d) == 1 and not set[d] then
-				set[d] = true
-				table.insert(out, d)
-			end
-		end
-	end
-	table.sort(out)
-	dump("dir_candidates.count", #out)
-	return out
-end
-
-local function to_fullpath(cwd, path_like)
-	if path_like:sub(1, 1) == "/" then
-		return vim.fn.fnamemodify(path_like, ":p")
-	else
-		return vim.fn.fnamemodify(cwd .. "/" .. path_like, ":p")
-	end
-end
-
-local function notify_ok(msg) vim.notify(msg, vim.log.levels.INFO) end
-local function notify_ng(msg) vim.notify(msg, vim.log.levels.ERROR) end
-local function notify_wl(msg) vim.notify(msg, vim.log.levels.WARN) end
-
-local function open_file(full, cmd)
-	local esc = vim.fn.fnameescape(full)
-	vim.cmd((cmd or "edit") .. " " .. esc)
-	notify_ok("Opened: " .. full)
-end
-
-local function copy_fullpath(full)
-	vim.fn.setreg("+", full)
-	notify_ok("Copied: " .. full)
-end
-
-local function pick_file_under(dir)
-	dump("files.cwd", dir)
-	fzf.files({
-		cwd = dir,
-		prompt = "Files in " .. dir .. "> ",
-		hidden = true,
-		git_icons = false,
-		file_icons = false,
-		fd_opts = "--color=never --type f --hidden --follow --exclude .git",
-		actions = {
-			["default"] = function(selected)
-				if not selected or #selected == 0 then return notify_wl("No file selected") end
-				local full = to_fullpath(dir, selected[1])
-				copy_fullpath(full)
-			end,
-			["ctrl-y"] = function(selected)
-				if not selected or #selected == 0 then return notify_wl("No file selected") end
-				local full = to_fullpath(dir, selected[1])
-				open_file(full, "edit")
-			end,
-			["ctrl-s"] = function(selected)
-				if not selected or #selected == 0 then return end
-				local full = to_fullpath(dir, selected[1])
-				open_file(full, "split")
-			end,
-			["ctrl-v"] = function(selected)
-				if not selected or #selected == 0 then return end
-				local full = to_fullpath(dir, selected[1])
-				open_file(full, "vsplit")
-			end,
-			["ctrl-t"] = function(selected)
-				if not selected or #selected == 0 then return end
-				local full = to_fullpath(dir, selected[1])
-				open_file(full, "tabedit")
-			end,
-		},
-	})
-end
-
-local function pick_root_then_files()
-	local list = build_dir_candidates()
-	if INCLUDE_CUSTOM_INPUT then table.insert(list, 1, "(custom) Enter a path...") end
-	if #list == 0 then return notify_ng("No directories found from TS_SEARCH_PATHS") end
-	fzf.fzf_exec(list, {
-		prompt = "Select root> ",
-		fzf_opts = { ["--reverse"] = true },
-		actions = {
-			["default"] = function(selected)
-				if not selected or #selected == 0 then return notify_wl("No selection") end
-				local dir = selected[1]
-				if INCLUDE_CUSTOM_INPUT and dir:match("^%(") then
-					dir = vim.fn.input("Absolute path: ", "/", "dir")
-					if dir == nil or dir == "" then return notify_wl("Empty path") end
-				end
-				dir = expanduser(dir)
-				if vim.fn.isdirectory(dir) ~= 1 then return notify_ng("Not a directory: " .. dir) end
-				notify_ok("Root: " .. dir)
-				pick_file_under(dir)
-			end,
-		},
-	})
-end
-
-map('n', '<leader>fp', function()
-	pick_root_then_files()
-end, { desc = "FZF: TS_SEARCH_PATHS → file (Enter=open, C-y=copy)" })
-
-map('n', '<leader>ff', function()
-	fzf.files({
-		actions = {
-			["ctrl-o"] = function(selected)
-				if not selected or #selected == 0 then return end
-				local full = to_fullpath(selected[1])
-				vim.cmd("!open " .. full)
-			end
-		}
-	})
-end)
 -- =============================================================================
 -- Slime (R用) : 「RREPL」ウィンドウ固定 + 自動起動 + 安定送信
 -- =============================================================================
@@ -568,109 +348,3 @@ map('n', '<leader>rp', function()
 	slime_send_plug('<Plug>SlimeRegionSend')
 end, { desc = 'R: send paragraph' })
 
--- =============================================================================
--- fzf-lua: ディレクトリピッカー（任意ディレクトリを選択→コピー/開く/移動）
--- =============================================================================
--- 既存のユーティリティ関数や設定（build_dir_candidates, to_fullpath など）が上で定義済み前提。
--- "root を選ぶ" → "その配下のディレクトリを選ぶ" の2段構え。
-
-
--- dir 配下のディレクトリを列挙
-local function list_dirs_under(dir, maxdepth)
-	local depth = tostring(maxdepth or 3)
-	if vim.fn.isdirectory(dir) ~= 1 then return {} end
-
-
-	-- fd があれば高速、なければ find
-	local has_fd = (vim.fn.executable('fd') == 1)
-	local list
-	if has_fd then
-		list = vim.fn.systemlist({
-			'fd', '--hidden', '--follow', '--exclude', '.git', '--type', 'd',
-			'--max-depth', depth, '.', dir,
-		})
-	else
-		list = vim.fn.systemlist({
-			'find', dir, '-mindepth', '1', '-maxdepth', depth,
-			'-path', '*/.git', '-prune', '-o', '-type', 'd', '-print',
-		})
-	end
-	if vim.v.shell_error ~= 0 then return {} end
-	table.sort(list)
-	return list
-end
-
-
--- ディレクトリピッカー本体（2段目）
-local function pick_dir_under(dir)
-	local dirs = list_dirs_under(dir, 5) -- 深さは好みで
-	if #dirs == 0 then return vim.notify('No subdirectories', vim.log.levels.WARN) end
-	require('fzf-lua').fzf_exec(dirs, {
-		prompt = 'Dirs in ' .. dir .. '> ',
-		fzf_opts = { ['--reverse'] = true },
-		actions = {
-			-- 既定: フルパスをクリップボードにコピー
-			['default'] = function(selected)
-				if not selected or #selected == 0 then return end
-				local full = vim.fn.fnamemodify(selected[1], ':p')
-				vim.fn.setreg('+', full)
-				vim.notify('Copied: ' .. full, vim.log.levels.INFO)
-			end,
-			-- Ctrl-y: Oil でそのディレクトリを開く
-			['ctrl-y'] = function(selected)
-				if not selected or #selected == 0 then return end
-				local full = vim.fn.fnamemodify(selected[1], ':p')
-				local esc = vim.fn.fnameescape(full)
-				vim.cmd('Oil ' .. esc .. ' --preview')
-			end,
-			-- Ctrl-c: カレントディレクトリ（:tcd）を切り替える
-			['ctrl-c'] = function(selected)
-				if not selected or #selected == 0 then return end
-				local full = vim.fn.fnamemodify(selected[1], ':p')
-				local esc = vim.fn.fnameescape(full)
-				vim.cmd('tcd ' .. esc)
-				vim.notify('tcd → ' .. full, vim.log.levels.INFO)
-			end,
-			-- Ctrl-t: 新しいタブで Oil を開く
-			['ctrl-t'] = function(selected)
-				if not selected or #selected == 0 then return end
-				local full = vim.fn.fnamemodify(selected[1], ':p')
-				local esc = vim.fn.fnameescape(full)
-				vim.cmd('tabnew | Oil ' .. esc .. ' --preview')
-			end,
-		},
-	})
-end
-
-
--- 1段目: 起点ディレクトリ選択（既存の build_dir_candidates を流用）
-local function pick_root_then_dirs()
-	local list = build_dir_candidates()
-	if INCLUDE_CUSTOM_INPUT then table.insert(list, 1, '(custom) Enter a path...') end
-	if #list == 0 then return vim.notify('No directories from TS_SEARCH_PATHS', vim.log.levels.ERROR) end
-	require('fzf-lua').fzf_exec(list, {
-		prompt = 'Select root> ',
-		fzf_opts = { ['--reverse'] = true },
-		actions = {
-			['default'] = function(selected)
-				if not selected or #selected == 0 then return end
-				local dir = selected[1]
-				if INCLUDE_CUSTOM_INPUT and dir:match('^%(') then
-					dir = vim.fn.input('Absolute path: ', '/', 'dir')
-					if dir == nil or dir == '' then return end
-				end
-				dir = vim.fn.expand(dir)
-				if vim.fn.isdirectory(dir) ~= 1 then
-					return vim.notify('Not a directory: ' .. dir, vim.log.levels.ERROR)
-				end
-				pick_dir_under(dir)
-			end,
-		},
-	})
-end
-
-
--- キーマップ: <leader>fd （files の兄弟として配置）
-map('n', '<leader>fP', function()
-	pick_root_then_dirs()
-end, { desc = 'FZF: pick directory → copy/open/tcd' })

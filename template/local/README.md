@@ -1,10 +1,8 @@
 ##################################################################
 # commands to execute ( yank line and execute with <leader>x)
 ##################################################################
-ls -lha
-ls -ltha > out 2>&1 # for debug
-Rscript script/v1.R hoge fuga piyo
-
+Rcript % > out 2>&1
+eval "$(~/miniconda3/bin/conda shell.bash hook)"
 
 
 ##################################################################
