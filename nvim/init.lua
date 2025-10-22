@@ -259,8 +259,53 @@ map('n', '<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>')
 -- =============================================================================
 -- fzf-lua（重複 require の整理 + ランチャー群）
 -- =============================================================================
+require('fzf-lua').setup({
+	previewers = {
+		builtin = {
+			extensions      = {
+				-- neovim terminal only supports `viu` block output
+				-- chafa --symbols=block --fill=block --scale=fill --color-space=rgb --dither=fs --size=120x60 image.png
+				["png"] = { "chafa", "--symbols=block", "--fill=block", "--scale=fill", "--color-space=rgb", "--dither=fs", "{file}" },
+				["svg"] = { "chafa", "--symbols=block", "--fill=block", "--scale=fill", "--color-space=rgb", "--dither=fs", "{file}" },
+				["jpg"] = { "chafa", "--symbols=block", "--fill=block", "--scale=fill", "--color-space=rgb", "--dither=fs", "{file}" },
+				-- ["png"] = { "chafa", "{file}" },
+				-- ["svg"] = { "chafa", "{file}" },
+				-- ["jpg"] = { "chafa", "{file}" },
+			},
+		},
+		},
+	})
+
 local fzf = require('fzf-lua')
-map('n', '<leader>ff', function() fzf.files() end)
+local actions = require("fzf-lua").actions
+local function first(sel)
+	return type(sel) == "table" and sel[1] or sel
+end
+map('n', '<leader>ff', function() fzf.files({
+
+	actions = {
+		["default"] = actions.file_edit,
+					-- Ctrl-y: 絶対パスをヤンク
+			["ctrl-y"] = function(selected)
+				local path = vim.fn.trim(first(selected))
+				vim.fn.setreg("+", path)
+				vim.fn.setreg('"', path)
+				vim.notify("📋 Copied: " .. path)
+			end,
+			-- Ctrl-o: macOSデフォルトアプリで開く
+			["ctrl-o"] = function(selected)
+				local path = vim.fn.trim(first(selected))
+				vim.fn.jobstart({ "open", path }, { detach = true })
+				vim.notify("🚀 Opened: " .. path)
+			end,
+			-- Ctrl-r: Finderで表示
+			["ctrl-r"] = function(selected)
+				local path = vim.fn.trim(first(selected))
+				vim.fn.jobstart({ "open", "-R", path }, { detach = true })
+				vim.notify("📂 Finderで表示: " .. path)
+			end,
+	},
+}) end)
 map('n', '<leader>fb', function() fzf.buffers() end)
 map('n', '<leader>fg', function() fzf.grep() end)
 map('n', '<leader>fh', function() fzf.helptags() end)
@@ -273,17 +318,19 @@ map('n', 'gr', function() fzf.lsp_references({ jump_to_single_result = true }) e
 map('n', 'gd', function() fzf.lsp_definitions({ jump_to_single_result = true }) end, { desc = 'LSP definitions' })
 map('n', 'gi', function() fzf.lsp_implementations({ jump_to_single_result = true }) end, { desc = 'LSP implementations' })
 
+
 vim.keymap.set("i", "<C-f>",
 	function() FzfLua.complete_path() end,
 	{ silent = true, desc = "Fuzzy complete path" })
 
 vim.keymap.set("n", "<leader>fp", function()
-  require("my.project_picker").project_files()
+	require("my.project_picker").project_files()
 end, { desc = "Search in Projects" })
 
 vim.keymap.set("n", "<leader>fc", function()
-  require("my.command_picker").run_command()
+	require("my.command_picker").run_command()
 end, { desc = "Run favorite command (fzf)" })
+
 
 -- =============================================================================
 -- Slime (R用) : 「RREPL」ウィンドウ固定 + 自動起動 + 安定送信
@@ -347,4 +394,3 @@ map('n', '<leader>rp', function()
 	vim.cmd('normal! vip')
 	slime_send_plug('<Plug>SlimeRegionSend')
 end, { desc = 'R: send paragraph' })
-
