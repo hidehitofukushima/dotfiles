@@ -47,6 +47,9 @@ mkdir -p ~/.local/bin && ln -sf ~/neovim/bin/nvim ~/.local/bin/nvim
 ---------------------------------------------------------------------
 @~
 wget https://github.com/nelsonenzo/tmux-appimage/releases/download/3.5a/tmux.appimage
+ただし、これはlinux-x64用のバイナリなので、macosでは、普通に
+brew install tmux
+
 mkdir -p ~/.local/bin && ln -sf ~/tmux.appimage ~/.local/bin/tmux
 
 
