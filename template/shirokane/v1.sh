@@ -18,7 +18,7 @@ read TUMOR_ID TUMOR_HASH NORMAL_ID NORMAL_HASH < <(
   awk -v line="${SGE_TASK_ID}" -F '\t' 'NR==line {print $1, $2, $3, $4}' "$PATIENT_LIST"
 )
 PROJECT_NAME="$(echo "$TUMOR_ID" | cut -d '-' -f2)-01"
-
+# TUMOR_ID=$(cat $PATIENT_LIST | awk -v line=${SGE_TASK_ID} -F '\t' 'NR==line {print $1}')
 ###########################################
 # common files
 ###########################################
