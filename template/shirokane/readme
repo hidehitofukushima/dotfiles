@@ -13,6 +13,13 @@ export R_LIBS_USER=/home/ny1fh/R/hoge
 # qsub
 ###########################################
 
+
+qsub -N hoge -l s_vmem=1G -pe def_slot 1 -t 1-1:1 -tc 500 v1.sh v1
+
+TUMOR_ID=$(cat $PATIENT_LIST | awk -v line=${SGE_TASK_ID} -F '\t' 'NR==line {print $1}')
+TUMOR_HASH=$(cat $PATIENT_LIST | awk -v line=${SGE_TASK_ID} -F '\t' 'NR==line {print $2}')
+NORMAL_ID=$(cat $PATIENT_LIST | awk -v line=${SGE_TASK_ID} -F '\t' 'NR==line {print $3}')
+NORMAL_HASH=$(cat $PATIENT_LIST | awk -v line=${SGE_TASK_ID} -F '\t' 'NR==line {print $4}')
 # sample
 ##$ -t 1-1:1
 # AL-01
@@ -27,13 +34,7 @@ export R_LIBS_USER=/home/ny1fh/R/hoge
 ##$ -t 1-83:1
 # AB-01 
 ##$ -t 1-289:1
-
-qsub -N hoge -l s_vmem=1G -pe def_slot 1 -t 1-1:1 -tc 500 v1.sh v1
-
-TUMOR_ID=$(cat $PATIENT_LIST | awk -v line=${SGE_TASK_ID} -F '\t' 'NR==line {print $1}')
-TUMOR_HASH=$(cat $PATIENT_LIST | awk -v line=${SGE_TASK_ID} -F '\t' 'NR==line {print $2}')
-NORMAL_ID=$(cat $PATIENT_LIST | awk -v line=${SGE_TASK_ID} -F '\t' 'NR==line {print $3}')
-NORMAL_HASH=$(cat $PATIENT_LIST | awk -v line=${SGE_TASK_ID} -F '\t' 'NR==line {print $4}')
+#
 ###########################################
 # installation
 ###########################################
