@@ -28,6 +28,10 @@ git merge: 取得した最新情報を、ローカルリポジトリの現在の
 ---------------------------------------------------------------------
 -- neovim
 ---------------------------------------------------------------------
+brew install cmake ninja gettext curl
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 -- neovim nightlyをインストール
 https://github.com/neovim/neovim/blob/master/BUILD.md
 @~

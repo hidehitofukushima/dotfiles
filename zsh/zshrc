@@ -15,9 +15,9 @@ alias tk='tmux kill-server'
 alias cl='clear'
 
 export PATH="$HOME/.local/scripts:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.config/tmux-sessionizer:$PATH"
 export PATH="$HOME/.fzf/bin:$PATH"
-export PATH="$HOME/neovim/bin:$PATH"
 
 bindkey -s ^f "tmux-sessionizer\n"
 bindkey -s ^s "source ~/.zshrc\n"

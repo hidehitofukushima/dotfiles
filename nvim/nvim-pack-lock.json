@@ -1,0 +1,23 @@
+{
+  "plugins": {
+    "LuaSnip": [],
+    "blink-cmp-dictionary": [],
+    "blink.cmp": [],
+    "friendly-snippets": [],
+    "fzf-lua": [],
+    "mason-lspconfig.nvim": [],
+    "mason-tool-installer.nvim": [],
+    "mason.nvim": [],
+    "mini.surround": [],
+    "nvim-lspconfig": [],
+    "nvim-treesitter": {
+      "version": "'main'"
+    },
+    "oil.nvim": [],
+    "plenary.nvim": [],
+    "supermaven-nvim": [],
+    "vague.nvim": [],
+    "vim-slime": [],
+    "which-key.nvim": []
+  }
+}
