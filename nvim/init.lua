@@ -5,6 +5,7 @@
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
+
 -- -----------------------------------------------------------------------------
 -- 基本オプション
 -- -----------------------------------------------------------------------------
@@ -112,7 +113,11 @@ require("blink.cmp").setup({
 		["<C-e>"] = { "hide" },
 	},
 	signature = { enabled = true },
-	-- cmdline = { keymap = { preset = "super-tab" } },
+	fuzzy = {
+		prebuilt_binaries = {
+			force_version = "v1.7.0",
+		},
+	},
 })
 
 -- LuaSnip 設定 + VSCode 形式スニペットの遅延ロード
@@ -394,3 +399,4 @@ map('n', '<leader>rp', function()
 	vim.cmd('normal! vip')
 	slime_send_plug('<Plug>SlimeRegionSend')
 end, { desc = 'R: send paragraph' })
+
