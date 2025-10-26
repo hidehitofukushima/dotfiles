@@ -231,7 +231,7 @@ require("oil").setup({
 
 map('n', '<leader>e', function()
 	local cwd = vim.fn.fnameescape(vim.fn.getcwd())
-	vim.cmd("Oil " .. cwd)
+	vim.cmd("Oil " .. cwd .. " --preview")
 end, { noremap = true, silent = true, desc = "Open Oil in current working directory with preview" })
 
 -- =============================================================================
