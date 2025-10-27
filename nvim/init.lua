@@ -105,6 +105,15 @@ require("blink.cmp").setup({
 	completion = { documentation = { auto_show = true, auto_show_delay_ms = 500 } },
 	sources = {
 		default = { "snippets", "lsp", "path", "buffer", },
+		providers = {
+			path = {
+				opts = {
+					get_cwd = function(_)
+						return vim.fn.getcwd()
+					end,
+				},
+			},
+		},
 	},
 	snippets = { preset = "luasnip" }, -- 明示
 	keymap = {
@@ -267,7 +276,7 @@ map('n', '<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>')
 require('fzf-lua').setup({
 	previewers = {
 		builtin = {
-			extensions      = {
+			extensions = {
 				-- neovim terminal only supports `viu` block output
 				-- chafa --symbols=block --fill=block --scale=fill --color-space=rgb --dither=fs --size=120x60 image.png
 				["png"] = { "chafa", "--symbols=block", "--fill=block", "--scale=fill", "--color-space=rgb", "--dither=fs", "{file}" },
@@ -278,19 +287,20 @@ require('fzf-lua').setup({
 				-- ["jpg"] = { "chafa", "{file}" },
 			},
 		},
-		},
-	})
+	},
+})
 
 local fzf = require('fzf-lua')
 local actions = require("fzf-lua").actions
 local function first(sel)
 	return type(sel) == "table" and sel[1] or sel
 end
-map('n', '<leader>ff', function() fzf.files({
+map('n', '<leader>ff', function()
+	fzf.files({
 
-	actions = {
-		["default"] = actions.file_edit,
-					-- Ctrl-y: 絶対パスをヤンク
+		actions = {
+			["default"] = actions.file_edit,
+			-- Ctrl-y: 絶対パスをヤンク
 			["ctrl-y"] = function(selected)
 				local path = vim.fn.trim(first(selected))
 				vim.fn.setreg("+", path)
@@ -309,8 +319,9 @@ map('n', '<leader>ff', function() fzf.files({
 				vim.fn.jobstart({ "open", "-R", path }, { detach = true })
 				vim.notify("📂 Finderで表示: " .. path)
 			end,
-	},
-}) end)
+		},
+	})
+end)
 map('n', '<leader>fb', function() fzf.buffers() end)
 map('n', '<leader>fg', function() fzf.grep() end)
 map('n', '<leader>fh', function() fzf.helptags() end)
@@ -399,4 +410,3 @@ map('n', '<leader>rp', function()
 	vim.cmd('normal! vip')
 	slime_send_plug('<Plug>SlimeRegionSend')
 end, { desc = 'R: send paragraph' })
-
