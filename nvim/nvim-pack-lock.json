@@ -10,6 +10,10 @@
     "mason.nvim": [],
     "mini.surround": [],
     "nvim-lspconfig": [],
+    "nvim-scrollbar": {
+      "rev": "5b103ef",
+      "src": "https://github.com/petertriho/nvim-scrollbar"
+    },
     "nvim-treesitter": {
       "version": "'main'"
     },

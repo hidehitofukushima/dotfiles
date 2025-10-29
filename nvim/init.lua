@@ -87,9 +87,19 @@ vim.pack.add({
 	{ src = "https://github.com/Kaiser-Yang/blink-cmp-dictionary" },
 	{ src = "https://github.com/folke/which-key.nvim" }, -- which-key
 	{ src = "https://github.com/echasnovski/mini.surround" },
+	{ src = "https://github.com/petertriho/nvim-scrollbar" },
 })
 
 -- =============================================================================
+-- scrollbar
+-- =============================================================================
+require("scrollbar").setup({
+    handle = {
+        color = "#FFFFFF",
+    },
+})
+-- =============================================================================
+--
 -- mini.surround
 -- =============================================================================
 require("mini.surround").setup()
