@@ -14,4 +14,4 @@ View(mtcars, title = "View of mtcars")
 View(mtcars, title = "View of mtcars", page = 1)
 
 
-apply(mtcars, 2, function(x) mean(x))
+apply(mtcarse 2, function(x) mean(x))

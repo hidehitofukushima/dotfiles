@@ -371,3 +371,27 @@ map('n', '<leader>S', '<Cmd>bot sf #<CR>')
 map('n', '<leader>lf', vim.lsp.buf.format, opts)
 map('n', '<C-g>', '<cmd>silent !tmux neww tmux-sessionizer<CR>')
 
+
+-- =============================================================================
+-- LSP 一時停止 / 再開トグル
+-- =============================================================================
+local lsp_active = true
+
+vim.api.nvim_create_user_command("LspToggle", function()
+  if lsp_active then
+    -- 現在動作中のクライアントを停止
+    for _, client in pairs(vim.lsp.get_active_clients()) do
+      client.stop(true)
+    end
+    vim.notify("🛑 LSP stopped", vim.log.levels.INFO)
+  else
+    -- 再度アタッチ（ファイルタイプごとの LSP を再起動）
+    vim.cmd("edit")  -- ファイルを再読み込みしてLSP起動をトリガー
+    vim.notify("🚀 LSP restarted", vim.log.levels.INFO)
+  end
+  lsp_active = not lsp_active
+end, {})
+
+
+vim.keymap.set('n', '<leader>lt', ':LspToggle<CR>', { noremap = true, silent = true, desc = "Toggle LSP on/off" })
+
