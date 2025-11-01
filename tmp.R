@@ -1,8 +1,7 @@
-blin:q
 library(tidyverse)
-library(tidyverse)
+library(readr)
+library(package = dplyr)
+library(readxl)
 
 
-filenameforfzzy <- "data/fzzy.csv"
-file
 

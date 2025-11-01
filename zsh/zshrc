@@ -10,7 +10,7 @@ alias s4='ssh s4'
 alias s5='ssh s5'
 
 alias lg='lazygit'
-alias j='nvim'
+alias vim='nvim'
 alias tk='tmux kill-server'
 alias cl='clear'
 
@@ -19,6 +19,10 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.config/tmux-sessionizer:$PATH"
 export PATH="$HOME/.fzf/bin:$PATH"
 
-bindkey -s ^f "tmux-sessionizer\n"
+bindkey -s ^g "tmux-sessionizer\n"
 bindkey -s ^s "source ~/.zshrc\n"
 bindkey -s ^t "~/dotfiles/newproj\n"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
