@@ -66,3 +66,10 @@ mkdir -p ~/.local/bin && ln -sf ~/tmux.appimage ~/.local/bin/tmux
 -- lazygit(下記の通りインストール）
 go install github.com/jesseduffield/lazygit@latest
 
+
+###########################################
+# scp download
+###########################################
+# 必ずローカルでscpコマンドを実行しなければならない。
+scp [ユーザ名]@[HPCホスト名]:[リモートファイルのパス] [ローカルの保存先パス]
+scp s1:/home/ny1fh/data/output.log .
