@@ -189,6 +189,7 @@ local fmt = require("luasnip.extras.fmt").fmt
 ls.add_snippets("r", {
 	s({ trig = "zzp", dscr = "magrittr pipe", wordTrig = true, snippetType = "autosnippet" }, t("%>%")),
 	s({ trig = "zzl", dscr = "left assignment", wordTrig = true, snippetType = "autosnippet" }, t("<-")),
+	s({ trig = "zzi", desr = "equal", wordTrig = true, snippetType = "autosnippet" }, t("=")),
 }, { key = "r-ops-auto" })
 
 ls.add_snippets("all", {

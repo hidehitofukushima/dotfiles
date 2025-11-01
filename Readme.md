@@ -13,6 +13,22 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 lsp系は、masonでのサーバーのインストールと、R言語に対してのlanguageserverパッケージのインストールが必要。
 
 ###########################################
+# fd コマンド
+###########################################
+# mac 
+brew install fd
+
+# linux
+# 1. ダウンロード（バージョンは適宜更新）
+wget https://github.com/sharkdp/fd/releases/download/v9.0.0/fd-v9.0.0-x86_64-unknown-linux-musl.tar.gz
+# 2. 展開
+tar xzf fd-v9.0.0-x86_64-unknown-linux-musl.tar.gz
+# 3. 実行ファイルをパスの通った場所へ移動（ホームディレクトリにローカルインストール）
+mkdir -p $HOME/.local/bin
+mv fd-v9.0.0-x86_64-unknown-linux-musl/fd $HOME/.local/bin/
+# pathはすでにzshrcの設定により、通っている。
+
+###########################################
 # git
 ###########################################
 git clone https://github.com/hidehitofukushima/dotfiles.git
@@ -39,12 +55,13 @@ nvm use 18
 # neovim
 ###########################################
 
+# macではこれが予め必要だった。
 brew install cmake ninja gettext curl
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+# ここからは共通
 -- neovim nightlyをインストール
 https://github.com/neovim/neovim/blob/master/BUILD.md
-@~
 -- home directory でgit clone
 git clone https://github.com/neovim/neovim
 cd neovim && rm -rf builj
