@@ -82,9 +82,10 @@ vim.pack.add({
 	{ src = "https://github.com/ibhagwan/fzf-lua" },
 	{ src = "https://github.com/supermaven-inc/supermaven-nvim" },
 	{ src = "https://github.com/jpalardy/vim-slime" },
-	{ src = "https://github.com/vague2k/vague.nvim" },
 	{ src = "https://github.com/Kaiser-Yang/blink-cmp-dictionary" },
 	{ src = "https://github.com/petertriho/nvim-scrollbar" },
+	{ src = "https://github.com/folke/tokyonight.nvim" },
+
 })
 
 -- =============================================================================
@@ -97,9 +98,15 @@ require("scrollbar").setup({
 -- =============================================================================
 -- Color / Theme
 -- =============================================================================
-require("vague").setup({ transparent = true })
-vim.cmd("colorscheme vague")
-vim.cmd(":hi StatusLine guibg=NONE")
+
+require("tokyonight").setup({
+  style = "night",  -- "storm" | "night" | "moon" | "day"
+  transparent = true,
+  terminal_colors = true,
+  styles = { comments = { italic = false } },
+})
+vim.cmd("colorscheme tokyonight")
+-- vim.cmd(":hi StatusLine guibg=NONE")
 
 -- =============================================================================
 -- Treesitter

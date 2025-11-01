@@ -1,16 +1,5 @@
 library(tidyverse)
-library(readr)
-library(package = dplyr)
-library(readxl)
-
-
-
-
-library(tidyverse)
 file <- "~/Desktop/Projects_Other/clinical_sequencing_workflow/database/README.txt"
-
-
-
 
 ###########################################
 # README.txt
