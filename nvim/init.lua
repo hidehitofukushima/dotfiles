@@ -85,6 +85,7 @@ vim.pack.add({
 	{ src = "https://github.com/Kaiser-Yang/blink-cmp-dictionary" },
 	{ src = "https://github.com/petertriho/nvim-scrollbar" },
 	{ src = "https://github.com/folke/tokyonight.nvim" },
+	{ src = "https://github.com/folke/zen-mode.nvim" },
 
 })
 
@@ -372,6 +373,7 @@ map('n', '<leader>s', '<Cmd>e #<CR>')
 map('n', '<leader>S', '<Cmd>bot sf #<CR>')
 map('n', '<leader>lf', vim.lsp.buf.format, opts)
 map('n', '<C-g>', '<cmd>silent !tmux neww tmux-sessionizer<CR>')
+map('n', '<leader>z', '<cmd>ZenMode<CR>')
 
 
 -- =============================================================================

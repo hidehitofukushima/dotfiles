@@ -61,8 +61,13 @@
     "oil.nvim": [],
     "plenary.nvim": [],
     "supermaven-nvim": [],
+    "tokyonight.nvim": [],
     "vague.nvim": [],
     "vim-slime": [],
-    "which-key.nvim": []
+    "which-key.nvim": [],
+    "zen-mode.nvim": {
+      "rev": "8564ce6",
+      "src": "https://github.com/folke/zen-mode.nvim"
+    }
   }
 }
