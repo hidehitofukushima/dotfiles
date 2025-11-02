@@ -5,12 +5,11 @@
 
 
 ###########################################
-# library and arguments	
+# library and arguments
 ###########################################
 
 library(readxl)
 library(tidyverse)
-
 args <- commandArgs(trailingOnly = TRUE)
 print(args)
 
@@ -18,5 +17,3 @@ print(args)
 ###########################################
 # part1
 ###########################################
-
-
