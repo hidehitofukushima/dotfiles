@@ -230,6 +230,7 @@ require("oil").setup({
 	columns = { "icon", "permissions", "size", "mtime" },
 	keymaps = {
 		["go"] = { "actions.open_external", mode = "n", desc = "Open in external app" },
+		["gy"] = { "actions.yank_entry", mode = "n", desc = "Copy file path" },
 		["gr"] = function()
 			local dir = require("oil").get_current_dir()
 			if dir then
@@ -238,13 +239,11 @@ require("oil").setup({
 				vim.notify("No directory found", vim.log.levels.WARN)
 			end
 		end,
-		["gy"] = { "actions.yank_entry", mode = "n", desc = "Copy file path" },
 	},
 })
-map('n', '<leader>e', function()
-	local cwd = vim.fn.fnameescape(vim.fn.getcwd())
-	vim.cmd("Oil " .. cwd .. " --preview")
-end, { noremap = true, silent = true, desc = "Open Oil in current working directory with preview" })
+
+-- leader e で普通に Oil を開く
+map('n', '<leader>e', '<Cmd>Oil<CR>')
 
 -- =============================================================================
 -- fzf-lua
