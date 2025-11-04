@@ -242,8 +242,8 @@ require("oil").setup({
 	},
 })
 
--- leader e で普通に Oil を開く
-map('n', '<leader>e', '<Cmd>Oil<CR>')
+-- leader e で普通に Oil を　previewつきで開く
+map('n', '<leader>e', '<Cmd>Oil --preview<CR>')
 
 -- =============================================================================
 -- fzf-lua
