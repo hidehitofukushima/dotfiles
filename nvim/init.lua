@@ -86,9 +86,14 @@ vim.pack.add({
 	{ src = "https://github.com/petertriho/nvim-scrollbar" },
 	{ src = "https://github.com/folke/tokyonight.nvim" },
 	{ src = "https://github.com/folke/zen-mode.nvim" },
+	{ src = "https://github.com/folke/which-key.nvim" },
 
 })
 
+-- ============================================================================= 
+-- Which-Key
+-- =============================================================================
+require("which-key").setup({})
 -- =============================================================================
 -- Scrollbar
 -- =============================================================================
