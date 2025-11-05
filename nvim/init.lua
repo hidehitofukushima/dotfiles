@@ -70,26 +70,47 @@ vim.opt.updatetime = 200
 -- =============================================================================
 vim.pack.add({
 	{ src = "https://github.com/nvim-lua/plenary.nvim" },
-	{ src = "https://github.com/Saghen/blink.cmp" },
+	{ src = "https://github.com/saghen/blink.cmp" },
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
 	{ src = "https://github.com/mason-org/mason.nvim" },
 	{ src = "https://github.com/mason-org/mason-lspconfig.nvim" },
-	{ src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
+	{ src = "https://github.com/whoissethdaniel/mason-tool-installer.nvim" },
 	{ src = "https://github.com/stevearc/oil.nvim" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
-	{ src = "https://github.com/L3MON4D3/LuaSnip" },
+	{ src = "https://github.com/l3mon4d3/luasnip" },
 	{ src = "https://github.com/rafamadriz/friendly-snippets" },
 	{ src = "https://github.com/ibhagwan/fzf-lua" },
 	{ src = "https://github.com/supermaven-inc/supermaven-nvim" },
 	{ src = "https://github.com/jpalardy/vim-slime" },
-	{ src = "https://github.com/Kaiser-Yang/blink-cmp-dictionary" },
+	{ src = "https://github.com/kaiser-yang/blink-cmp-dictionary" },
 	{ src = "https://github.com/petertriho/nvim-scrollbar" },
 	{ src = "https://github.com/folke/tokyonight.nvim" },
 	{ src = "https://github.com/folke/zen-mode.nvim" },
 	{ src = "https://github.com/folke/which-key.nvim" },
 	{ src = "https://github.com/folke/flash.nvim" },
+	{ src = "https://github.com/ThePrimeagen/harpoon" },
 
 })
+
+-- ============================================================================= 
+-- Harpoon
+-- =============================================================================
+local mark = require("harpoon.mark")
+local ui   = require("harpoon.ui")
+
+-- ファイルをマーク（登録）する
+vim.keymap.set("n", "<leader>a", mark.add_file, { desc = "Harpoon: Add file" })
+
+
+-- メニュー表示（登録ファイル一覧）を切替
+vim.keymap.set("n", "<leader>o", ui.toggle_quick_menu, { desc = "Harpoon: Toggle menu" })
+
+-- 登録ファイル番号 1〜4 などへジャンプ
+vim.keymap.set("n", "<C-h>", function() ui.nav_file(1) end, { desc = "Harpoon: Go to file 1" })
+vim.keymap.set("n", "<C-j>", function() ui.nav_file(2) end, { desc = "Harpoon: Go to file 2" })
+vim.keymap.set("n", "<C-k>", function() ui.nav_file(3) end, { desc = "Harpoon: Go to file 3" })
+vim.keymap.set("n", "<C-l>", function() ui.nav_file(4) end, { desc = "Harpoon: Go to file 4" })
+
 
 -- =============================================================================
 -- Flash
