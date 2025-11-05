@@ -43,6 +43,10 @@
       "rev": "a80e0c1",
       "src": "https://github.com/copilotlsp-nvim/copilot-lsp"
     },
+    "flash.nvim": {
+      "rev": "fcea7ff",
+      "src": "https://github.com/folke/flash.nvim"
+    },
     "friendly-snippets": [],
     "fzf-lua": [],
     "mason-lspconfig.nvim": [],

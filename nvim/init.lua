@@ -87,8 +87,24 @@ vim.pack.add({
 	{ src = "https://github.com/folke/tokyonight.nvim" },
 	{ src = "https://github.com/folke/zen-mode.nvim" },
 	{ src = "https://github.com/folke/which-key.nvim" },
+	{ src = "https://github.com/folke/flash.nvim" },
 
 })
+
+-- =============================================================================
+-- Flash
+-- =============================================================================
+-- 設定
+require("flash").setup({})
+
+-- キーマップ
+vim.keymap.set({ "n", "x", "o" }, "s", function()
+  require("flash").jump()
+end, { desc = "Flash jump" })
+
+vim.keymap.set({ "n", "x", "o" }, "S", function()
+  require("flash").treesitter()
+end, { desc = "Flash Treesitter" })
 
 -- ============================================================================= 
 -- Which-Key
