@@ -94,7 +94,7 @@ vim.pack.add({
 
 -- ============================================================================= 
 -- Harpoon
--- =============================================================================
+--=============================================================================
 local mark = require("harpoon.mark")
 local ui   = require("harpoon.ui")
 
@@ -110,6 +110,12 @@ vim.keymap.set("n", "<C-h>", function() ui.nav_file(1) end, { desc = "Harpoon: G
 vim.keymap.set("n", "<C-j>", function() ui.nav_file(2) end, { desc = "Harpoon: Go to file 2" })
 vim.keymap.set("n", "<C-k>", function() ui.nav_file(3) end, { desc = "Harpoon: Go to file 3" })
 vim.keymap.set("n", "<C-l>", function() ui.nav_file(4) end, { desc = "Harpoon: Go to file 4" })
+vim.keymap.set("n", "<leader>1", function() ui.nav_file(5) end, { desc = "Harpoon: Go to file 5" })
+vim.keymap.set("n", "<leader>2", function() ui.nav_file(6) end, { desc = "Harpoon: Go to file 6" })
+vim.keymap.set("n", "<leader>3", function() ui.nav_file(7) end, { desc = "Harpoon: Go to file 7" })
+vim.keymap.set("n", "<leader>4", function() ui.nav_file(8) end, { desc = "Harpoon: Go to file 8" })
+vim.keymap.set("n", "<leader>5", function() ui.nav_file(9) end, { desc = "Harpoon: Go to file 9" })
+
 
 
 -- =============================================================================
@@ -144,13 +150,13 @@ require("scrollbar").setup({
 -- =============================================================================
 
 require("tokyonight").setup({
-  style = "night",  -- "storm" | "night" | "moon" | "day"
+  style = "moon",  -- "storm" | "night" | "moon" | "day"
   transparent = true,
   terminal_colors = true,
   styles = { comments = { italic = false } },
 })
 vim.cmd("colorscheme tokyonight")
--- vim.cmd(":hi StatusLine guibg=NONE")
+vim.cmd(":hi StatusLine guibg=NONE")
 
 -- =============================================================================
 -- Treesitter

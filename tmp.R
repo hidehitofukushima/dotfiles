@@ -4,7 +4,6 @@
 library(tidyverse)
 library(stringr)
 
-
 ###########################################
 # files
 ###########################################
@@ -60,3 +59,22 @@ ggplot(data.frame(x = x, y = y), aes(x, y)) +
 
 
 
+
+
+cairo_pdf("tmp.pdf", width = 8, height = 6)
+cairo_pdf(
+  filename = "tmp.pdf",
+  width = 7,
+  height = 6,
+  family = "Helvetica",
+  pointsize = 12
+)
+plot(1:10)
+text(5, 5, "福島英人です")
+dev.off()
+
+
+quartz(type = "pdf", width = 7, height = 5, file = "hoge.pdf")
+plot(1:10)
+text(5, 5, "福島英人です")
+dev.off()
