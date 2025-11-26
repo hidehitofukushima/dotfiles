@@ -214,6 +214,7 @@ require("mason-tool-installer").setup({
 		"lua_ls",
 		"basedpyright",
 		"r_language_server",
+		"rust_analyzer",
 	},
 })
 
@@ -236,9 +237,10 @@ local t = ls.text_node
 local i = ls.insert_node
 local fmt = require("luasnip.extras.fmt").fmt
 
-ls.add_snippets("r", {
+ls.add_snippets("all", {
 	s({ trig = "zzp", dscr = "magrittr pipe", wordTrig = true, snippetType = "autosnippet" }, t("%>%")),
 	s({ trig = "zzl", dscr = "left assignment", wordTrig = true, snippetType = "autosnippet" }, t("<-")),
+	s({ trig = "zzr", dscr = "right assignment", wordTrig = true, snippetType = "autosnippet" }, t("->")),
 	s({ trig = "zzi", desr = "equal", wordTrig = true, snippetType = "autosnippet" }, t("=")),
 }, { key = "r-ops-auto" })
 
