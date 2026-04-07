@@ -3,16 +3,9 @@ if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
     builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/zsh/ghostty-integration"
 fi
 
-alias s1='ssh s1'
-alias s2='ssh s2'
-alias s3='ssh s3'
-alias s4='ssh s4'
-alias s5='ssh s5'
 
-alias lg='lazygit'
-alias vim='nvim'
 alias tk='tmux kill-server'
-alias cl='clear'
+alias v='vim'
 
 export PATH="$HOME/.local/scripts:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
@@ -20,10 +13,12 @@ export PATH="$HOME/.config/tmux-sessionizer:$PATH"
 export PATH="$HOME/.fzf/bin:$PATH"
 
 bindkey -s ^g "tmux-sessionizer\n"
-bindkey -s ^s "source ~/.zshrc\n"
 bindkey -s ^t "~/dotfiles/newproj\n"
-bindkey -s ^n "nvim\n"
+bindkey -s ^v "vim .\n"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+
+
+[ -f "/Users/fukushimahideto/.ghcup/env" ] && . "/Users/fukushimahideto/.ghcup/env" # ghcup-env
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -71,92 +71,14 @@ vim.opt.updatetime = 200
 vim.pack.add({
 	{ src = "https://github.com/nvim-lua/plenary.nvim" },
 	{ src = "https://github.com/saghen/blink.cmp" },
-	{ src = "https://github.com/neovim/nvim-lspconfig" },
-	{ src = "https://github.com/mason-org/mason.nvim" },
-	{ src = "https://github.com/mason-org/mason-lspconfig.nvim" },
-	{ src = "https://github.com/whoissethdaniel/mason-tool-installer.nvim" },
 	{ src = "https://github.com/stevearc/oil.nvim" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
 	{ src = "https://github.com/l3mon4d3/luasnip" },
 	{ src = "https://github.com/rafamadriz/friendly-snippets" },
 	{ src = "https://github.com/ibhagwan/fzf-lua" },
-	{ src = "https://github.com/supermaven-inc/supermaven-nvim" },
-	{ src = "https://github.com/jpalardy/vim-slime" },
 	{ src = "https://github.com/kaiser-yang/blink-cmp-dictionary" },
-	{ src = "https://github.com/petertriho/nvim-scrollbar" },
-	{ src = "https://github.com/folke/tokyonight.nvim" },
-	{ src = "https://github.com/folke/zen-mode.nvim" },
-	{ src = "https://github.com/folke/which-key.nvim" },
-	{ src = "https://github.com/folke/flash.nvim" },
-	{ src = "https://github.com/ThePrimeagen/harpoon" },
 
 })
-
--- ============================================================================= 
--- Harpoon
---=============================================================================
-local mark = require("harpoon.mark")
-local ui   = require("harpoon.ui")
-
--- ファイルをマーク（登録）する
-vim.keymap.set("n", "<leader>a", mark.add_file, { desc = "Harpoon: Add file" })
-
-
--- メニュー表示（登録ファイル一覧）を切替
-vim.keymap.set("n", "<leader>o", ui.toggle_quick_menu, { desc = "Harpoon: Toggle menu" })
-
--- 登録ファイル番号 1〜4 などへジャンプ
-vim.keymap.set("n", "<C-h>", function() ui.nav_file(1) end, { desc = "Harpoon: Go to file 1" })
-vim.keymap.set("n", "<C-j>", function() ui.nav_file(2) end, { desc = "Harpoon: Go to file 2" })
-vim.keymap.set("n", "<C-k>", function() ui.nav_file(3) end, { desc = "Harpoon: Go to file 3" })
-vim.keymap.set("n", "<C-l>", function() ui.nav_file(4) end, { desc = "Harpoon: Go to file 4" })
-vim.keymap.set("n", "<leader>1", function() ui.nav_file(5) end, { desc = "Harpoon: Go to file 5" })
-vim.keymap.set("n", "<leader>2", function() ui.nav_file(6) end, { desc = "Harpoon: Go to file 6" })
-vim.keymap.set("n", "<leader>3", function() ui.nav_file(7) end, { desc = "Harpoon: Go to file 7" })
-vim.keymap.set("n", "<leader>4", function() ui.nav_file(8) end, { desc = "Harpoon: Go to file 8" })
-vim.keymap.set("n", "<leader>5", function() ui.nav_file(9) end, { desc = "Harpoon: Go to file 9" })
-
-
-
--- =============================================================================
--- Flash
--- =============================================================================
--- 設定
-require("flash").setup({})
-
--- キーマップ
-vim.keymap.set({ "n", "x", "o" }, "s", function()
-  require("flash").jump()
-end, { desc = "Flash jump" })
-
-vim.keymap.set({ "n", "x", "o" }, "S", function()
-  require("flash").treesitter()
-end, { desc = "Flash Treesitter" })
-
--- ============================================================================= 
--- Which-Key
--- =============================================================================
-require("which-key").setup({})
--- =============================================================================
--- Scrollbar
--- =============================================================================
-require("scrollbar").setup({
-	-- handle = { color = "#FFFFFF" },
-	handle = { color = "#85ABF9" },
-})
-
--- =============================================================================
--- Color / Theme
--- =============================================================================
-
-require("tokyonight").setup({
-  style = "moon",  -- "storm" | "night" | "moon" | "day"
-  transparent = true,
-  terminal_colors = true,
-  styles = { comments = { italic = false } },
-})
-vim.cmd("colorscheme tokyonight")
-vim.cmd(":hi StatusLine guibg=NONE")
 
 -- =============================================================================
 -- Treesitter
@@ -205,18 +127,6 @@ vim.keymap.set({ "i", "s" }, "<C-j>", function() if ls.expand_or_jumpable() then
 vim.keymap.set({ "i", "s" }, "<C-k>", function() if ls.jumpable(-1) then ls.jump(-1) end end, { silent = true })
 vim.keymap.set({ "i", "s" }, "<C-l>", function() if ls.choice_active() then ls.change_choice(1) end end, { silent = true })
 
--- Mason 系
-require("mason").setup()
-require("mason-lspconfig").setup()
-require("mason-tool-installer").setup({
-	ensure_installed = {
-		"bash-language-server",
-		"lua_ls",
-		"basedpyright",
-		"r_language_server",
-		"rust_analyzer",
-	},
-})
 
 vim.lsp.config('lua_ls', {
 	settings = {
@@ -229,43 +139,6 @@ vim.lsp.config('lua_ls', {
 	}
 })
 
--- =============================================================================
--- R用 %>% / <- スニペット
--- =============================================================================
-local s = ls.snippet
-local t = ls.text_node
-local i = ls.insert_node
-local fmt = require("luasnip.extras.fmt").fmt
-
-ls.add_snippets("all", {
-	s({ trig = "zzp", dscr = "magrittr pipe", wordTrig = true, snippetType = "autosnippet" }, t("%>%")),
-	s({ trig = "zzl", dscr = "left assignment", wordTrig = true, snippetType = "autosnippet" }, t("<-")),
-	s({ trig = "zzr", dscr = "right assignment", wordTrig = true, snippetType = "autosnippet" }, t("->")),
-	s({ trig = "zzi", desr = "equal", wordTrig = true, snippetType = "autosnippet" }, t("=")),
-}, { key = "r-ops-auto" })
-
-ls.add_snippets("all", {
-	s({ trig = "hdr", dscr = "header", wordTrig = true },
-		fmt([[
-###########################################
-# {}
-###########################################
-{}
-]], { i(1), i(2) })
-	),
-})
-
--- =============================================================================
--- Supermaven
--- =============================================================================
-require("supermaven-nvim").setup({
-	keymaps = {
-		accept_suggestion = "<C-¥>",
-		clear_suggestion  = "<C-^>",
-		accept_word       = "<C-]>",
-		accept_line       = "<C-[>",
-	},
-})
 
 -- =============================================================================
 -- Oil（<leader>e は常に CWD を開く）
@@ -349,60 +222,6 @@ vim.keymap.set("n", "<leader>fp", function() require("my.project_picker").projec
 vim.keymap.set("n", "<leader>fc", function() require("my.command_picker").run_command() end)
 
 -- =============================================================================
--- Slime (R用) : RREPLウィンドウ固定 + 自動起動 + 安定送信
--- =============================================================================
-vim.g.slime_target = "tmux"
-vim.g.slime_dont_ask_default = 1
-vim.g.slime_cell_delimiter = "##"
-vim.g.slime_default_config = { socket_name = "default", target_pane = "RREPL.0" }
-
-local R_START_CMD = "R --no-save --quiet"
-
-local function ensure_RREPL_window()
-	local wins = vim.fn.systemlist("tmux list-windows -F '#{window_name}' 2>/dev/null")
-	local has = false
-	for _, w in ipairs(wins) do
-		if w == "RREPL" then has = true break end
-	end
-	if not has then
-		vim.fn.system("tmux new-window -d -n RREPL '" .. R_START_CMD .. "'")
-		vim.wait(900)
-	else
-		local pane_cmd = vim.fn.system("tmux display-message -p -t RREPL.0 '#{pane_current_command}'"):gsub("%s+$", "")
-		if not (pane_cmd == "R" or pane_cmd == "radian") then
-			vim.fn.system("tmux send-keys -t RREPL.0 '" .. R_START_CMD .. "' C-m")
-			vim.wait(1200)
-			pane_cmd = vim.fn.system("tmux display-message -p -t RREPL.0 '#{pane_current_command}'"):gsub("%s+$", "")
-			if not (pane_cmd == "R" or pane_cmd == "radian") then
-				vim.notify("tmux: RREPL.0 の起動確認に失敗しました", vim.log.levels.WARN)
-			end
-		end
-	end
-	vim.b.slime_config = { socket_name = "default", target_pane = "RREPL.0" }
-end
-
-local function slime_send_plug(plug)
-	ensure_RREPL_window()
-	vim.defer_fn(function()
-		vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(plug, true, true, true), "n", false)
-	end, 120)
-end
-
-map('n', '<leader>rl', function()
-	ensure_RREPL_window()
-	local n = vim.v.count1
-	vim.fn['slime#send_lines'](n)
-	vim.cmd('normal! j')
-end)
-
-map('x', '<leader>rv', function() slime_send_plug('<Plug>SlimeRegionSend') end)
-map('n', '<leader>rp', function()
-	ensure_RREPL_window()
-	vim.cmd('normal! vip')
-	slime_send_plug('<Plug>SlimeRegionSend')
-end)
-
--- =============================================================================
 -- コアキーマップ
 -- =============================================================================
 map('i', 'jk', '<Esc>', opts)
@@ -426,27 +245,4 @@ map('n', '<leader>lf', vim.lsp.buf.format, opts)
 map('n', '<C-g>', '<cmd>silent !tmux neww tmux-sessionizer<CR>')
 map('n', '<leader>z', '<cmd>ZenMode<CR>')
 
-
--- =============================================================================
--- LSP 一時停止 / 再開トグル
--- =============================================================================
-local lsp_active = true
-
-vim.api.nvim_create_user_command("LspToggle", function()
-  if lsp_active then
-    -- 現在動作中のクライアントを停止
-    for _, client in pairs(vim.lsp.get_active_clients()) do
-      client.stop(true)
-    end
-    vim.notify("🛑 LSP stopped", vim.log.levels.INFO)
-  else
-    -- 再度アタッチ（ファイルタイプごとの LSP を再起動）
-    vim.cmd("edit")  -- ファイルを再読み込みしてLSP起動をトリガー
-    vim.notify("🚀 LSP restarted", vim.log.levels.INFO)
-  end
-  lsp_active = not lsp_active
-end, {})
-
-
-vim.keymap.set('n', '<leader>lt', ':LspToggle<CR>', { noremap = true, silent = true, desc = "Toggle LSP on/off" })
 
