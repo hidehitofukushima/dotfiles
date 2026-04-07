@@ -61,5 +61,6 @@ nnoremap <silent> <leader>g :Rg<CR>
 nnoremap <silent> <leader>c :Commands<CR>
 nnoremap <silent> <leader>w :w<CR>
 nnoremap <silent> <leader>q :q<CR>
+nnoremap <silent> <leader>e :Explore<CR>
 inoremap jk <Esc>
 
