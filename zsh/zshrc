@@ -6,6 +6,8 @@ fi
 
 alias tk='tmux kill-server'
 alias v='vim'
+alias r='Rscript'
+alias p='python3'
 
 export PATH="$HOME/.local/scripts:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
@@ -14,7 +16,7 @@ export PATH="$HOME/.fzf/bin:$PATH"
 
 bindkey -s ^g "tmux-sessionizer\n"
 bindkey -s ^t "~/dotfiles/newproj\n"
-bindkey -s ^v "vim .\n"
+bindkey -s ^v "vim\n"
 
 
 
@@ -22,3 +24,10 @@ bindkey -s ^v "vim .\n"
 
 [ -f "/Users/fukushimahideto/.ghcup/env" ] && . "/Users/fukushimahideto/.ghcup/env" # ghcup-env
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git'
+export FZF_DEFAULT_OPTS='--layout=reverse --height=40% --border'
+export FZF_CTRL_T_COMMAND='fd --type f --hidden --exclude .git --exclude node_modules --exclude Library'
+export FZF_CTRL_T_OPTS="
+  --preview 'bat --style=numbers --color=always --line-range=:200 {}'
+  "
+
