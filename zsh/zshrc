@@ -17,6 +17,7 @@ export PATH="$HOME/.fzf/bin:$PATH"
 bindkey -s ^g "tmux-sessionizer\n"
 bindkey -s ^t "~/dotfiles/newproj\n"
 bindkey -s ^v "vim\n"
+bindkey -s ^n "nvim\n"
 
 
 
@@ -31,3 +32,4 @@ export FZF_CTRL_T_OPTS="
   --preview 'bat --style=numbers --color=always --line-range=:200 {}'
   "
 
+export PATH="/opt/homebrew/bin:$PATH"
