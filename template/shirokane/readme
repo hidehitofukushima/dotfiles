@@ -1,21 +1,3 @@
-###########################################
-# frequently used commands
-###########################################
-
-module use /usr/local/package/modulefiles
-module load hoge
-eval "$(~/tools/miniconda3/bin/conda shell.bash hook)"
-conda activate hoge
-export R_LIBS_USER=/home/ny1fh/R/hoge
-
-
-###########################################
-# qsub
-###########################################
-
-
-qsub -N hoge -l s_vmem=1G -pe def_slot 1 -t 1-1:1 -tc 500 v1.sh v1
-
 # sample
 ##$ -t 1-1:1
 # AL-01
@@ -29,8 +11,4 @@ qsub -N hoge -l s_vmem=1G -pe def_slot 1 -t 1-1:1 -tc 500 v1.sh v1
 # MP-01
 ##$ -t 1371-1453:1
 
-#
-###########################################
-# installation
-###########################################
-
+qsub -N hoge -l s_vmem=1G -pe def_slot 1 -t 1-1:1 -tc 500 v1.sh v1
