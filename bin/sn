@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-snippet_dir=${SNIPPET_DIR:-"$HOME/.snippets"}
+snippet_dir=${SNIPPET_DIR:-"$HOME/dotfiles/snippets"}
 query=${*:-}
 
 if [[ ! -d $snippet_dir ]]; then
