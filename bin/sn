@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+snippet_dir=${SNIPPET_DIR:-"$HOME/.snippets"}
+query=${*:-}
+
+if [[ ! -d $snippet_dir ]]; then
+    printf 'Snippet directory not found: %s\n' "$snippet_dir" >&2
+    exit 1
+fi
+
+if ! command -v fzf >/dev/null 2>&1; then
+    printf 'Required command not found: fzf\n' >&2
+    exit 127
+fi
+
+list_files() {
+    if command -v fd >/dev/null 2>&1; then
+        fd --type f --hidden --follow --exclude .git .
+    else
+        find . -type f ! -path '*/.git/*' -print | sed 's#^./##'
+    fi
+}
+
+selected=$(
+    cd -- "$snippet_dir"
+    list_files | fzf \
+        --prompt='snippet> ' \
+        --query="$query" \
+        --height="${FZF_SNIPPET_HEIGHT:-80%}" \
+        --layout=reverse \
+        --border \
+        --preview-window='right:60%:wrap' \
+        --preview='if command -v bat >/dev/null 2>&1; then bat --style=numbers --color=always --line-range=:300 -- {}; else sed -n "1,300p" {}; fi' \
+        --select-1 \
+        --exit-0
+) || exit 0
+
+[[ -n $selected ]] || exit 0
+cat -- "$snippet_dir/$selected"
+
