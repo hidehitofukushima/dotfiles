@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 # Usage: newproj [project_name]
-# 統合版。local / shirokane を番号選択で切り替え。
+# 統合版。local / shirokane を fzf で選択。
 
 set -e
 
@@ -17,25 +17,37 @@ if [[ -z "$PROJECT_NAME" ]]; then
   exit 1
 fi
 
-# --- モード選択（番号入力で切り替え） ---
-echo "作成モードを選択してください:"
-echo "  [1] local     -> ~/Desktop/Projects/"
-echo "  [2] shirokane -> ~/Projects/"
-vared -p "番号を入力 (1 または 2): " -c MODE_NUM
+# --- モード選択（fzfで切り替え） ---
+if ! command -v fzf >/dev/null 2>&1; then
+  echo "Error: fzf が見つかりません。"
+  exit 127
+fi
 
-case "$MODE_NUM" in
-  1)
-    MODE="local"
+MODE=$(
+  printf "%s\n" \
+    "local     -> ~/Desktop/Projects/" \
+    "shirokane -> ~/Projects/" \
+  | fzf \
+      --prompt="作成モード> " \
+      --height=40% \
+      --layout=reverse \
+      --border
+) || exit 0
+
+# fzfの選択結果から先頭のモード名だけ取り出す
+MODE="${MODE%% *}"
+
+case "$MODE" in
+  local)
     TEMPLATE="$HOME/dotfiles/template/local/"
     DEST_BASE="$HOME/Desktop/Projects"
     ;;
-  2)
-    MODE="shirokane"
+  shirokane)
     TEMPLATE="$HOME/dotfiles/template/shirokane/"
     DEST_BASE="$HOME/Projects"
     ;;
   *)
-    echo "Error: 不正な入力です。1 または 2 を入力してください。"
+    echo "Error: 不正な選択です。"
     exit 1
     ;;
 esac
@@ -54,4 +66,3 @@ mkdir -p "$PARENT_DIR"
 cp -r "$TEMPLATE" "$DEST"
 
 echo "[${MODE}] プロジェクトを作成しました: $DEST"
-
