@@ -7,7 +7,7 @@ mkdir -p ~/.config/tmux-sessionizer
 
 ln -sf ~/dotfiles/tmux/tmux.conf ~/.config/tmux/tmux.conf
 ln -sf ~/dotfiles/tmux/tmux-sessionizer ~/.config/tmux-sessionizer/tmux-sessionizer
-ln -sf ~/dotfiles/vimrc ~/.vimrc
+ln -sf ~/dotfiles/vim/vimrc ~/.vimrc
 ln -sf ~/dotfiles/zsh/zshrc ~/.zshrc
 ln -sf ~/dotfiles/bin/sn ~/.local/bin/sn
 
