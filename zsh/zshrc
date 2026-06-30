@@ -60,7 +60,7 @@ zle -N edit-command-line
 bindkey '^O' edit-command-line
 
 bindkey -s '^Nn'  'tmux-sessionizer\n'
-bindkey -s '^Nm'  'vim ~/.snippets/\n'
+bindkey -s '^Nm'  'vim ${HOME}/dotfiles/snippets/\n'
 bindkey -s '^Nor' 'open -R "$PWD"\n'
 bindkey -s '^Noo' 'open '
 
