@@ -1,35 +1,88 @@
-# Ghostty shell integration for Bash. This should be at the top of your bashrc!
-if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
-    builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/zsh/ghostty-integration"
-fi
+# ============================================================
+# Basic editor
+# ============================================================
+
+export EDITOR='vim'
+export VISUAL='vim'
 
 
-alias tk='tmux kill-server'
-alias v='vim'
-alias r='Rscript'
-alias p='python3'
+# ============================================================
+# PATH
+# ============================================================
 
-export PATH="$HOME/.local/scripts:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.config/tmux-sessionizer:$PATH"
-export PATH="$HOME/.fzf/bin:$PATH"
+typeset -U path PATH
 
-bindkey -s ^g "tmux-sessionizer\n"
-bindkey -s ^t "~/dotfiles/newproj\n"
-bindkey -s ^v "vim\n"
-bindkey -s ^n "nvim\n"
+path=(
+  "$HOME/.local/scripts"
+  "$HOME/.local/bin"
+  "$HOME/.config/tmux-sessionizer"
+  "$HOME/.fzf/bin"
+  $path
+)
+
+[[ -d /opt/homebrew/bin ]] && path=("/opt/homebrew/bin" $path)
+
+export PATH
 
 
+# ============================================================
+# Completion
+# ============================================================
+
+[[ -d /opt/homebrew/share/zsh/site-functions ]] && fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
+
+autoload -Uz compinit
+compinit
 
 
+# ============================================================
+# History
+# ============================================================
 
-[ -f "/Users/fukushimahideto/.ghcup/env" ] && . "/Users/fukushimahideto/.ghcup/env" # ghcup-env
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git'
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=90000
+SAVEHIST=90000
+
+setopt APPEND_HISTORY
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_REDUCE_BLANKS
+setopt HIST_IGNORE_SPACE
+
+
+# ============================================================
+# ZLE / Key bindings
+# ============================================================
+
+autoload -Uz edit-command-line
+zle -N edit-command-line
+
+bindkey '^Nb' edit-command-line
+
+bindkey -s '^Nn'  'tmux-sessionizer\n'
+bindkey -s '^Nm'  'vim ~/.snippets/\n'
+bindkey -s '^Nor' 'open -R "$PWD"\n'
+bindkey -s '^Noo' 'open '
+
+
+# ============================================================
+# fzf
+# ============================================================
+
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git --exclude node_modules --exclude Library'
 export FZF_DEFAULT_OPTS='--layout=reverse --height=40% --border'
-export FZF_CTRL_T_COMMAND='fd --type f --hidden --exclude .git --exclude node_modules --exclude Library'
-export FZF_CTRL_T_OPTS="
-  --preview 'bat --style=numbers --color=always --line-range=:200 {}'
-  "
 
-export PATH="/opt/homebrew/bin:$PATH"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always {} 2>/dev/null' --bind 'ctrl-/:change-preview-window(down|hidden|)'"
+
+export FZF_CTRL_R_OPTS="--bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --color header:italic --header 'Press CTRL-Y to copy command into clipboard'"
+
+export FZF_ALT_C_COMMAND='fd --type d --hidden --exclude .git --exclude node_modules --exclude Library'
+export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -100'"
+
+
+# ============================================================
+# fzf shell integration
+# ============================================================
+
+[[ -f "$HOME/.fzf.zsh" ]] && source "$HOME/.fzf.zsh"
