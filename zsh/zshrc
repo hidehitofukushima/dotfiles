@@ -57,13 +57,33 @@ setopt HIST_IGNORE_SPACE
 autoload -Uz edit-command-line
 zle -N edit-command-line
 
-bindkey '^Nb' edit-command-line
+bindkey '^O' edit-command-line
 
 bindkey -s '^Nn'  'tmux-sessionizer\n'
 bindkey -s '^Nm'  'vim ~/.snippets/\n'
 bindkey -s '^Nor' 'open -R "$PWD"\n'
 bindkey -s '^Noo' 'open '
 
+# ============================================================
+# Snippet launcher
+# ============================================================
+
+# 選んだスニペットを現在のコマンドラインに挿入する
+sn-insert-widget() {
+  local snippet
+
+  snippet=$(sn) || return
+
+  # カーソル位置の左側に挿入
+  LBUFFER+="$snippet"
+
+  zle redisplay
+}
+
+zle -N sn-insert-widget
+
+# Ctrl-N i でスニペット挿入
+bindkey '^Ni' sn-insert-widget
 
 # ============================================================
 # fzf
