@@ -1,5 +1,5 @@
 ### git clone
-git clone https://github.com/hidehitofukushima/dotfiles.git "$HOME/dotfiles"
+git clone https://github.com/hidehitofukushima/dotfiles.git "${HOME}/dotfiles"
 ### make sure these are installed 
 - zsh
 
