@@ -1,0 +1,1 @@
+fd 'hoge|^fuga' directory
