@@ -1,1 +1,1 @@
-find . -type f -name '*.txt' -print
+find directory  -name '*.txt' 

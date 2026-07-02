@@ -143,3 +143,14 @@ endif
 
 " nnoremap <leader>f :r !sn<CR>
 nnoremap <silent> <C-n>i :r !sn<CR>o<Esc>
+
+
+
+" ローマ字文を日本語文に変換する
+command! -range R2J <line1>,<line2>!r2j
+
+" normal mode: 現在の段落を日本語化
+nnoremap <silent> <leader>j vip:R2J<CR>
+
+" visual mode: 選択範囲を日本語化
+xnoremap <silent> <leader>j :R2J<CR>
