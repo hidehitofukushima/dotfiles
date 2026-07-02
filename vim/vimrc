@@ -142,7 +142,7 @@ endif
 
 
 " nnoremap <leader>f :r !sn<CR>
-nnoremap <silent> <C-n>i :r !sn<CR>o<Esc>
+nnoremap <silent> <C-n> :r !sn<CR>o<Esc>
 
 
 
