@@ -39,3 +39,4 @@ selected=$(
 [[ -n $selected ]] || exit 0
 cat -- "$snippet_dir/$selected"
 
+
