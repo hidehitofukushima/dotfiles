@@ -32,3 +32,4 @@ p_scatter <- ggplot(iris, aes(x = Petal.Length, y = Petal.Width, color = Species
 
 library(svglite)
 ggsave(filename="./output_file.svg", plot=p_scatter, width=10, height=3, dpi=300, units="in", device="svg")
+

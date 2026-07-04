@@ -5,6 +5,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 call plug#end()
 
+
 " =============================================================================
 " ~/.vimrc
 " Neovim init.lua からの移植版
@@ -13,6 +14,7 @@ call plug#end()
 
 set nocompatible
 set completeopt=menu,menuone,noselect
+set clipboard=unnamedplus
 
 
 " -----------------------------------------------------------------------------
@@ -50,7 +52,7 @@ set updatetime=200
 
 " Vimのバージョン差で壊れないように条件付き
 if exists('&signcolumn')
-  set signcolumn=yes
+	set signcolumn=yes
 endif
 
 " -----------------------------------------------------------------------------
@@ -61,7 +63,7 @@ set wrap
 set linebreak
 
 if exists('&breakindent')
-  set breakindent
+	set breakindent
 endif
 
 let &showbreak = repeat(' ', 3)
@@ -76,11 +78,11 @@ nnoremap <expr> k v:count == 0 ? 'gk' : 'k'
 " ローカルMacのVimなど、+clipboard がある環境では system clipboard を使う。
 " SSH先のVimでは +clipboard が無いことも多いので、条件分岐にする。
 if has('clipboard')
-  if has('unnamedplus')
-    set clipboard=unnamedplus
-  else
-    set clipboard=unnamed
-  endif
+	if has('unnamedplus')
+		set clipboard=unnamedplus
+	else
+		set clipboard=unnamed
+	endif
 endif
 
 " -----------------------------------------------------------------------------
@@ -99,8 +101,8 @@ set wildignore+=*.pyc
 
 " ripgrep があれば :grep に使う
 if executable('rg')
-  set grepprg=rg\ --vimgrep\ --smart-case
-  set grepformat=%f:%l:%c:%m
+	set grepprg=rg\ --vimgrep\ --smart-case
+	set grepformat=%f:%l:%c:%m
 endif
 
 " -----------------------------------------------------------------------------
@@ -132,8 +134,7 @@ nnoremap <leader>q :quit<CR>
 nnoremap <leader>Q :wqa<CR>
 
 " バッファ操作
-nnoremap <leader>s :edit #<CR>
-nnoremap <leader>S :botright split #<CR>
+nnoremap <leader>ss :edit #<CR>
 
 nnoremap <leader>bda :%bdelete!<CR>
 nnoremap <leader>bdd :%bdelete<CR>
@@ -144,14 +145,16 @@ nnoremap <leader>xx :execute '!' . getreg('"')<CR>
 
 " tmux-sessionizer
 if executable('tmux')
-  nnoremap <C-g> :silent !tmux neww tmux-sessionizer<CR>:redraw!<CR>
+	nnoremap <C-g> :silent !tmux neww tmux-sessionizer<CR>:redraw!<CR>
 endif
 
 
-" nnoremap <leader>f :r !sn<CR>
-nnoremap <silent> <C-n> :r !sn<CR>o<Esc>
-
-nnoremap <leader>f :FZF<CR>
+nnoremap <silent> <leader>fs :r !sn<CR>A<Esc>
+nnoremap <leader>ff :FZF<CR>
+nnoremap <leader>fr :Rg<CR>
+nnoremap <leader>so :source $MYVIMRC<CR>
+nnoremap <leader>gg gg=G
+nnoremap <leader>gd ggVG
 
 
 " ローマ字文を日本語文に変換する
@@ -162,4 +165,6 @@ nnoremap <silent> <leader>z vip:R2J<CR>
 
 " visual mode: 選択範囲を日本語化
 xnoremap <silent> <leader>z :R2J<CR>
+
+
 

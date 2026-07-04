@@ -1,2 +1,4 @@
-library(svglite)
-ggsave(filename="./output_file.svg", plot=p, width=5, height=5, dpi=300, units="in", device="svg")
+library(ggplot2)
+
+ggsave("plot.pdf", p, width = 5, height = 4)
+ggsave("plot.png", p, width = 5, height = 4, dpi = 300)

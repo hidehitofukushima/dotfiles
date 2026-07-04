@@ -1,0 +1,1 @@
+sed -n "s/<code>\(.*\)<\/code>/\1/p" file

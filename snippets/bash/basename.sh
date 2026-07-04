@@ -1,2 +1,1 @@
-basename "$path"
-basename "$path" .fastq.gz
+basename "$path" .txt
