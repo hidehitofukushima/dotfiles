@@ -24,12 +24,16 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 
 - fd
-
 cargo install fd-find
+
 - vim-plug
 
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+- rg
+
+cargo install ripgrep
 
 
 
@@ -38,6 +42,7 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 brew install tmux
 brew install fd
 brew install fzf
+brew install rg
 
 
 
