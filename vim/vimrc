@@ -1,11 +1,3 @@
-call plug#begin()
-" List your plugins here
-Plug 'tpope/vim-sensible'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-call plug#end()
-
-
 " =============================================================================
 " ~/.vimrc
 " Neovim init.lua からの移植版
@@ -13,21 +5,32 @@ call plug#end()
 " =============================================================================
 
 set nocompatible
-set completeopt=menu,menuone,noselect
-set clipboard=unnamedplus
+set encoding=utf-8
+scriptencoding utf-8
 
+" -----------------------------------------------------------------------------
+" leader
+" -----------------------------------------------------------------------------
+let mapleader = " "
+let maplocalleader = " "
+
+" -----------------------------------------------------------------------------
+" vim-plug
+" -----------------------------------------------------------------------------
+call plug#begin()
+
+Plug 'tpope/vim-sensible'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+call plug#end()
 
 " -----------------------------------------------------------------------------
 " 基本
 " -----------------------------------------------------------------------------
-let mapleader = " "
-
 filetype plugin indent on
 syntax enable
 
-set encoding=utf-8
-
-" Neovim 側の設定を移植
 set mouse=
 set noswapfile
 set number
@@ -38,11 +41,25 @@ set tabstop=2
 set shiftwidth=2
 
 " 元の init.lua には expandtab は無かったので、いったん無効のまま。
-" Python/Rを書くなら有効化してよい。
+" Python/Rを書くなら filetype 別設定で有効化する。
 " set expandtab
 
 set ignorecase
 set smartcase
+set incsearch
+set hlsearch
+
+set backspace=indent,eol,start
+set scrolloff=5
+set sidescrolloff=5
+set splitbelow
+set splitright
+set autoread
+set confirm
+set history=10000
+
+" Ctrl-a / Ctrl-x で 08 などを8進数扱いしない
+set nrformats-=octal
 
 " Vim ではバッファ移動時に未保存バッファを隠せるようにしておく
 set hidden
@@ -53,6 +70,10 @@ set updatetime=200
 " Vimのバージョン差で壊れないように条件付き
 if exists('&signcolumn')
 	set signcolumn=yes
+endif
+
+if exists('&wildignorecase')
+	set wildignorecase
 endif
 
 " -----------------------------------------------------------------------------
@@ -88,6 +109,8 @@ endif
 " -----------------------------------------------------------------------------
 " 補完・検索・コマンドライン補助
 " -----------------------------------------------------------------------------
+set completeopt=menu,menuone,noselect
+
 set wildmenu
 set wildmode=longest:full,full
 
@@ -106,6 +129,50 @@ if executable('rg')
 endif
 
 " -----------------------------------------------------------------------------
+" persistent undo
+" Vimを閉じた後でもundo履歴を残す
+" -----------------------------------------------------------------------------
+if has('persistent_undo')
+	set undofile
+
+	let s:undo_dir = expand('~/.vim/undo')
+
+	if !isdirectory(s:undo_dir)
+		call mkdir(s:undo_dir, 'p')
+	endif
+
+	let &undodir = s:undo_dir . '//'
+endif
+
+" -----------------------------------------------------------------------------
+" formatoptions
+" コメント行で Enter / o / O したとき、勝手にコメントを継続しない
+" -----------------------------------------------------------------------------
+augroup my_formatoptions
+	autocmd!
+	autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+augroup END
+
+" -----------------------------------------------------------------------------
+" filetype別インデント
+" -----------------------------------------------------------------------------
+augroup my_filetype_indent
+	autocmd!
+
+	" Pythonは基本4スペース
+	autocmd FileType python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+
+	" R / Rmd は2スペース
+	autocmd FileType r,rmd,rmarkdown setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+
+	" shell系も2スペース
+	autocmd FileType sh,zsh,bash setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+
+	" Makefileはタブが意味を持つのでスペース化しない
+	autocmd FileType make setlocal noexpandtab
+augroup END
+
+" -----------------------------------------------------------------------------
 " netrw
 " Oil の代替。
 " <leader>e で常にカレントディレクトリを開く。
@@ -118,6 +185,37 @@ let g:netrw_winsize = 25
 nnoremap <leader>e :Explore .<CR>
 
 " -----------------------------------------------------------------------------
+" fzf
+" 元の <leader>ff :FZF は残す。
+" 追加で fzf.vim の便利コマンドを割り当てる。
+" -----------------------------------------------------------------------------
+let g:fzf_layout = { 'down': '40%' }
+
+let g:fzf_vim = {}
+let g:fzf_vim.preview_window = ['right,50%,<70(up,40%)', 'ctrl-/']
+
+" 元からあるFZF起動
+nnoremap <leader>ff :FZF<CR>
+
+" fzf.vimの追加コマンド
+nnoremap <leader>fF :Files<CR>
+nnoremap <leader>fg :GFiles<CR>
+nnoremap <leader>fb :Buffers<CR>
+nnoremap <leader>fh :History<CR>
+nnoremap <leader>fl :Lines<CR>
+nnoremap <leader>fL :BLines<CR>
+nnoremap <leader>fc :Commands<CR>
+nnoremap <leader>fm :Marks<CR>
+
+" 元からあるRg起動
+nnoremap <leader>fr :Rg<CR>
+
+" カーソル下の単語でripgrep
+if executable('rg')
+	nnoremap <leader>fw :Rg <C-r><C-w><CR>
+endif
+
+" -----------------------------------------------------------------------------
 " コアキーマップ
 " -----------------------------------------------------------------------------
 
@@ -127,6 +225,13 @@ inoremap jk <Esc>
 " スクロール後にカーソルを中央へ
 nnoremap <C-d> <C-d>zz
 nnoremap <C-u> <C-u>zz
+
+" 検索ハイライトを消す
+nnoremap <silent> <Esc><Esc> :nohlsearch<CR>
+
+" visual indent 後に選択を維持
+xnoremap < <gv
+xnoremap > >gv
 
 " 保存・終了
 nnoremap <leader>w :write<CR>
@@ -148,16 +253,35 @@ if executable('tmux')
 	nnoremap <C-g> :silent !tmux neww tmux-sessionizer<CR>:redraw!<CR>
 endif
 
+" sn でスニペットを挿入
+command! Snippet read !sn
+nnoremap <silent> <leader>fs :Snippet<CR>A<Esc>
 
-nnoremap <silent> <leader>fs :r !sn<CR>A<Esc>
-nnoremap <leader>ff :FZF<CR>
-nnoremap <leader>fr :Rg<CR>
+" スニペット置き場を開く
+nnoremap <leader>se :edit ~/dotfiles/snippets/<CR>
+
+" vimrc再読み込み
 nnoremap <leader>so :source $MYVIMRC<CR>
+
+" 整形・選択
 nnoremap <leader>gg gg=G
 nnoremap <leader>gd ggVG
 
+" -----------------------------------------------------------------------------
+" whitespace
+" -----------------------------------------------------------------------------
+set listchars=tab:>-,trail:·,extends:>,precedes:<,nbsp:+
 
+" 不可視文字表示トグル
+nnoremap <leader>l :set list!<CR>
+
+" 末尾空白削除
+command! Trim keeppatterns %s/\s\+$//e
+nnoremap <leader>tw :Trim<CR>
+
+" -----------------------------------------------------------------------------
 " ローマ字文を日本語文に変換する
+" -----------------------------------------------------------------------------
 command! -range R2J <line1>,<line2>!r2j
 
 " normal mode: 現在の段落を日本語化
@@ -165,6 +289,3 @@ nnoremap <silent> <leader>z vip:R2J<CR>
 
 " visual mode: 選択範囲を日本語化
 xnoremap <silent> <leader>z :R2J<CR>
-
-
-

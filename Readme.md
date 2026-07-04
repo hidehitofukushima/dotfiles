@@ -23,17 +23,12 @@ tmux -V
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 
-- fd
+- fd && rg
 cargo install fd-find
+cargo instsall ripgrep
 
 - vim-plug
-
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-- rg
-
-cargo install ripgrep
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 
 
