@@ -1,0 +1,10 @@
+
+cd `dirname "$0"`
+pwd
+
+file1
+file2
+file3
+file2
+file2
+file3
