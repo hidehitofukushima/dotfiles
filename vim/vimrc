@@ -240,7 +240,7 @@ nnoremap <leader>q :quit<CR>
 nnoremap <leader>Q :wqa<CR>
 
 " バッファ操作
-nnoremap <leader>ss :edit #<CR>
+nnoremap <leader>s :edit #<CR>
 
 nnoremap <leader>bda :%bdelete!<CR>
 nnoremap <leader>bdd :%bdelete<CR>
@@ -259,10 +259,10 @@ command! Snippet read !sn
 nnoremap <silent> <leader>fs :Snippet<CR>A<Esc>
 
 " スニペット置き場を開く
-nnoremap <leader>se :edit ~/dotfiles/snippets/<CR>
+" nnoremap <leader>se :edit ~/dotfiles/snippets/<CR>
 
 " vimrc再読み込み
-nnoremap <leader>so :source $MYVIMRC<CR>
+nnoremap <leader>vs :source $MYVIMRC<CR>
 
 " 整形・選択
 nnoremap <leader>gg gg=G
