@@ -286,8 +286,6 @@ nnoremap <silent> <leader>z vip:R2J<CR>
 xnoremap <silent> <leader>z :R2J<CR>
 
 
-
-
 " =============================================================================
 " OSC52 clipboard yank
 " =============================================================================
@@ -295,11 +293,16 @@ xnoremap <silent> <leader>z :R2J<CR>
 let g:oscyank_silent = 1
 let g:oscyank_max_length = 0
 
+function! s:OSC52YankRegister(reg) abort
+	if exists('*OSCYankRegister')
+		call OSCYankRegister(a:reg)
+	endif
+endfunction
+
 augroup VimOSCYankPost
 	autocmd!
-	autocmd TextYankPost * if v:event.operator ==# 'y' | call OSCYankRegister(v:event.regname) | endif
+	autocmd TextYankPost * if v:event.operator ==# 'y' | call <SID>OSC52YankRegister(v:event.regname) | endif
 augroup END
-
 
 
 " =============================================================================
