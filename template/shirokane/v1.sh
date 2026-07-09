@@ -7,7 +7,7 @@
 #$ -o log/
 #$ -e log/
 #$ -l s_vmem=1G
-#$ -pe def_slot 8
+#$ -pe def_slot 1
 set -ex
 VERSION_NAME=$1
 
