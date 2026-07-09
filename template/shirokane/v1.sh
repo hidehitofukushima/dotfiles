@@ -46,6 +46,7 @@ echo NORMAL_ID: $NORMAL_ID
 OUTPUTDIR=result_${VERSION_NAME}/${PROJECT_NAME}/${TUMOR_ID}
 LOGDIR=log
 LOGDIRSUCCESS=log_success
+LOGDIRFAIL=log_failed
 
 
 if [[ "${OUTPUTDIR_INITIALIZE:-0}" -eq 1 ]]; then
@@ -57,29 +58,49 @@ else
   echo "do not initialize outputdir: $OUTPUTDIR"
 fi
 
-if [[ ! -d $OUTPUTDIR ]]; then
-  mkdir -p -- "$OUTPUTDIR"
-fi
+mkdir -p -- "$OUTPUTDIR"
+mkdir -p -- "$LOGDIR"
+mkdir -p -- "$LOGDIRSUCCESS"
+mkdir -p -- "$LOGDIRFAILED"
 
-if [[ ! -d $LOGDIR ]]; then
-  mkdir -p -- "$LOGDIR"
-fi
 
-if [[ ! -d $LOGDIRSUCCESS ]]; then
-  mkdir -p -- "$LOGDIRSUCCESS"
-fi
+finalize_logs() {
+  local status=$1
 
+  set +e
+
+  local destdir
+  local status_label
+
+  if [[ "$status" -eq 0 ]]; then
+    destdir="$LOGDIRSUCCESS"
+    status_label="success"
+  else
+    destdir="$LOGDIRFAILED"
+    status_label="failed"
+  fi
+
+  mkdir -p -- "$destdir"
+
+  local efile="${LOGDIR}/${JOB_NAME}.e${JOB_ID}.${SGE_TASK_ID}"
+  local ofile="${LOGDIR}/${JOB_NAME}.o${JOB_ID}.${SGE_TASK_ID}"
+
+  if [[ -f "$efile" ]]; then
+    mv -f -- "$efile" "${destdir}/${JOB_NAME}.e${JOB_ID}.${SGE_TASK_ID}.${TUMOR_ID}.${status_label}"
+  fi
+
+  if [[ -f "$ofile" ]]; then
+    mv -f -- "$ofile" "${destdir}/${JOB_NAME}.o${JOB_ID}.${SGE_TASK_ID}.${TUMOR_ID}.${status_label}"
+  fi
+
+  exit "$status"
+}
+
+trap 'finalize_logs $?' EXIT
 
 # ============================================================
 # job
 # ============================================================
 
 echo -e "id\n${TUMOR_ID}" > $OUTPUTDIR/${TUMOR_ID}.txt
-
-# ============================================================
-# move log if success
-# ============================================================
-
-mv log/${JOB_NAME}.e${JOB_ID}.${SGE_TASK_ID} $LOGDIRSUCCESS/${JOB_NAME}.e${JOB_ID}.${SGE_TASK_ID}.${TUMOR_ID}
-mv log/${JOB_NAME}.o${JOB_ID}.${SGE_TASK_ID} $LOGDIRSUCCESS/${JOB_NAME}.e${JOB_ID}.${SGE_TASK_ID}.${TUMOR_ID}
 
