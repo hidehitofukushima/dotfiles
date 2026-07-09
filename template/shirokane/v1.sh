@@ -11,6 +11,9 @@
 set -ex
 VERSION_NAME=$1
 
+OUTPUTDIR_INITIALIZE=0
+LOGDIR_INITIALIZE=0
+
 
 # ============================================================
 # lists and ids
@@ -42,9 +45,6 @@ echo NORMAL_ID: $NORMAL_ID
 OUTPUTDIR=result_${VERSION_NAME}/${PROJECT_NAME}/${TUMOR_ID}
 LOGDIR=log
 LOGDIRSUCCESS=log_success
-
-OUTPUTDIR_INITIALIZE=0
-LOGDIR_INITIALIZE=0
 
 if [ "$OUTPUTDIR_INITIALIZE" -eq 1 ]; then
   echo 'initializing outputdir'
