@@ -25,7 +25,7 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 
 - fd && rg
 cargo install fd-find
-cargo install ripgrep
+cargo instll ripgrep
 
 - vim-plug
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
