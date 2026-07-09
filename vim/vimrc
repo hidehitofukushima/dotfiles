@@ -418,21 +418,54 @@ augroup FernSmartYank
 	autocmd FileType fern call FernSmartYankInit()
 augroup END
 
-
-
-" ============================================================
-" header
-" ============================================================
+" =============================================================================
+" fern-preview settings
+" 自動preview ON。ただし巨大ファイル・バイナリ・圧縮ファイルは避ける
+" =============================================================================
 
 let g:fern_auto_preview = v:true
+
+" 300 KB以上はpreviewしない
+" 重ければ 100 * 1000、ゆるくするなら 1000 * 1000 くらい
 let g:fern_preview_max_filesize = 300 * 1000
 
+" previewしない拡張子
 let g:fern_preview_ignore_extensions = [
-			\ 'gif', 'jpeg', 'jpg', 'png', 'tif', 'tiff', 'pdf',
+			\ 'gif', 'jpeg', 'jpg', 'png', 'tif', 'tiff', 'wbmp', 'ico',
+			\ 'pdf', 'ps', 'ai', 'rtf',
 			\ 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx',
-			\ 'zip', 'gz', 'bz2', 'xz', 'zst', 'tar',
 			\ 'bam', 'bai', 'cram', 'crai',
-			\ 'fastq', 'fq',
+			\ 'fastq', 'fastq.gz', 'fq', 'fq.gz',
+			\ 'sam',
 			\ 'rds', 'RData',
-			\ 'so', 'dll', 'exe', 'bin'
+			\ 'jar', 'war', 'ear',
+			\ 'so', 'a', 'lib', 'dll', 'exe', 'bin',
+			\ 'dmg', 'iso', 'msi', 'deb', 'rpm',
+			\ 'mp3', 'ogg', 'mp4', 'mpeg', 'mpg', 'mov', 'webm', 'flv', 'wmv', 'avi',
+			\ 'wasm', 'min.js', 'js.map'
 			\ ]
+
+function! s:fern_settings() abort
+	" previewを手動で開閉
+	nmap <silent> <buffer> p <Plug>(fern-action-preview:toggle)
+
+	" auto preview ON/OFF
+	nmap <silent> <buffer> P <Plug>(fern-action-preview:auto:toggle)
+
+	" preview windowをスクロール
+	nmap <silent> <buffer> <C-d> <Plug>(fern-action-preview:scroll:down:half)
+	nmap <silent> <buffer> <C-u> <Plug>(fern-action-preview:scroll:up:half)
+
+	" q: previewが開いていればpreviewを閉じる。開いていなければfernを閉じる。
+	nmap <silent> <buffer> <expr> <Plug>(fern-quit-or-close-preview) fern_preview#smart_preview("\<Plug>(fern-action-preview:close)", ":q\<CR>")
+	nmap <silent> <buffer> q <Plug>(fern-quit-or-close-preview)
+endfunction
+
+augroup fern-settings
+	autocmd!
+	autocmd FileType fern call s:fern_settings()
+augroup END
+
+" fernを開く
+nnoremap <silent> <leader>e :Fern . -drawer -toggle -reveal=%<CR>
+
