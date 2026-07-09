@@ -302,3 +302,15 @@ augroup END
 
 
 
+" =============================================================================
+" fern path yank -> OSC52 clipboard
+" =============================================================================
+
+function! s:fern_oscyank_init() abort
+	nmap <buffer><silent> y <Plug>(fern-action-yank:path):<C-u>call <SID>OSC52YankRegister('"')<CR>
+endfunction
+
+augroup FernOSCYank
+	autocmd!
+	autocmd FileType fern call s:fern_oscyank_init()
+augroup END
