@@ -32,7 +32,7 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.c
 
 
 
-
+tmptmptmp
 @MACBOOK
 brew install tmux
 brew install fd

@@ -243,8 +243,8 @@ nnoremap <leader>Q :wqa<CR>
 " バッファ操作
 nnoremap <leader>a :edit #<CR>
 
-nnoremap <leader>bda :%bdelete!<CR>
-nnoremap <leader>bdd :%bdelete<CR>
+nnoremap <leader>da :%bdelete!<CR>
+nnoremap <leader>dd :%bdelete<CR>
 
 " 無名レジスタの内容を shell command として実行
 " Neovim側の <leader>xx 相当
