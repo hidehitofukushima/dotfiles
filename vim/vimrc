@@ -24,6 +24,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-commentary'
 Plug 'easymotion/vim-easymotion'
+Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 call plug#end()
 
 " -----------------------------------------------------------------------------
@@ -290,3 +291,18 @@ nnoremap <silent> <leader>z vip:R2J<CR>
 
 " visual mode: 選択範囲を日本語化
 xnoremap <silent> <leader>z :R2J<CR>
+
+
+
+
+" =============================================================================
+" OSC52 clipboard yank
+" =============================================================================
+
+let g:oscyank_silent = 1
+let g:oscyank_max_length = 0
+
+augroup VimOSCYankPost
+	autocmd!
+	autocmd TextYankPost * if v:event.operator ==# 'y' | call OSCYankRegister(v:event.regname) | endif
+augroup END
