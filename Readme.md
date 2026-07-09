@@ -7,8 +7,7 @@ git clone https://github.com/hidehitofukushima/dotfiles.git "${HOME}/dotfiles"
 -vim
 @home
 git clone https://github.com/vim/vim.git
-cd ~/vim
-./configure --prefix=$HOME/.local --with-features=huge --enable-multibyte
+cd ~/vim && ./configure --prefix=$HOME/.local --with-features=huge --enable-multibyte
 make -j4
 make install
 export PATH="$HOME/.local/bin:$PATH"を必ずいれること

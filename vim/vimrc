@@ -18,7 +18,7 @@ let maplocalleader = " "
 " vim-plug
 " -----------------------------------------------------------------------------
 call plug#begin()
-Plug 'preservim/nerdtree'
+Plug 'lambdalisue/vim-fern'
 Plug 'tpope/vim-sensible'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
