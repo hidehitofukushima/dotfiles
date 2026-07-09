@@ -46,7 +46,7 @@ echo NORMAL_ID: $NORMAL_ID
 OUTPUTDIR=result_${VERSION_NAME}/${PROJECT_NAME}/${TUMOR_ID}
 LOGDIR=log
 LOGDIRSUCCESS=log_success
-LOGDIRFAIL=log_failed
+LOGDIRFAILED=log_failed
 
 
 if [[ "${OUTPUTDIR_INITIALIZE:-0}" -eq 1 ]]; then
