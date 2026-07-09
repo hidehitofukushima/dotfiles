@@ -86,6 +86,7 @@ bindkey '^Nn' sn-insert-widget
 # other
 # ============================================================
 bindkey -s ^Nt "tmux-sessionizer\n"
+bindkey -s ^Nv "vim\n"
 bindkey -s ^N1 "ssh ny1fh\n"
 bindkey -s ^N2 "ssh km1fh\n"
 bindkey -s ^N3 "ssh mt1ny\n"
@@ -96,6 +97,7 @@ bindkey -s ^No 'open "$(fzf)"^M'
 bindkey -s ^Nr 'open -R "$(fzf)"^M'
 bindkey -s ^Ng 'cd "$HOME/dotfiles" && git add -A && git commit -m "Update dotfiles" && git push && cd -^M'
 bindkey -s ^Np 'cd "$HOME/dotfiles" && git pull && cd -^M'
+
 # ============================================================
 # fzf
 # ============================================================
