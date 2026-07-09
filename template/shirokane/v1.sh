@@ -10,10 +10,7 @@
 #$ -pe def_slot 1
 set -ex
 VERSION_NAME=$1
-
 OUTPUTDIR_INITIALIZE=0
-LOGDIR_INITIALIZE=0
-
 
 # ============================================================
 # lists and ids
@@ -53,17 +50,6 @@ else
   echo 'do not initialize outputdir'
 fi
 mkdir -p "$OUTPUTDIR"
-
-if [ "$LOGDIR_INITIALIZE" -eq 1 ]; then
-  echo 'initializing logdir'
-  rm -rf "$LOGDIR"
-  rm -rf "$LOGDIRSUCCESS"
-else
-  echo 'do not initialize logdir'
-fi
-mkdir -p "$LOGDIR"
-mkdir -p "$LOGDIRSUCCESS"
-
 
 # ============================================================
 # job
