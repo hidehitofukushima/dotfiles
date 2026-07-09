@@ -286,34 +286,229 @@ nnoremap <silent> <leader>z vip:R2J<CR>
 xnoremap <silent> <leader>z :R2J<CR>
 
 
+" " =============================================================================
+" " Smart clipboard yank
+" "   local macOS  -> + register or pbcopy
+" "   remote SSH   -> OSC52
+" " =============================================================================
+
+" let g:oscyank_silent = 1
+" let g:oscyank_max_length = 0
+
+" function! s:IsRemoteSession() abort
+" 	return exists('$SSH_CONNECTION') || exists('$SSH_TTY')
+" endfunction
+
+" function! s:CopyRegisterToSystemClipboard(reg) abort
+" 	let l:reg = empty(a:reg) ? '"' : a:reg
+" 	let l:text = getreg(l:reg)
+" 	let l:type = getregtype(l:reg)
+
+" 	if empty(l:text)
+" 		return
+" 	endif
+
+" 	" Remote SSH: use OSC52 when available
+" 	if s:IsRemoteSession()
+" 		if exists('*OSCYankRegister')
+" 			call OSCYankRegister(l:reg)
+" 			return
+" 		endif
+" 	endif
+
+" 	" Local Vim with clipboard support
+" 	if has('clipboard')
+" 		call setreg('+', l:text, l:type)
+" 		call setreg('*', l:text, l:type)
+" 		return
+" 	endif
+
+" 	" Local macOS Vim without +clipboard
+" 	if executable('pbcopy')
+" 		call system('pbcopy', l:text)
+" 		return
+" 	endif
+
+" 	" Last fallback
+" 	if exists('*OSCYankRegister')
+" 		call OSCYankRegister(l:reg)
+" 	endif
+" endfunction
+
+" augroup VimSmartYankPost
+" 	autocmd!
+" 	autocmd TextYankPost * if v:event.operator ==# 'y' | call <SID>CopyRegisterToSystemClipboard(v:event.regname) | endif
+" augroup END
+
+
+" " =============================================================================
+" " fern path yank -> smart clipboard
+" " =============================================================================
+
+" function! s:fern_smart_yank_init() abort
+" 	nmap <buffer><silent> y <Plug>(fern-action-yank:path):<C-u>call <SID>CopyRegisterToSystemClipboard('"')<CR>
+" endfunction
+
+" augroup FernSmartYank
+" 	autocmd!
+" 	autocmd FileType fern call s:fern_smart_yank_init()
+" augroup END
+
+
+
 " =============================================================================
-" OSC52 clipboard yank
+" Smart clipboard yank debug version
 " =============================================================================
 
 let g:oscyank_silent = 1
 let g:oscyank_max_length = 0
+let g:smart_clip_debug = 1
 
-function! s:OSC52YankRegister(reg) abort
-	if exists('*OSCYankRegister')
-		call OSCYankRegister(a:reg)
+function! SmartClipboardDebug(msg) abort
+	if get(g:, 'smart_clip_debug', 0)
+		echom '[smart-clip] ' . a:msg
 	endif
 endfunction
 
-augroup VimOSCYankPost
+function! IsRemoteSession() abort
+	return exists('$SSH_CONNECTION') || exists('$SSH_TTY')
+endfunction
+
+function! CopyRegisterToSystemClipboard(reg) abort
+	let l:reg = empty(a:reg) ? '"' : a:reg
+	let l:text = getreg(l:reg)
+	let l:type = getregtype(l:reg)
+
+	call SmartClipboardDebug('reg=' . string(l:reg))
+	call SmartClipboardDebug('len=' . strlen(l:text))
+	call SmartClipboardDebug('type=' . string(l:type))
+	call SmartClipboardDebug('has_clipboard=' . has('clipboard'))
+	call SmartClipboardDebug('has_macunix=' . has('macunix'))
+	call SmartClipboardDebug('pbcopy=' . executable('pbcopy'))
+	call SmartClipboardDebug('remote=' . IsRemoteSession())
+	call SmartClipboardDebug('OSCYankRegister=' . exists('*OSCYankRegister'))
+
+	if empty(l:text)
+		call SmartClipboardDebug('ERROR: register is empty')
+		return
+	endif
+
+	" Remote SSH: OSC52
+	if IsRemoteSession()
+		call SmartClipboardDebug('branch=remote/oscyank')
+		if exists('*OSCYankRegister')
+			call OSCYankRegister(l:reg)
+			call SmartClipboardDebug('done=OSCYankRegister')
+			return
+		endif
+		call SmartClipboardDebug('ERROR: OSCYankRegister does not exist')
+		return
+	endif
+
+	" Local macOS: prefer pbcopy
+	if has('macunix') && executable('pbcopy')
+		call SmartClipboardDebug('branch=local/pbcopy')
+		call system('pbcopy', l:text)
+		call SmartClipboardDebug('pbcopy_shell_error=' . v:shell_error)
+		return
+	endif
+
+	" Local Vim with clipboard support
+	if has('clipboard')
+		call SmartClipboardDebug('branch=local/+register')
+		call setreg('+', l:text, l:type)
+		call setreg('*', l:text, l:type)
+		call SmartClipboardDebug('done=setreg +/*')
+		return
+	endif
+
+	" Last fallback: OSC52
+	if exists('*OSCYankRegister')
+		call SmartClipboardDebug('branch=fallback/oscyank')
+		call OSCYankRegister(l:reg)
+		call SmartClipboardDebug('done=OSCYankRegister fallback')
+		return
+	endif
+
+	call SmartClipboardDebug('ERROR: no clipboard method available')
+endfunction
+
+augroup VimSmartYankPost
 	autocmd!
-	autocmd TextYankPost * if v:event.operator ==# 'y' | call <SID>OSC52YankRegister(v:event.regname) | endif
+	autocmd TextYankPost * if v:event.operator ==# 'y' | call CopyRegisterToSystemClipboard(v:event.regname) | endif
 augroup END
 
 
+" " =============================================================================
+" " fern path yank -> smart clipboard debug version
+" " =============================================================================
+
+" function! FernPathYankAndCopy() abort
+" 	call SmartClipboardDebug('FernPathYankAndCopy start')
+" 	call SmartClipboardDebug('before unnamed len=' . strlen(getreg('"')))
+
+" 	execute "normal \<Plug>(fern-action-yank:path)"
+
+" 	call SmartClipboardDebug('after unnamed len=' . strlen(getreg('"')))
+" 	call SmartClipboardDebug('after unnamed value=' . string(getreg('"')))
+
+" 	call CopyRegisterToSystemClipboard('"')
+" endfunction
+
+" function! FernSmartYankInit() abort
+" 	nnoremap <buffer><silent> y :<C-u>call FernPathYankAndCopy()<CR>
+" endfunction
+
+" augroup FernSmartYank
+" 	autocmd!
+" 	autocmd FileType fern call FernSmartYankInit()
+" augroup END
+
 " =============================================================================
-" fern path yank -> OSC52 clipboard
+" fern path yank -> smart clipboard
 " =============================================================================
 
-function! s:fern_oscyank_init() abort
-	nmap <buffer><silent> y <Plug>(fern-action-yank:path):<C-u>call <SID>OSC52YankRegister('"')<CR>
+function! FernPathYankAndCopy() abort
+	let l:helper = fern#helper#new()
+	let l:nodes = l:helper.sync.get_selected_nodes()
+
+	if empty(l:nodes)
+		let l:nodes = [l:helper.sync.get_cursor_node()]
+	endif
+
+	let l:paths = []
+
+	for l:node in l:nodes
+		if has_key(l:node, '_path')
+			call add(l:paths, l:node._path)
+		elseif has_key(l:node, 'path')
+			call add(l:paths, l:node.path)
+		elseif has_key(l:node, 'bufname') && type(l:node.bufname) == type('')
+			call add(l:paths, l:node.bufname)
+		endif
+	endfor
+
+	if empty(l:paths)
+		echohl ErrorMsg
+		echom '[smart-clip] ERROR: fern path not found'
+		echom '[smart-clip] node=' . string(l:nodes)
+		echohl None
+		return
+	endif
+
+	let l:text = join(l:paths, "\n")
+
+	call setreg('"', l:text, len(l:paths) > 1 ? 'V' : 'v')
+	call CopyRegisterToSystemClipboard('"')
+
+	echom '[smart-clip] copied fern path: ' . l:text
 endfunction
 
-augroup FernOSCYank
+function! FernSmartYankInit() abort
+	nnoremap <buffer><silent> y :<C-u>call FernPathYankAndCopy()<CR>
+endfunction
+
+augroup FernSmartYank
 	autocmd!
-	autocmd FileType fern call s:fern_oscyank_init()
+	autocmd FileType fern call FernSmartYankInit()
 augroup END
