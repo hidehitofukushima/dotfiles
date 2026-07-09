@@ -58,7 +58,7 @@ if [ "$LOGDIR_INITIALIZE" -eq 1 ]; then
   echo 'initializing logdir'
   rm -rf "$LOGDIR"
   rm -rf "$LOGDIRSUCCESS"
-els
+else
   echo 'do not initialize logdir'
 fi
 mkdir -p "$LOGDIR"
