@@ -85,8 +85,8 @@ bindkey '^Nn' sn-insert-widget
 # ============================================================
 # other
 # ============================================================
-bindkey -s ^Nt "tmux-sessionizer\n"
-bindkey -s ^Nv "vim\n"
+bindkey -s ^Nb "tmux-sessionizer\n"
+bindkey -s ^Nm "vim\n"
 bindkey -s ^N1 "ssh ny1fh\n"
 bindkey -s ^N2 "ssh km1fh\n"
 bindkey -s ^N3 "ssh mt1ny\n"
