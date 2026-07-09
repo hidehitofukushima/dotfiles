@@ -11,8 +11,8 @@ scriptencoding utf-8
 " -----------------------------------------------------------------------------
 " leader
 " -----------------------------------------------------------------------------
-let mapleader = " "
-let maplocalleader = " "
+let mapleader = "lkj"
+let maplocalleader = "lkj"
 
 " -----------------------------------------------------------------------------
 " vim-plug
@@ -241,7 +241,7 @@ nnoremap <leader>q :quit<CR>
 nnoremap <leader>Q :wqa<CR>
 
 " バッファ操作
-nnoremap <leader>s :edit #<CR>
+nnoremap <leader>a :edit #<CR>
 
 nnoremap <leader>bda :%bdelete!<CR>
 nnoremap <leader>bdd :%bdelete<CR>
@@ -257,10 +257,8 @@ endif
 
 " sn でスニペットを挿入
 command! Snippet read !sn
-nnoremap <silent> <leader>fs :Snippet<CR>A<Esc>
+nnoremap <silent> <leader>s :Snippet<CR>A<Esc>
 
-" スニペット置き場を開く
-" nnoremap <leader>se :edit ~/dotfiles/snippets/<CR>
 
 " vimrc再読み込み
 nnoremap <leader>vs :source $MYVIMRC<CR>

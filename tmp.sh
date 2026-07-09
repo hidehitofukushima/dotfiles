@@ -7,3 +7,11 @@ dircount=`expr "$dircount" - 1`
 echo "対象ディレクトリ= $targetdir"
 echo "files= $filecount"
 echo "directories= $dircount"
+awk -F'\t' 'NR == 1 {
+  for (i = 1; i <= NF; i++) {
+    print i, $i
+  }
+}' input.tsv
+# ============================================================
+# header
+# ============================================================
