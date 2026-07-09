@@ -80,6 +80,6 @@ echo -e "id\n${TUMOR_ID}" > $OUTPUTDIR/${TUMOR_ID}.txt
 # move log if success
 # ============================================================
 
-mv log/${JOB_NAME}.e${JOB_ID}.${SGE_TASK_ID} $LOGDIRSUCCESS/
-mv log/${JOB_NAME}.o${JOB_ID}.${SGE_TASK_ID} $LOGDIRSUCCESS/
+mv log/${JOB_NAME}.e${JOB_ID}.${SGE_TASK_ID} $LOGDIRSUCCESS/${JOB_NAME}.e${JOB_ID}.${SGE_TASK_ID}.${TUMOR_ID}
+mv log/${JOB_NAME}.o${JOB_ID}.${SGE_TASK_ID} $LOGDIRSUCCESS/${JOB_NAME}.e${JOB_ID}.${SGE_TASK_ID}.${TUMOR_ID}
 
