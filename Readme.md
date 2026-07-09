@@ -2,7 +2,18 @@
 git clone https://github.com/hidehitofukushima/dotfiles.git "${HOME}/dotfiles"
 
 ### pre-requisite
+
 @SHIROKANE
+-vim
+@home
+git clone https://github.com/vim/vim.git
+cd ~/vim
+./configure --prefix=$HOME/.local --with-features=huge --enable-multibyte
+make -j4
+make install
+export PATH="$HOME/.local/bin:$PATH"を必ずいれること
+
+
 - cargo
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source "$HOME/.cargo/env"
