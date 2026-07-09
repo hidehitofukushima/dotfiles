@@ -80,12 +80,14 @@ sn-insert-widget() {
 zle -N sn-insert-widget
 
 # Ctrl-N i でスニペット挿入
-bindkey '^N' sn-insert-widget
+bindkey '^Nn' sn-insert-widget
 
 # ============================================================
-# tmux-sessionizer
+# other
 # ============================================================
 bindkey -s ^f "tmux-sessionizer\n"
+bindkey -s ^N1 "ssh ny1fh\n"
+bindkey -s ^N2 "ssh km1fh\n"
 # ============================================================
 # fzf
 # ============================================================
