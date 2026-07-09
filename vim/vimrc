@@ -11,14 +11,14 @@ scriptencoding utf-8
 " -----------------------------------------------------------------------------
 " leader
 " -----------------------------------------------------------------------------
-let mapleader = ";kj"
-let maplocalleader = ";kj"
+let mapleader = ";"
+let maplocalleader = ";"
 
 " -----------------------------------------------------------------------------
 " vim-plug
 " -----------------------------------------------------------------------------
 call plug#begin()
-
+Plug 'lambdalisue/vim-fern'
 Plug 'tpope/vim-sensible'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
