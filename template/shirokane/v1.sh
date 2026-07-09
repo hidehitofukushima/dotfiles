@@ -34,6 +34,10 @@ FASTA=${HOME}/database/reference/Homo_sapiens_assembly38.fasta
 # id verification and outputdir creation
 # ============================================================
 
+: "${VERSION_NAME:?VERSION_NAME is empty}"
+: "${PROJECT_NAME:?PROJECT_NAME is empty}"
+: "${TUMOR_ID:?TUMOR_ID is empty}"
+
 echo JOBID: $JOB_ID
 echo SGE_TASK_ID: $SGE_TASK_ID
 echo TUMOR_ID: $TUMOR_ID
@@ -43,13 +47,28 @@ OUTPUTDIR=result_${VERSION_NAME}/${PROJECT_NAME}/${TUMOR_ID}
 LOGDIR=log
 LOGDIRSUCCESS=log_success
 
-if [ "$OUTPUTDIR_INITIALIZE" -eq 1 ]; then
-  echo 'initializing outputdir'
-  rm -rf "$OUTPUTDIR"
+
+if [[ "${OUTPUTDIR_INITIALIZE:-0}" -eq 1 ]]; then
+  echo "initializing outputdir: $OUTPUTDIR"
+  if [[ -d $OUTPUTDIR ]]; then
+    rm -rf -- "$OUTPUTDIR"
+  fi
 else
-  echo 'do not initialize outputdir'
+  echo "do not initialize outputdir: $OUTPUTDIR"
 fi
-mkdir -p "$OUTPUTDIR"
+
+if [[ ! -d $OUTPUTDIR ]]; then
+  mkdir -p -- "$OUTPUTDIR"
+fi
+
+if [[ ! -d $LOGDIR ]]; then
+  mkdir -p -- "$LOGDIR"
+fi
+
+if [[ ! -d $LOGDIRSUCCESS ]]; then
+  mkdir -p -- "$LOGDIRSUCCESS"
+fi
+
 
 # ============================================================
 # job
