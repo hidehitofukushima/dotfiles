@@ -91,8 +91,8 @@ bindkey -s ^N2 "ssh km1fh\n"
 bindkey -s ^Nk "tmux kill-server\n"
 bindkey -s ^Nc "clear\n"
 bindkey -s ^Nck "clear && tmux kill-server\n"
-bindkey -s ^Noo "open $(fzf)\n"
-bindkey -s ^Nor "open -R $(fzf)\n"
+bindkey -s ^No 'open "$(fzf)"^M'
+bindkey -s ^Nr 'open -R "$(fzf)"^M'
 # ============================================================
 # fzf
 # ============================================================
