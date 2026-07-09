@@ -43,10 +43,27 @@ OUTPUTDIR=result_${VERSION_NAME}/${PROJECT_NAME}/${TUMOR_ID}
 LOGDIR=log
 LOGDIRSUCCESS=log_success
 
-[ -d "$OUTPUTDIR" ] && rm -rf "$OUTPUTDIR"
-[ ! -d "$OUTPUTDIR" ] && mkdir -p "$OUTPUTDIR"
-[ ! -d "$LOGDIR" ] && mkdir -p "$LOGDIR"
-[ ! -d "$LOGDIRSUCCESS" ] && mkdir -p "$LOGDIRSUCCESS"
+OUTPUTDIR_INITIALIZE=0
+LOGDIR_INITIALIZE=0
+
+if [ "$OUTPUTDIR_INITIALIZE" -eq 1 ]; then
+  echo 'initializing outputdir'
+  rm -rf "$OUTPUTDIR"
+else
+  echo 'do not initialize outputdir'
+fi
+mkdir -p "$OUTPUTDIR"
+
+if [ "$LOGDIR_INITIALIZE" -eq 1 ]; then
+  echo 'initializing logdir'
+  rm -rf "$LOGDIR"
+  rm -rf "$LOGDIRSUCCESS"
+els
+  echo 'do not initialize logdir'
+fi
+mkdir -p "$LOGDIR"
+mkdir -p "$LOGDIRSUCCESS"
+
 
 # ============================================================
 # job
