@@ -18,7 +18,7 @@ let maplocalleader = "kj"
 " vim-plug
 " -----------------------------------------------------------------------------
 call plug#begin()
-Plug 'lambdalisue/vim-fern'
+Plug 'preservim/nerdtree'
 Plug 'tpope/vim-sensible'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -175,16 +175,11 @@ augroup my_filetype_indent
 augroup END
 
 " -----------------------------------------------------------------------------
-" netrw
+" nerdtree
 " Oil の代替。
 " <leader>e で常にカレントディレクトリを開く。
 " -----------------------------------------------------------------------------
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-let g:netrw_browse_split = 0
-let g:netrw_winsize = 25
-
-nnoremap <leader>e :Fern .<CR>
+nnoremap <leader>e :NERDTreeToggle<CR>
 
 " -----------------------------------------------------------------------------
 " fzf
