@@ -88,12 +88,12 @@ bindkey '^Nn' sn-insert-widget
 bindkey -s ^Nt "tmux-sessionizer\n"
 bindkey -s ^N1 "ssh ny1fh\n"
 bindkey -s ^N2 "ssh km1fh\n"
+bindkey -s ^N3 "ssh mt1ny\n"
 bindkey -s ^Nk "tmux kill-server\n"
 bindkey -s ^Nc "clear\n"
 bindkey -s ^Nck "clear && tmux kill-server\n"
 bindkey -s ^No 'open "$(fzf)"^M'
 bindkey -s ^Nr 'open -R "$(fzf)"^M'
-bindkey -s ^N.'open -R ./*'
 bindkey -s ^Ng 'cd "$HOME/dotfiles" && git add -A && git commit -m "Update dotfiles" && git push && cd -^M'
 bindkey -s ^Np 'cd "$HOME/dotfiles" && git pull && cd -^M'
 # ============================================================
