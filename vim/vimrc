@@ -467,5 +467,5 @@ augroup fern-settings
 augroup END
 
 " fernを開く
-nnoremap <silent> <leader>e :Fern . -drawer -toggle -reveal=%<CR>
+nnoremap <silent> <leader>e :Fern . -reveal=%<CR>
 
