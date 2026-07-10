@@ -481,3 +481,9 @@ nnoremap <silent> <leader>e :Fern . -reveal=%<CR>
 " ============================================================
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
+
+" ============================================================
+" R関連
+" ============================================================
+inoremap <silent> <C-l> <- 
+inoremap <silent> <C-p> %>% 
