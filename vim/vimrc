@@ -19,6 +19,7 @@ let maplocalleader = " "
 " -----------------------------------------------------------------------------
 call plug#begin()
 Plug 'lambdalisue/vim-fern'
+Plug 'terryma/vim-expand-region'
 Plug 'yuki-yano/fern-preview.vim'
 Plug 'tpope/vim-sensible'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -469,3 +470,12 @@ augroup END
 " fernを開く
 nnoremap <silent> <leader>e :Fern . -reveal=%<CR>
 
+
+
+
+
+" ============================================================
+" terryna
+" ============================================================
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
