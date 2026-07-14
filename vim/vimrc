@@ -256,7 +256,7 @@ endif
 
 " sn でスニペットを挿入
 command! Snippet read !sn
-nnoremap <silent> <leader>s :Snippet<CR>A<Esc>
+nnoremap <silent> <C-n>n :Snippet<CR>A<Esc>
 
 
 " vimrc再読み込み
