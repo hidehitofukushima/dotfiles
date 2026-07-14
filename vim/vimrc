@@ -133,23 +133,6 @@ if executable('rg')
 	set grepprg=rg\ --vimgrep\ --smart-case
 	set grepformat=%f:%l:%c:%m
 endif
-
-" -----------------------------------------------------------------------------
-" persistent undo
-" Vimを閉じた後でもundo履歴を残す
-" -----------------------------------------------------------------------------
-if has('persistent_undo')
-	set undofile
-
-	let s:undo_dir = expand('~/.vim/undo')
-
-	if !isdirectory(s:undo_dir)
-		call mkdir(s:undo_dir, 'p')
-	endif
-
-	let &undodir = s:undo_dir . '//'
-endif
-
 " -----------------------------------------------------------------------------
 " formatoptions
 " コメント行で Enter / o / O したとき、勝手にコメントを継続しない

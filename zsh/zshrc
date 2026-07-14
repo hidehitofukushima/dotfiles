@@ -97,6 +97,7 @@ bindkey -s ^Nop 'open "$(fzf)"^M'
 bindkey -s ^Nor 'open -R "$(fzf)"^M'
 bindkey -s ^Ngi 'cd "$HOME/dotfiles" && git add -A && git commit -m "Update dotfiles" && git push && cd -^M'
 bindkey -s ^Ngp 'cd "$HOME/dotfiles" && git pull && cd -^M'
+bindkey -s ^Nme 'vim ~/memo.md\n'
 
 # ============================================================
 # fzf
