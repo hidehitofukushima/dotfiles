@@ -87,9 +87,9 @@ bindkey '^Gsn' sn-insert-widget
 # ============================================================
 bindkey -s ^Gg "tmux-sessionizer\n"
 # bindkey -s ^Nm "vim\n"
-bindkey -s ^Gny "ssh ny1fh\n"
-bindkey -s ^Gkm "ssh km1fh\n"
-bindkey -s ^Gmt "ssh mt1ny\n"
+bindkey -s ^G1 "ssh ny1fh\n"
+bindkey -s ^G2 "ssh km1fh\n"
+bindkey -s ^G3 "ssh mt1ny\n"
 bindkey -s ^Gki "tmux kill-server\n"
 bindkey -s ^Gcl "clear\n"
 bindkey -s ^Gck "clear && tmux kill-server\n"
