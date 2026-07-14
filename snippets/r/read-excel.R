@@ -1,5 +1,1 @@
-library(readxl)
-
-df <- read_excel("input.xlsx", sheet = 1)
-
-df
+df <- readxl::read_excel(file, sheet = 1)

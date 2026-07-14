@@ -1,0 +1,1 @@
+table(vector, useNA = "always")
