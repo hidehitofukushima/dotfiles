@@ -8,6 +8,7 @@ set nocompatible
 set encoding=utf-8
 scriptencoding utf-8
 set autocomplete
+set completeopt=menu,menuone,noselect,fuzzy
 
 
 " -----------------------------------------------------------------------------
