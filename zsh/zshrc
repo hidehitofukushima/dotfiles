@@ -80,23 +80,23 @@ sn-insert-widget() {
 zle -N sn-insert-widget
 
 # Ctrl-N i でスニペット挿入
-bindkey '^Nn' sn-insert-widget
+bindkey '^Nsn' sn-insert-widget
 
 # ============================================================
 # other
 # ============================================================
 bindkey -s ^G "tmux-sessionizer\n"
-bindkey -s ^Nm "vim\n"
-bindkey -s ^N1 "ssh ny1fh\n"
-bindkey -s ^N2 "ssh km1fh\n"
-bindkey -s ^N3 "ssh mt1ny\n"
-bindkey -s ^Nk "tmux kill-server\n"
-bindkey -s ^Nc "clear\n"
+# bindkey -s ^Nm "vim\n"
+bindkey -s ^Nny "ssh ny1fh\n"
+bindkey -s ^Nkm "ssh km1fh\n"
+bindkey -s ^Nmt "ssh mt1ny\n"
+bindkey -s ^Nki "tmux kill-server\n"
+bindkey -s ^Ncl "clear\n"
 bindkey -s ^Nck "clear && tmux kill-server\n"
-bindkey -s ^No 'open "$(fzf)"^M'
-bindkey -s ^Nr 'open -R "$(fzf)"^M'
-bindkey -s ^N0 'cd "$HOME/dotfiles" && git add -A && git commit -m "Update dotfiles" && git push && cd -^M'
-bindkey -s ^N- 'cd "$HOME/dotfiles" && git pull && cd -^M'
+bindkey -s ^Noo 'open "$(fzf)"^M'
+bindkey -s ^Nor 'open -R "$(fzf)"^M'
+bindkey -s ^Ngi 'cd "$HOME/dotfiles" && git add -A && git commit -m "Update dotfiles" && git push && cd -^M'
+bindkey -s ^Ngp 'cd "$HOME/dotfiles" && git pull && cd -^M'
 
 # ============================================================
 # fzf
