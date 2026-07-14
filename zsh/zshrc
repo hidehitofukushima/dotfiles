@@ -93,7 +93,7 @@ bindkey -s ^Nmt "ssh mt1ny\n"
 bindkey -s ^Nki "tmux kill-server\n"
 bindkey -s ^Ncl "clear\n"
 bindkey -s ^Nck "clear && tmux kill-server\n"
-bindkey -s ^Noo 'open "$(fzf)"^M'
+bindkey -s ^Nop 'open "$(fzf)"^M'
 bindkey -s ^Nor 'open -R "$(fzf)"^M'
 bindkey -s ^Ngi 'cd "$HOME/dotfiles" && git add -A && git commit -m "Update dotfiles" && git push && cd -^M'
 bindkey -s ^Ngp 'cd "$HOME/dotfiles" && git pull && cd -^M'
