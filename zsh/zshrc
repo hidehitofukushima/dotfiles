@@ -80,24 +80,24 @@ sn-insert-widget() {
 zle -N sn-insert-widget
 
 # Ctrl-N i でスニペット挿入
-bindkey '^Nsn' sn-insert-widget
+bindkey '^Gsn' sn-insert-widget
 
 # ============================================================
 # other
 # ============================================================
-bindkey -s ^G "tmux-sessionizer\n"
+bindkey -s ^Gg "tmux-sessionizer\n"
 # bindkey -s ^Nm "vim\n"
-bindkey -s ^Nny "ssh ny1fh\n"
-bindkey -s ^Nkm "ssh km1fh\n"
-bindkey -s ^Nmt "ssh mt1ny\n"
-bindkey -s ^Nki "tmux kill-server\n"
-bindkey -s ^Ncl "clear\n"
-bindkey -s ^Nck "clear && tmux kill-server\n"
-bindkey -s ^Nop 'open "$(fzf)"^M'
-bindkey -s ^Nor 'open -R "$(fzf)"^M'
-bindkey -s ^Ngi 'cd "$HOME/dotfiles" && git add -A && git commit -m "Update dotfiles" && git push && cd -^M'
-bindkey -s ^Ngp 'cd "$HOME/dotfiles" && git pull && cd -^M'
-bindkey -s ^Nme 'vim ~/memo.md\n'
+bindkey -s ^Gny "ssh ny1fh\n"
+bindkey -s ^Gkm "ssh km1fh\n"
+bindkey -s ^Gmt "ssh mt1ny\n"
+bindkey -s ^Gki "tmux kill-server\n"
+bindkey -s ^Gcl "clear\n"
+bindkey -s ^Gck "clear && tmux kill-server\n"
+bindkey -s ^Gop 'open "$(fzf)"^M'
+bindkey -s ^Gor 'open -R "$(fzf)"^M'
+bindkey -s ^Ggi 'cd "$HOME/dotfiles" && git add -A && git commit -m "Update dotfiles" && git push && cd -^M'
+bindkey -s ^Ggp 'cd "$HOME/dotfiles" && git pull && cd -^M'
+bindkey -s ^Gme 'vim ~/memo.md\n'
 
 # ============================================================
 # fzf

@@ -7,15 +7,13 @@
 set nocompatible
 set encoding=utf-8
 scriptencoding utf-8
-set autocomplete
-set completeopt=menu,menuone,noselect,fuzzy
 
 
 " -----------------------------------------------------------------------------
 " leader
 " -----------------------------------------------------------------------------
 let mapleader = " "
-let maplocalleader = " "
+let maplocalleader = ";"
 
 " -----------------------------------------------------------------------------
 " vim-plug
@@ -114,10 +112,27 @@ if has('clipboard')
 endif
 
 " -----------------------------------------------------------------------------
-" 補完・検索・コマンドライン補助
+" Vim標準 autocomplete / fuzzy completion
 " -----------------------------------------------------------------------------
-set completeopt=menu,menuone,noselect
 
+if exists('+autocomplete')
+	set autocomplete
+endif
+
+if exists('+autocompletedelay')
+	set autocompletedelay=120
+endif
+
+set completeopt=menu,menuone,noselect,fuzzy
+
+" Vim 9.1.1178〜9.1.1929では、
+" completeopt=fuzzyとは別にfuzzy候補収集の指定が必要
+"
+" Vim 9.1.1930以降ではdeprecatedで効果はないが、
+" 設定してもエラーにならないため互換性目的で残す
+if exists('+completefuzzycollect')
+	set completefuzzycollect=keyword,files,whole_line
+endif
 set wildmenu
 set wildmode=longest:full,full
 
@@ -134,6 +149,7 @@ if executable('rg')
 	set grepprg=rg\ --vimgrep\ --smart-case
 	set grepformat=%f:%l:%c:%m
 endif
+
 " -----------------------------------------------------------------------------
 " formatoptions
 " コメント行で Enter / o / O したとき、勝手にコメントを継続しない
@@ -469,5 +485,5 @@ vmap <C-v> <Plug>(expand_region_shrink)
 " ============================================================
 " R関連
 " ============================================================
-inoremap <silent> <C-l> <- 
-inoremap <silent> <C-p> %>% 
+inoremap <silent> <localleader>l <- 
+inoremap <silent> <localleader>p %>% 
