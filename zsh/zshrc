@@ -95,8 +95,8 @@ bindkey -s ^Nc "clear\n"
 bindkey -s ^Nck "clear && tmux kill-server\n"
 bindkey -s ^No 'open "$(fzf)"^M'
 bindkey -s ^Nr 'open -R "$(fzf)"^M'
-bindkey -s ^Ng 'cd "$HOME/dotfiles" && git add -A && git commit -m "Update dotfiles" && git push && cd -^M'
-bindkey -s ^Np 'cd "$HOME/dotfiles" && git pull && cd -^M'
+bindkey -s ^N0 'cd "$HOME/dotfiles" && git add -A && git commit -m "Update dotfiles" && git push && cd -^M'
+bindkey -s ^N- 'cd "$HOME/dotfiles" && git pull && cd -^M'
 
 # ============================================================
 # fzf
