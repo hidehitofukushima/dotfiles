@@ -256,7 +256,22 @@ endif
 
 " sn でスニペットを挿入
 command! Snippet read !sn
-nnoremap <silent> <C-n>sn :Snippet<CR>A<Esc>
+nnoremap <silent> <C-x><C-n> :Snippet<CR>A<Esc>
+inoremap <silent> <C-x><C-n> <Esc>:Snippet<CR>A
+
+" 辞書単語をfzfで補完
+imap <C-x><C-k> <Plug>(fzf-complete-word)
+
+
+" 開いている全バッファから行をfzf検索して挿入
+imap <C-x><C-l> <Plug>(fzf-complete-line)
+
+" 現在のバッファだけから行をfzf検索して挿入
+imap <C-x><C-b> <Plug>(fzf-complete-buffer-line)
+
+" パスをfzfで補完
+imap <C-x><C-f> <Plug>(fzf-complete-path)
+
 
 
 " vimrc再読み込み
