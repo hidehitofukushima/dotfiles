@@ -90,11 +90,11 @@ bindkey -s ^N1 "ssh ny1fh\n"
 bindkey -s ^N2 "ssh km1fh\n"
 bindkey -s ^N3 "ssh mt1ny\n"
 bindkey -s ^Nm "vim ~/memo.md\n"
-bindkey -s ^Nki "tmux kill-server\n"
-bindkey -s ^Ncl "clear\n"
+bindkey -s ^Nk "tmux kill-server\n"
+bindkey -s ^Nc "clear\n"
 bindkey -s ^Nck "clear && tmux kill-server\n"
-bindkey -s ^Nop 'open "$(fzf)"^M'
-bindkey -s ^Nor 'open -R "$(fzf)"^M'
+bindkey -s ^No 'open '
+bindkey -s ^Nr 'open -R '
 bindkey -s ^Ni 'cd "$HOME/dotfiles" && git add -A && git commit -m "Update dotfiles" && git push && cd -^M'
 bindkey -s ^Np 'cd "$HOME/dotfiles" && git pull && cd -^M'
 
