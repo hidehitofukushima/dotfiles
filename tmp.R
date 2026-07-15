@@ -1,16 +1,3 @@
-
-# # "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"
-# suppressPackageStartupMessages({
-#   library(ggplot2)
-# })
-
-# p = ggplot(iris, aes(x = Sepal.Length, y = Petal.Length)) +
-#   geom_point() +
-#   theme_classic()
-
-# print(p)
-
-
 suppressPackageStartupMessages({
   library(ggplot2)
 library(reshape2)
@@ -48,4 +35,9 @@ ghm <- ghm + theme(plot.background = element_blank(),
 ghm <- ghm + scale_fill_gradientn("value", colours = rev(brewer.pal(9, "Spectral")), na.value = "white")
 ghm <- ghm + xlab("Group") + ylab("Gene")
 ghm
-
+p
+clr
+dev.new()
+clr <- heatmap(data, scale = "none")
+dev.off()
+dev.off()
