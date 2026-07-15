@@ -517,12 +517,14 @@ let g:repl_input_symbols = get(g:, 'repl_input_symbols', {})
 let g:repl_input_symbols['R'] = ['^> ', '^+ ']
 
 " REPLを画面下に開く
-let g:repl_position = 0
+let g:repl_position = 3
+let g:repl_width = 45
 
 " REPLを開いた後、カーソルをRコード側へ戻す
 let g:repl_stayatrepl_when_open = 0
 
+
 " REPLの開閉
-nnoremap <leader>rt :REPLToggle<CR>
-nnoremap <leader>rh :REPLHide<CR>
+nnoremap <leader>r :REPLToggle<CR>
+nnoremap <leader>h :REPLHide<CR>
 

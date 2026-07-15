@@ -1,7 +1,7 @@
 suppressPackageStartupMessages({
   library(ggplot2)
-library(reshape2)
-library(RColorBrewer)
+  library(reshape2)
+  library(RColorBrewer)
 })
 
 data <- matrix(rnorm(100), ncol = 5)
