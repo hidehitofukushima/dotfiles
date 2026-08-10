@@ -1,1 +1,1 @@
-std::cin >> word;
+std::cin >> variable;

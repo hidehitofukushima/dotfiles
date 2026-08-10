@@ -4,6 +4,34 @@ suppressPackageStartupMessages({
   library(RColorBrewer)
 })
 
+library(ggplot2)
+
+p <- ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length, color = Species)) +
+  geom_point(alpha = 0.8, size = 2) +
+  labs(
+    title = "Scatter plot",
+    x = "X",
+    y = "Y",
+    color = "Group"
+  ) +
+  theme_bw()
+
+p
+ggsave(p)
+ggsave("tmp.pdf")
+library(ggplot2)
+
+p <- ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) + geom_p int(alpha = 0.8, size = 2) +
+  labs(
+    title = "Scatter plot",
+    x = "X",
+    y = "Y",
+    color = "Group"
+  ) +
+  theme_bw()
+
+p
+p
 data <- matrix(rnorm(100), ncol = 5)
 colnames(data) <- c("A", "B", "C", "D", "E")
 rownames(data) <- paste0("gene", 1:nrow(data))
@@ -41,3 +69,6 @@ dev.new()
 clr <- heatmap(data, scale = "none")
 dev.off()
 dev.off()
+tim
+Sys.sleep(10)
+iris

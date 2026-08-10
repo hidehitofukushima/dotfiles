@@ -1,1 +1,1 @@
-std::cout << word << "\n";
+std::cout << variable;

@@ -1,1 +1,1 @@
-clang++ -Wall -Wextra -Wconversion tmp.cpp && ./a.out
+clang++ -std=c++20 -Wall -Wextra -Wconversion tmp.cpp && ./a.out
